@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ko">
+<% include include/head %>
+  <body>
+   
+<div id="wrap">
+    <!-- inc header -->
+    <% include include/header %>
+    <!-- //inc header -->
+    <!-- container -->
+    <section class="container my_consult">
+        <section class="contents">
+            <div class="sub-title">
+                <div class="inner">
+                    <h1>내견적현황</h1>
+                </div>
+            </div>
+            <div class="location">
+                <div class="inner">
+                    <div class="breadcrumbs">
+                        <a href="/" class="btn-home"><span class="sp-comm">home</span></a>
+                        <span><a href="#">내견적현황</a></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="inner consult">
+                <table class="list">
+                    <thead>
+                        <tr>
+                            <th>구분</th>
+                            <th>제목</th>
+                            <th>등록일</th>
+                            <th>상태</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <% data.forEach(function (items,index){ %>
+                        <tr onclick="location.href='/nopage/my_consult_view/<%=items.semu_type%>/<%=items.idx%>'">
+                            <td><%=items.semu_type_name%></td>
+                            <td class="subject"><a href="#"><%=items.title%></a></td>
+                            <td><%=items.cre_dtime%></td>
+                            <td><%-items.semusa == 'N'?items.semu_status:"'"+items.semusa+"' 세무사가<br>선택되었습니다."%></td>
+                        </tr>
+                    <%})%>
+
+                    </tbody>
+                </table>
+
+            </div>
+        </section>
+    </section>
+    <!-- //container -->
+    <!-- inc footer -->
+    <% include include/footer %>
+    <!-- //inc footer -->
+</div>
+
+  </body>
+</html>

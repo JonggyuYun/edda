@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ko">
+  <% include include/head %>
+  <body>
+   
+<div id="wrap">
+    <!-- inc header -->
+    <% include include/header %>
+    <!-- //inc header -->
+    <!-- container -->
+    <section class="container member">
+        <section class="contents">
+            <div class="sub-title">
+                <div class="inner">
+                    <h1>회원탈퇴</h1>
+                </div>
+            </div>
+            <div class="location">
+                <div class="inner">
+                    <div class="breadcrumbs">
+                        <a href="/" class="btn-home"><span class="sp-comm">home</span></a>
+                        <span><a href="#">회원탈퇴</a></span>
+                    </div>
+                </div>
+            </div>
+            <div class="inner">
+                <div class="leave-box">
+                    <%if(member_auth_type == 'A'){%>
+                    <strong>회원탈퇴를 신청하시면 즉시 조치됩니다.</strong>
+                    <p>회원탈퇴 이후 고객님과 관련된 개인정보 및 데이터는 삭제됩니다.</p>
+                    <%}else{%>
+                        <strong>회원탈퇴를 신청하시면 즉시 조치됩니다.(재가입은 3일후부터 가능합니다.)</strong>
+                        <p>회원탈퇴 이후 고객님과 관련된 개인정보 및 데이터는 삭제됩니다.</p>
+                    <%}%>
+                        <div class="btn-wrap">
+                        <a href="/" class="btns size-mid color-gray">취소</a>
+                        <a href="javascript:leave();" class="btns size-mid color-green">확인</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+    <!-- //container -->
+    <!-- inc footer -->
+    <% include include/footer %>
+    <!-- //inc footer -->
+</div>
+<script>
+
+function leave(){
+
+
+
+
+
+
+
+
+
+    $.ajax({
+        type : "POST",
+        url  : "/member/leave",
+        data : {
+
+        },
+        dataType: "json",
+        async: false,
+        success : function(data) {
+            if(data.result == 'success'){
+
+                var msg = "정상적으로 탈퇴처리가 완료하였습니다.";
+                alert(msg);
+                location.href= "/";
+            }else{
+                console.log('suc&fail')
+                alert('오류가 발생했습니다!');
+
+            }
+        },
+        error : function(xhr, status, error) {
+            alert('오류가 발생했습니다!');
+        }
+    })
+
+
+
+
+
+
+
+            }
+
+
+</script>
+  </body>
+</html>

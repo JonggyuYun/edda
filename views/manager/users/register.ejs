@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900' rel='stylesheet' type='text/css'>
+
+    <!-- Page title -->
+    <title>steveNcorp</title>
+
+    <!-- Vendor styles -->
+    <link rel="stylesheet" href="/vendor/fontawesome/css/font-awesome.css"/>
+    <link rel="stylesheet" href="/vendor/animate.css/animate.css"/>
+    <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.css"/>
+
+    <!-- App styles -->
+    <link rel="stylesheet" href="/styles/pe-icons/pe-icon-7-stroke.css"/>
+    <link rel="stylesheet" href="/styles/pe-icons/helper.css"/>
+    <link rel="stylesheet" href="/styles/stroke-icons/style.css"/>
+    <link rel="stylesheet" href="/styles/style.css">
+</head>
+<body>
+
+<!-- Wrapper-->
+<div class="wrapper">
+
+
+    <!-- Main content-->
+    <section class="content">
+        <div class="back-link">
+            <a href="/users/login" class="btn btn-accent">Back to Login</a>
+        </div>
+
+        <div class="container-center lg animated slideInDown">
+
+
+            <div class="view-header">
+                <div class="header-icon">
+                    <i class="pe page-header-icon pe-7s-add-user"></i>
+                </div>
+                <div class="header-title">
+                    <h3>회원가입</h3>
+                    <small>
+                       기본정보를 입력해주세요
+                    </small>
+                </div>
+            </div>
+
+            <div class="panel panel-filled">
+                <div class="panel-body">
+                    <p>
+
+                    </p>
+                    <form method="post" name="registerForm" id="registerForm" novalidate>
+                        <input type="hidden" name="cmp_pass" id="cmp_pass"/>
+                        <input type="hidden" name="cmp_id_check" id="cmp_id_check" value="N"/>
+                        
+                        <div class="row">
+                            <div class="form-group col-lg-12">
+                                <label>개인/기업 선택</label>
+                                <div class="radio">
+                                <label> <input type="radio" name="cmp_type" id="cmp_type" checked value="M0002">개인</label>
+                                <label> <input type="radio" name="cmp_type" id="cmp_type" value="M0003">기업</label>
+                                </div>
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label><i class="fa fa-star-o" aria-hidden="true"></i>회원 ID</label>
+                               <div class="form-inline">
+                                <input type="text" value="" id="cmp_id" class="form-control" name="cmp_id">
+                                <a href="#" onclick="javascript:fn_duplication()" class="btn btn-w-lg btn-default">중복확인</a>
+                                </div>
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label><i class="fa fa-star-o" aria-hidden="true"></i>회원 성명</label>
+                                <input type="text" value="" id="cmp_ceo_name" class="form-control" name="cmp_ceo_name">
+                                
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label><i class="fa fa-star-o" aria-hidden="true"></i>패스워드</label>
+                                <input type="password" value="" id="cmp_pass1" class="form-control" name="cmp_pass1">
+                                
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label><i class="fa fa-star-o" aria-hidden="true"></i>패스워드 확인</label>
+                                <input type="password" value="" id="cmp_pass2" class="form-control" name="cmp_pass2">
+                                
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label><i class="fa fa-star-o" aria-hidden="true"></i>이메일 주소</label>
+                                <input type="text" value="" id="cmp_email" class="form-control" name="cmp_email">
+                                
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label><i class="fa fa-star-o" aria-hidden="true"></i>핸드폰 번호</label>
+                                <input type="text" value="" id="cmp_phone" class="form-control" name="cmp_phone">
+                                
+                            </div>
+                            <div id="companyDiv">
+                            <div class="form-group col-lg-6">
+                                <label><i class="fa fa-star-o" aria-hidden="true"></i>업체명</label>
+                                <input type="text" value="" id="cmp_name" class="form-control" name="cmp_name">
+                                
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label><i class="fa fa-star-o" aria-hidden="true"></i>사업자번호</label>
+                                <input type="text" value="" id="cmp_number" class="form-control" name="cmp_number">
+                                
+                            </div>
+                            <div class="form-group col-lg-12">
+                                <label>업체 주소</label>
+                                <input type="text" value="" id="cmp_address" class="form-control" name="cmp_address">
+                                
+                            </div>
+                            <div class="form-group col-lg-6">   
+                            <label>팩스 번호</label>
+                            <input type="text" value="" id="cmp_fax" class="form-control" name="cmp_fax">
+
+                            </div>
+                           </div>
+                            <div class="form-group col-lg-12">
+                                <label>이용약관 동의(필수)</label>
+                                <textarea class="form-control" rows="4" name="about_sub_top_text" id="about_sub_top_text">
+제1장 총칙
+제1조. 목적
+이 약관은 스티븐(이하 “회사”라 합니다)가 제공하는 stevenCMS 서비스의 이용과 관련하여 회사와 회원과의 권리, 의무 및 책임사항, 기타 필요한 사항을 규정함을 목적으로 합니다.
+제2조. 용어의 정의
+1.	(1) 이 약관에서 사용하는 용어의 의미는 다음과 같습니다.
+1.	① “stevenCMS 서비스”라 함은  회사가 제공하는 홈페이지/관리자화면 등의 제반 서비스를 의미합니다.
+2.	② “회원”이라 함은 이 약관에 따라 회사와 이용 계약을 체결하고 회사로부터 stevenCMS 서비스 이용 자격을 부여 받은 자를 의미합니다.
+3.	③ “stevenCMS 회원”이라 함은 회사의 stevenCMS 회원 약관에 동의하고 이용신청을 하여 회사로부터 승낙 받은 자를 의미합니다
+4.	④ “아이디(ID)”라 함은 회원의 식별과 stevenCMS 서비스 이용을 위하여 회원이 정하고 회사가 승인하는 전자우편주소, 휴대전화번호 등을 의미합니다.
+5.	⑤ “비밀번호”란 회원이 부여 받은 아이디(ID)와 일치되는 회원임을 확인하고 비밀보호를 위해 회원 자신이 정한 문자 또는 숫자의 조합을 의미합니다
+2.	(2) 이 약관에서 사용하는 용어 중 본 조에서 정하지 아니한 것은 stevenCMS 서비스 안내, 운영정책 및 관련 법령에서 정하는 바에 따르며, 그 외에는 일반 관례에 따릅니다.
+제3조. 약관의 명시 및 효력변경
+1.	(1) 회사는 이 약관의 내용을 회원이 쉽게 알 수 있도록 stevenCMS 서비스의 화면 내 또는 링크로 연결된 화면에 게시합니다.
+2.	(2) 회사는 약관의 규제에 관한 법률, 정보통신망 이용촉진 및 정보보호 등에 관한 법률 등 관련 법령을 위배하지 않는 범위에서 이 약관을 개정할 수 있습니다.
+3.	(3) 회사가 이 약관을 개정할 경우에는 적용일자 및 개정사유를 명시하여 제 1항의 방식에 따라 그 개정약관을 적용일자 7일 전부터 적용일자 전일까지 공지합니다.
+    다만, 회원에게 불리하거나 중요한 사항을 변경하는 경우에는 적용일자 30일 이전에 공지하며, 공지 외에 일정기간 회원의 전자우편, 로그인 시 동의창 등의 전자적 수단을 통해 따로 명확히 통지합니다.
+4.	(4) 회사가 전 항에 따라 개정약관을 공지 또는 통지하면서 회원에게 개정약관 적용일자 전까지 의사표시를 하지 않으면 개정약관에 동의한 것으로 본다는 뜻을 명확하게 공지 또는 통지하였음에도 회원이 명시적으로 거부의사를 표명하지 아니한 경우 회원이 개정약관에 동의한 것으로 봅니다.
+5.	(5) 회원이 개정약관의 내용에 동의하지 않는 경우 회사는 해당 회원에 대하여 개정약관의 내용을 적용할 수 없으며, 이 경우 회원은 이용계약을 해지할 수 있습니다. 다만, 회사가 개정약관에 동의하지 않은 회원에게 기존 약관을 적용할 수 없는 특별한 사정이 있는 경우에는 회사는 해당 회원과의 이용계약을 해지할 수 있습니다.
+제4조. 약관 외 준칙
+1.	(1) 회사는 개별 서비스 별로 별도의 이용약관 및 정책(이하 “개별 약관 등”)을 둘 수 있으며, 해당 내용이 이 약관과 상충할 경우에는 개별 약관 등이 우선하여 적용됩니다.
+2.	(2) 이 약관에 명시되지 않은 사항은 운영정책, 개별 약관 등 및 정보통신망 이용촉진 및 정보보호 등에 관한 법률 등 관련 법령의 규정 또는 일반 관례에 따릅니다.
+3.	(3) 이 약관과 관련하여 회사의 정책 변경, 법령의 제/개정 또는 공공기관의 고시나 지침 등에 의하여 회사가 stevenCMS 서비스의 공지사항 등을 통해 공지하는 내용도 이용계약의 일부를 구성합니다.
+4.
+제2장 stevenCMS 서비스 이용계약
+제5조. stevenCMS 서비스 이용계약의 신청
+1.	(1) stevenCMS 서비스 이용계약은 회원이 되고자 하는 자가 회사가 정한 가입 절차와 방법에 따라 stevenCMS 서비스 이용신청을 하고, 회사가 이러한 신청에 대하여 승낙함으로써 체결됩니다. 다만, 회사는 회원에게 전문기관을 통한 실명확인 및 본인인증을 요청할 수 있습니다.
+2.	(2) 회원이 stevenCMS 서비스 이용을 위해서는 회사가 요청하는 정보를 정확하게 작성하여야 합니다.
+제6조. stevenCMS 서비스 이용계약 신청의 승낙과 제한 등
+1.	(1) 회사는 회원이 되고자 하는 자가 stevenCMS 서비스 이용신청 시 이 약관에 동의하고, 회사가 정한 가입절차와 방법을 준수하는 경우 그 이용신청에 대하여 승낙하는 것을 원칙으로 합니다.
+2.	(2) 회사는 다음 각 호의 어느 하나에 해당하는 사유가 발생하는 경우, 이용신청에 대한 승낙을 거부할 수 있습니다.
+1.	① 만 14세 미만의 자가 이용신청을 하는 경우
+2.	② 기재 내용에 허위, 기재누락, 오기 등이 있는 경우
+3.	③ 회사로부터 이용정지 당한 회원이 그 이용정지 기간 중에 이용계약을 임의 해지하고 재이용신청을 하는 경우
+4.	④ 과거에 이 약관의 위반 등의 사유로 stevenCMS 서비스 이용계약이 해지 당한 경력이 있는 경우
+5.	⑤ 기타 이 약관에 위배되거나 위법 또는 부당한 이용신청임이 확인된 경우
+3.	(3) 회사는 stevenCMS 서비스 관련 설비의 여유가 없거나, 기술상 또는 업무상 문제가 있는 경우에는 승낙을 유보할 수 있습니다.
+4.	(4) 본 조 제2항과 제3항에 따라 회원 가입 신청의 승낙을 하지 아니하거나 유보한 경우 회사는 원칙적으로 이를 이용신청자에게 알립니다.
+5.	(5) 이용계약의 성립 시기는 회사가 이용신청 완료를 신청절차 상에서 표시한 시점으로 합니다.
+제3장 stevenCMS 서비스 이용
+제7조. stevenCMS 서비스의 종류
+1.	(1) 회사는 회원에게 다음 각 호의 stevenCMS 서비스를 제공합니다.
+1.	① 기본정보 관리 : 회원이 stevenCMS 서비스를 이용하여 기본 정보를 손쉽게 등록하고 관리해 주는 서비스
+2.	② 포트폴리오 관리 :  회원이 stevenCMS 서비스를 이용하여 포트폴리오를 등록하여 관리할 수 있는 서비스
+3.	③ 회사소개 관리 : 회원이 stevenCMS 서비스를 이용하여 회사소개를 관리할 수 있는 서비스
+4.	④ 팀원소개 관리 : 회원이 stevenCMS 서비스를 이용하여 팀원소개를 관리할 수 있는 서비스
+5.	⑤ 블로그 관리(게시판) : 회원이 stevenCMS 서비스를 이용하여 게시글 작성할 수 있는 서비스
+6.	⑥ 기타 서비스: DashBoard 등 기타 정보 제공 서비스, 또는 회사가 직접 또는 제휴사, PG(Payment Gateway)사, 카드 회사와 공동으로 제공하는 이벤트 서비스 등 기타 제반 서비스
+제8조. 대리 및 보증의 부인
+1.	(1) 회사는 회원과 제휴사 간의 stevenCMS 서비스를 위한 시스템을 제공 및 운영, 관리할 뿐이며 회사는 회원 또는 제휴사를 대리하지 않습니다. 또한, stevenCMS 서비스와 관련한 책임과 회원 및 제휴사가 제공한 정보에 대한 책임은 각 당사자가 직접 부담하여야 합니다.
+2.	(2) 회사는 stevenCMS 서비스를 통하여 이루어지는 회원과 제휴사 간의 상품 등 거래 및 각종 서비스와 관련하여 판매의사 또는 구매의사의 존부 및 진정성, 상품 등의 품질, 완전성, 안전성, 적법성 및 타인의 권리에 대한 비침해성, 회원 또는 제휴사가 입력한 정보 및 그 정보를 통하여 링크된 URL에 게재된 자료의 진실성 또는 적법성 등 일체에 대하여 보증하지 아니하며, 이와 관련한 일체의 위험은 해당 회원 또는 제휴사가 전적으로 부담합니다.
+제9조. stevenCMS 서비스의 변경 또는 종료 등
+1.	(1) 회사는 운영상, 경영상, 기술상의 필요에 따라 stevenCMS 서비스의 전부 또는 일부 내용을 변경하거나 stevenCMS 서비스를 종료할 수 있으며, stevenCMS 서비스의 내용, 이용방법 등에 대하여 변경이 있는 경우에는 변경사유, 변경내용 및 제공일자 등을 변경 7일 전에, 서비스를 종료하는 경우에는 30일 전에 stevenCMS 서비스 화면에 해당 사실을 공지합니다. 다만, 사전에 공지할 수 없는 부득이한 사정이 있는 경우에는 사후에 지체 없이 이를 공지할 수 있습니다.
+2.	(2) 회사는 통신, 전력 등의 공급이 중단되는 불가피한 경우는 물론 정보통신설비의 보수점검, 증설, 교체, 이전 등의 유지 관리 업무를 수행하기 위해 필요한 경우 stevenCMS 서비스의 제공을 일시적으로 중단할 수 있으며, 이 경우 7일 이전에 stevenCMS 서비스 화면에 해당 사실을 공지합니다. 다만, 불가피하게 사전 공지를 할 수 없는 경우 회사는 사후 공지할 수 있습니다.
+3.	(3) 회사는 천재지변, 전쟁, 폭동, 테러, 해킹, DDOS 등 불가항력적 사유로 stevenCMS 서비스가 중단된 경우 즉시 이러한 사실을 공지하되, 만일 정보통신설비의 작동불능 등의 불가피한 사유로 인해 사전공지가 불가능한 경우에는 이러한 사정이 해소된 이후 즉시 이러한 사실을 공지합니다.
+4.	(4) 회사는 이 약관 및 관련 법령에 특별한 규정이 없는 한 stevenCMS 서비스의 변경, 중단, 내용 수정 또는 종료로 인하여 회원이 입은 손해에 대해 아무런 책임을 지지 않습니다.
+제10조. 정보의 제공 및 광고의 게재
+1.	(1) 회사는 회원이 stevenCMS 서비스 이용 중 필요하다고 인정되는 다양한 정보를 정보통신망 이용촉진 및 정보보호 등에 관한 법률 등 관련 법령을 준수하는 범위에서 전자우편 등의 방법으로 회원에게 제공할 수 있습니다.
+2.	(2) 회사는 정보통신망 이용촉진 및 정보보호 등에 관한 법률 등 관련 법령을 준수하는 범위에서 stevenCMS 서비스의 운영과 관련하여 stevenCMS 서비스 화면, 전자우편 등에 광고를 게재할 수 있습니다. 광고가 게재된 전자우편 등을 수신한 회원은 수신 거절을 회사에 할 수 있습니다.
+제4장 계약당사자의 의무
+제110조. 회사의 의무
+1.	(1) 회사는 관련 법령과 이 약관이 금지하거나 미풍양속에 반하는 행위를 하지 않으며, 계속적이고 안정적으로 stevenCMS 서비스를 제공하기 위하여 최선을 다하여 노력합니다.
+2.	(2) 회사는 회원이 안전하게 stevenCMS 서비스를 이용할 수 있도록 개인정보보호를 위한 보안시스템을 갖추며, 개인정보취급방침을 공지하고 이를 준수합니다.
+3.	(3) 회사는 stevenCMS 서비스 이용과 관련하여 회원으로부터 제기된 의견이나 불만이 정당하다고 인정할 경우에는 이를 처리하여야 합니다. 회원이 제기한 의견이나 불만사항에 대해서는 게시판을 활용하거나 전자우편 등을 통하여 회원에게 처리과정 및 결과를 전달합니다.
+제12조. 회원의 의무
+1.	(1) 회원은 이용권 등을 구매하기 전에 반드시 회사의 이용권 등의 상세 내용과 거래의 조건을 정확하게 확인한 후 결제를 하여야 합니다. 결제하려는 상품 등의 내용과 거래의 조건을 확인하지 않고 구매하여 발생한 모든 손실, 손해는 회원에게 있습니다.
+2.	(2) 회원은 이 약관 및 회사가 stevenCMS 서비스 화면에서 고지하는 내용을 준수하여야 하며, 이 약관 및 고지내용을 위반하거나 이행하지 아니하여 발생하는 모든 손실, 손해에 대하여 책임을 부담합니다.
+3.	(3) 회원은 자신의 명의가 도용되거나 제 3자에게 부정하게 사용된 것을 인지한 경우 즉시 그 사실을 회사에 통보하여야 합니다.
+4.	(4) 회원은 상품 등 구매 시 스스로의 책임 하에 상품 등을 구매하여야 합니다.
+5.	(5) 회원은 stevenCMS 서비스 이용 시 결제방법을 사용함에 있어 반드시 본인 명의의 결제수단을 사용하여야 하며, 타인의 결제수단의 임의사용 등을 하여서는 안됩니다. 타인의 결제수단을 임의 사용함으로써 발생하는 회사, 결제수단의 적법한 소유자, PG, 제휴사의 손실과 손해에 대한 모든 책임은 회원에게 있습니다.
+6.	(6) 회원은 stevenCMS 서비스 이용 시 사용하는 신용카드 결제정보 또는 휴대폰 결제정보에 대한 관리책임이 있으며, 이를 제3자에게 제공, 누설하거나 이와 유사한 행위를 하여서는 안됩니다.
+7.	(7) stevenCMS 서비스 이용 시 결제와 관련하여 회원이 입력한 정보 및 그 정보와 관련하여 발생한 책임과 불이익은 전적으로 회원이 부담하여야 합니다.
+8.	(8) 회원은 stevenCMS 서비스 이용 시 정당하고, 적법한 사용권한을 가지고 있는 결제수단을 사용하여야 하며, 회사는 그 여부를 확인할 수 있습니다. 또한 회사는 회원 결제수단의 적법성 등에 대한 확인이 완료될 때까지 거래진행을 중지하거나 해당 거래를 취소할 수 있습니다.
+9.	(9) 회원은 회사가 stevenCMS 서비스를 안전하게 제공할 수 있도록 회사에 협조하여야 하며, 회사가 회원의 이 약관 위반행위를 발견하여 회원에게 해당 위반행위에 대하여 소명을 요청할 경우 회원은 회사의 요청에 적극 응하여야 합니다.
+10.	(10) 미성년자가 stevenCMS 서비스를 이용하여 상품 등 구매 시 법정대리인이 해당 계약에 대하여 동의를 하여야 정상적인 상품 등 구매계약이 체결될 수 있습니다. 미성년자의 거래에 관한 상세한 사항은 관련 법령이 정한 바에 의합니다.
+제13조. 회원의 금지행위
+1.	(1) 회사는 stevenCMS 서비스의 신뢰성을 제고하고 안전한 거래가 이루어질 수 있도록 아래와 같은 행위를 금지합니다.
+1.	① 회사가 제공하는 stevenCMS 서비스 이용방법에 의하지 아니하고 비정상적인 방법으로 stevenCMS 서비스를 이용하거나 시스템에 접근하는 행위
+2.	② 타인의 명의, 신용카드정보, 계좌정보 등을 도용하여 회사가 제공하는 stevenCMS 서비스를 이용하는 행위
+3.	③ 상품 등의 판매 또는 제공을 가장하여 자금을 융통하는 것과 같이 여신전문금융업법 등 관련 법령에 의하여 금지된 방법으로 비정상적인 결제를 하는 행위
+4.	④ 회사가 게시한 정보의 무단 변경 또는 회사가 정한 정보 이외의 정보(컴퓨터 프로그램 등) 등의 송신 또는 게시하는 행위
+5.	⑤ 회사 및 기타 제3자의 저작권 등 지적재산권에 대한 침해행위
+6.	⑥ 회사 및 기타 제3자의 명예를 손상시키거나 업무를 방해하는 행위
+7.	⑦ 외설 또는 폭력적인 메시지, 화상, 음성, 기타 공서양속에 반하는 정보를 stevenCMS 서비스에 공개 또는 게시하는 행위
+8.	⑧ 구매의사 없는 반복적인 구매행위 또는 송금의사 없는 반복적인 송금행위
+9.	⑨ 기타 불법적이거나 부당한 행위
+2.	 (2) 회사는 회원이 본 조의 금지행위를 행하는 경우 제13조에 따라 stevenCMS 서비스 이용을 제한할 수 있으며, 이 경우 발생하는 모든 책임은 회원이 부담합니다. 회사는 필요한 경우 회원의 금지행위 사실을 관련 정부기관 또는 사법기관에 통지할 수 있습니다.
+제14조. 회원의 개인정보 보호
+1.	(1) 회사는 회원에게 stevenCMS 서비스를 제공하는 과정에서 정보통신망 이용촉진 및 정보보호 등에 관한 법률, 개인정보보호법 등 관련 법령이 규정한 절차와 방법에 따라 회원의 개인정보를 보호하기 위해 노력합니다. 개인정보의 보호 및 이용에 대해서는 관련 법령 및 회사의 개인정보취급방침이 적용됩니다.
+2.	(2) stevenCMS 서비스 외의 단순히 링크된 제3자 제공의 서비스에 대하여는 회사의 개인정보취급방침이 적용되지 않습니다.
+3.	(3) 회사는 stevenCMS 서비스의 제공을 위하여 관련 법령 및 개인정보취급방침에 따라 회원의 개인정보 등을 제휴사 등에 제공할 수 있습니다.
+4.	(4) 회사는 회원의 귀책사유로 인하여 노출된 회원의 회원정보를 포함한 모든 정보에 대해서 일체의 책임을 지지 않습니다.
+5.	(5) 회사는 정보통신망 이용촉진 및 정보보호 등에 관한 법률 및 동법 시행령에 따라 1년간 서비스를 이용하지 않은 회원의 개인정보를 보호하기 위해 개인정보 파기 등 필요한 조치를 취합니다. 또한, 회사는 객관적으로 계정정보 도용 피해가 우려되는 경우에는 회원정보의 보호 및 운영의 효율성을 위해 임시조치, 이용제한, 계정정보 삭제 등 필요한 조치를 취할 수 있습니다. 본 항에 따른 조치가 취해지는 경우, 회사는 조치일 30일전까지 개인정보 파기 등 필요한 조치가 취해진다는 사실, 일시 및 항목을 명시하여 제25조에 따라 통지 또는 공지합니다.
+제15조. 회원정보의 관리
+1.	(1) 아이디(ID), 비밀번호, 결제비밀번호에 대한 관리책임은 전적으로 회원에게 있으며, 회원은 아이디(ID), 비밀번호 및 결제비밀번호를 타인에게 양도, 대여할 수 없습니다.
+2.	(2) 회사는 귀책사유 없는 아이디(ID), 비밀번호 또는 결제비밀번호의 유출, 양도, 대여로 인한 손실이나 손해에 대하여 아무런 책임을 지지 않습니다.
+3.	(3) 회원은 회원의 아이디(ID), 비밀번호 또는 결제비밀번호가 도용되거나 제3자가 무단 사용하고 있음을 인지한 경우, 지체 없이 회사에 통지하여야 하고, 회사의 안내가 있는 경우에는 그에 따라야 합니다. 회사에 이를 지체 없이 통지하지 않거나 통지한 경우에도 회사의 안내에 따르지 않은 경우에는 도용 또는 제3자의 무단 사용으로 인한 손실이나 손해에 대하여 회사는 아무런 책임을 지지 않습니다.
+4.	(4) 회원은 stevenCMS 서비스 이용신청 시 기재하거나 제공한 사항이 잘못되었거나 변경되었을 경우 즉시 회사에 해당 사항을 알려야 합니다.
+5.	(5) 회원정보가 변경되었음에도 해당 사항을 수정하지 않음으로써 발생한 각종 손해와 잘못된 수정으로 인하여 발생한 손해는 당해 회원이 부담하여야 하며, 회사는 이에 대하여 아무런 책임을 지지 않습니다.
+제16조. 통지
+1.	(1) 회사가 회원에게 개별 통지하는 경우, 이 약관에서 달리 정하지 않는 한 전자우편, 전화, SMS, 앱푸시 중 하나의 방법으로 통지하는 것을 원칙으로 합니다.
+2.	(2) 제1항에도 불구하고 회사가 불특정 다수의 회원에게 통지하는 경우 stevenCMS 서비스 화면에 7일 이상 해당 사실을 게시함으로써 개별 통지에 갈음할 수 있습니다.
+제5장 계약해지 및 이용제한
+제17조. 이용계약의 해지 등
+1.	(1) 회원은 언제든지 이용계약 해지 신청을 할 수 있으며, 회사는 관련 법령 등이 정하는 바에 따라 이를 즉시 처리하여야 합니다.
+2.	(2) 회원이 이용계약을 해지할 경우, 회사는 관련 법령 및 개인정보취급방침에 따라 회원 정보를 보유하는 경우를 제외하고는 해지 즉시 회원의 모든 데이터를 삭제합니다.
+3.	(3) 이용계약 해지로 인해 발생한 불이익에 대한 책임은 회원 본인이 부담하여야 하며, 이용계약이 종료되면 회사는 회원에게 부가적으로 제공한 각종 혜택을 회수할 수 있습니다.
+4.	(4) 회사는 회원에게 다음 각 호의 어느 하나에 해당하는 사유가 발생하거나 확인된 경우 이용계약을 해지할 수 있습니다.
+5.  (5) 회원은 구매한 상품에 대해서 환불을 요구 할수 없습니다.
+1.	① 회원이 stevenCMS 서비스의 원활한 진행을 방해하는 행위를 하거나 시도한 경우
+2.	② 회원이 고의로 회사의 영업을 방해한 경우
+3.	③ 다른 회원의 권리나 명예, 신용 기타 정당한 이익을 침해하거나 대한민국 법령 또는 선량한 풍속 기타 사회질서에 위배되는 행위를 한 경우
+4.	④ 회원이 이 약관에 위배되는 행위를 하거나 이 약관에서 정한 해지사유가 발생한 경우
+5.	⑤ 회원이 회사가 인정하지 아니하는 방법으로 stevenCMS 포인트, 제휴사 포인트 또는 쿠폰 등을 취득 또는 사용하는 경우
+6.	⑥ 회원에게 제6조에서 정한 이용계약의 승낙거부사유가 있음이 확인된 경우
+7.	⑦ 기타 회사가 합리적인 판단에 기하여 stevenCMS 서비스의 제공을 거부할 필요가 있다고 인정할 경우
+5.	(5) 회사가 이용계약을 해지하는 경우 회사는 회원에게 전자우편 등으로 해지 사유를 밝혀 해지의사를 통지합니다. 이 경우 회사는 해지를 하기 전에 상당한 기간을 정하여 회원에게 이의 신청의 기회를 부여합니다. 다만, 이 약관 및 운영정책에서 정하는 사유가 있을 경우에는 별도의 이의 신청 기간을 부여하지 않을 수 있습니다.
+6.	(6) 이용계약이 회사에 의해 해지되는 경우 회원의 재이용 신청에 대하여 회사는 그 승낙을 거절할 수 있습니다.
+7.	(7) 이용계약의 종료와 관련하여 발생한 손해는 이용계약이 종료된 해당 회원이 책임을 부담하여야 하고, 회사는 관련 법령에 규정이 없는 한 책임을 지지 않습니다.
+제18조. stevenCMS 서비스 이용제한 등
+1.	(1) 회사는 stevenCMS 서비스를 통한 거래의 안정성과 신뢰성을 위하여 아래 각 호의 어느 하나에 해당하는 사유가 발생하는 경우 회원의 stevenCMS 서비스 이용을 정지하거나 이용계약을 해지할 수 있습니다. stevenCMS 서비스의 이용이 정지된 회원은 해당 기간 동안 stevenCMS 서비스를 이용할 수 없습니다. 이용제한의 구체적인 기준 등에 대해서는 운영정책에서 정합니다.
+1.	① 이 약관 제13조의 금지행위에 해당하는 경우
+2.	② stevenCMS 회원 자격이 정지되거나 상실하는 경우
+3.	③ 이 약관에서 규정한 사항이나 별도 페이지에 규정한 이용규칙을 위반한 경우
+2.	(2) 회사는 제1항의 경우, 회원이 해당 사유를 소명하거나 거래 상대방의 양해가 있었음을 소명하는 등 회사가 정하는 기준을 충족하는 경우 이용정지 조치를 해소할 수 있습니다.
+제6장 손해배상 등
+제19조. 손해배상
+1.	(1) 회사가 제공하는 stevenCMS 서비스와 관련하여 회사의 귀책사유인 경우를 제외하고 회사는 stevenCMS 서비스 및 그의 이용으로 발생할 수 있는 회원의 어떠한 피해에 대하여 그 책임을 부담하지 않습니다.
+2.	(2) 회원이 이 약관의 규정을 위반함으로 인하여 회사의 영업활동에 손해가 발생하게 되는 경우 해당 회원은 회사에 그 손해를 배상해야 할 책임이 있습니다.
+3.	(3) stevenCMS 서비스를 이용하면서 불법행위를 하거나 이 약관의 규정을 위반하는 행위를 한 회원으로 말미암아 회사가 회원 이외의 제3자로부터 손해배상 청구 또는 소송을 비롯한 각종 이의제기를 받는다면 해당 회원은 자신의 책임과 비용으로 회사를 면책시켜야 하며, 회사가 면책되지 못한 경우 해당 회원은 그로 인하여 회사에 발생한 손해를 배상해야 합니다.
+제20조. 회사의 면책
+1.	(1) 회사는 회원과 회원간에 이루어지는 일정, 공지사항, 이벤트 등의 게시물의 정 등에 대해 어떠한 책임도 부담하지 않습니다.
+2.	(2) 회사는 회원의 귀책사유로 인한 stevenCMS 서비스 이용의 장애에 대하여 책임을 지지 않습니다.
+3.	(3) 회원이 자신의 개인정보, 계정정보{아이디(ID), 비밀번호, 결제비밀번호), 간편결제서비스 등록 정보 등을 타인에게 제공하거나, 회원의 관리소홀로 유출됨으로써 발생하는 피해에 대해서 회사는 책임을 지지 않습니다.
+4.	(4) 회사의 stevenCMS 서비스 화면에서 링크, 배너 등을 통하여 연결된 다른 회사와 회원 간에 이루어진 거래에 회사는 개입하지 않으며, 해당 거래에 대하여 책임을 지지 않습니다.
+5.	(5) 회사는 stevenCMS 서비스 화면에 표시되는 제휴사 또는 제3자가 제공하는 상품 등 및 정보 등의 정확성, 적시성, 타당성 등에 대하여 보증하지 않으며, 그와 관련하여 어떠한 책임도 부담하지 아니 합니다.
+제30조. 민원처리 및 분쟁조정
+1.	(1) 회사는 회원과 제휴사 간의 상품 등 매매에 관여하지 않으며, 이에 대하여 어떠한 책임도 부담하지 않는 것을 원칙으로 합니다. 다만, 회원과 제휴사 간 또는 회원과 제3자 사이의 민원 및 분쟁이 발생할 경우, 회사는 합리적인 범위 내에서 이를 조정할 수 있습니다.
+2.	(2) 회사가 민원처리 및 분쟁조정을 하는 경우 회사는 제3자의 입장에서 공정하게 조정에 임합니다.
+3.	(3) 회사의 분쟁조정에 대하여 회원은 신의성실원칙에 따라 성실히 응하여야 합니다.
+제31조. 준거법 및 재판관할
+1.	(1) 이 약관과 관련된 사항에 대하여는 대한민국 법률을 준거법으로 합니다.
+2.	(2) 회사와 회원 간 발생한 분쟁에 관한 소송은 제소 당시의 회원의 주소에 의하고, 주소가 없는 경우 거소를 관할하는 지방법원의 전속관할로 합니다. 단, 제소 당시 회원의 주소 또는 거소가 명확하지 아니한 경우의 관할법원은 민사소송법에 따라 정합니다.
+
+<부칙>
+이 약관은 2017년 03월 1일부터 적용됩니다.
+© steveN Corp.
+                                </textarea>
+                                <span class="help-block small">회원가입시 동의로 간주합니다.</span>
+                            </div>
+                            <div class="form-group col-lg-12">
+                                <label>개인정보 수집 및 이용에 대한 안내(필수)</label>
+                                <textarea class="form-control" rows="4" name="about_sub_top_text" id="about_sub_top_text">
+1. 수집하는 개인정보의 항목 및 수집방법
+1.	가. 수집하는 개인정보의 항목
+stevenCMS 회원가입, 원활한 고객상담, 각종 서비스의 제공을 위해 아래와 같은 개인정보를 수집하고 있습니다.
+o	- 이메일주소 또는 휴대폰번호(ID), 비밀번호
+서비스 이용과정에서 아래와 같은 정보가 생성되어 수집될 수 있습니다.
+o	- IP Address, 쿠키, 방문 일시, 서비스 이용 기록, 불량 이용 기록, 모바일 서비스 이용시 단말기 정보(단말기 모델, 이동통신사 정보, 하드웨어 ID, 광고 ID, 서비스 이용에 대한 기본 통계), 이용자 단말기 내 설치된 어플리케이션 정보(앱 설치/실행시각 포함), 결제·구매기록, 위치기반서비스 이용약관 동의 시 이용자 위치정보
+부정이용방지 및 비인가 사용방지를 위해 부엉이 결제 이용 시 아래와 같은 정보가 추가적으로 수집될 수 있습니다.
+o	- 전화번호, 단말기 정보(접속 단말기종류, OS유형, UUID, IMEI)
+2.	나. 개인정보 수집방법
+o	회사는 다음과 같은 방법으로 개인정보를 수집합니다.
+§	- 홈페이지, 모바일 기기, 서면양식, 팩스, 전화, 상담 게시판, 이메일, 이벤트 응모, 배송요청
+§	- 협력회사로부터의 제공
+§	- 생성정보 수집 툴을 통한 수집
+또한, 회사는 서비스 이용 도중 추가적인 정보를 수집할 수 있으며, 이 경우 별도의 개인정보 수집 및 이용 동의를 받습니다.
+2. 개인정보의 수집 및 이용목적
+회사는 수집한 개인정보를 다음의 목적을 위해 활용합니다.
+1.	- 이용자와 약속한 서비스 제공, 서비스 제공에 따른 본인인증, 구매 및 요금결제, stevenCMS 이용내역 제공, 상품 및 서비스의 배송을 위하여 개인정보를 이용합니다.
+2.	- 회원 가입 의사의 확인, 연령 확인 및 법정대리인 동의 진행, 이용자 및 법정대리인의 본인 확인, 이용자 식별, 회원탈퇴 의사의 확인, 문의사항 또는 불만처리 등 회원관리를 위하여 개인정보를 이용합니다.
+3.	- 법령 및 이용약관을 위반하는 회원에 대한 이용 제한 조치, 부정 이용 행위를 포함하여 서비스의 원활한 운영에 지장을 주는 행위 및 비인가 행위에 대한 방지 및 제재, 계정도용 및 부정거래 방지, 고지사항 전달, 분쟁 조정을 위한 기록보존 등 이용자 보호 및 서비스 운영을 위하여 개인정보를 이용합니다.
+4.	- 인구통계학적 특성에 따른 서비스 제공, 접속 빈도 분석, 기능개선, 서비스 이용에 대한 통계, 서비스 분석 및 통계에 따른 이용자 관심 등에 기반한 맞춤 서비스 제공 등에 개인정보를 이용합니다
+3. 개인정보의 보유 및 이용기간
+1.	이용자의 개인정보는 원칙적으로 개인정보의 수집 및 이용목적이 달성되면 지체 없이 파기합니다. 단, 회사는 개인정보 도용 등으로 인한 원치않는 회원탈퇴 등에 대비하기 위하여 회원탈퇴 요청 후, 7일간 개인정보를 보유합니다. 또한 다음의 정보에 대해서는 아래의 이유로 명시한 기간 동안 보존하며, 그 외 다른 목적으로는 절대 사용하지 않습니다.
+가. 회사 내부 방침에 의한 정보보유 사유
+나. 관련법령에 의한 정보보유 사유
+상법, 전자상거래 등에서의 소비자보호에 관한 법률 등 관계법령의 규정에 의하여 보존할 필요가 있는 경우 회사는 관계법령에서 정한 일정한 기간 동안 회원정보를 보관합니다. 이 경우 회사는 보관하는 정보를 그 보관의 목적으로만 이용하며 보존기간은 아래와 같습니다.
+o	- 웹사이트 방문기록
+보존 이유 : 통신비밀보호법
+보존 기간 : 3개월
+o	- 소비자의 불만 또는 분쟁처리에 관한 기록
+보존 이유 : 전자상거래 등에서의 소비자보호에 관한 법률
+보존 기간 : 3년
+o	- 계약 또는 청약철회 등에 관한 기록
+보존 이유 : 전자상거래 등에서의 소비자보호에 관한 법률
+보존 기간 : 5년
+o	- 대금결제 및 재화 등의 공급에 관한 기록
+보존 이유 : 전자상거래 등에서의 소비자보호에 관한 법률
+보존 기간 : 5년
+o	- 건당 거래금액이 1만원을 초과하는 전자금융거래에 관한 기록
+보존 이유 :전자금융거래법
+보존 기간 : 5년
+o	- 건당 거래금액이 1만원을 이하인 전자금융거래에 관한 기록
+보존 이유 :전자금융거래법
+보존 기간 : 1년
+© steveN Corp.
+                                </textarea>
+                                <span class="help-block small">회원가입시 동의로 간주합니다.</span>
+                            </div>
+                        </div>
+                        <div>
+                            <a href="#" class="btn btn-w-md btn-accent" onclick="javascript:register();">회원가입</a>
+                            <a class="btn btn-default" href="/users/login">Login</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <!-- End main content-->
+
+</div>
+<!-- End wrapper-->
+
+<!-- Vendor scripts -->
+<script src="/vendor/pacejs/pace.min.js"></script>
+<script src="/vendor/jquery/dist/jquery.min.js"></script>
+<script src="/vendor/jquery/dist/jquery.form.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="/vendor/toastr/toastr.min.js"></script>
+<!-- App scripts -->
+<script src="/scripts/luna.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+    toastr.options = {
+        "debug": true,
+        "positionClass": "toast-top-center",
+        "newestOnTop": true,
+        "closeButton": false,
+        "timeOut": "1000"
+    };
+
+    $("#cmp_id").change( function() {
+		$("#cmp_id_check").val("N");
+	});
+    
+   $("#companyDiv").hide();
+    
+    $('input[name="cmp_type"]').change(function(){
+    if($(this).val() == "M0003"){
+        $("#companyDiv").show();
+    }else{
+        $("#companyDiv").hide();
+        }
+    });
+});
+    
+     function fn_duplication(){
+       if ( $("#cmp_id").val().trim() == "" )
+        {
+            var message = "회원Id를 입력해 주세요";
+            $("#cmp_id").val("");
+            $("#cmp_id").focus();
+            alert(message);
+            return false;
+        }
+         
+          $.ajax({
+							type : "POST",
+							url  : "/users/idcheck",
+							data : {
+								cmp_id        : $("#cmp_id").val()
+							},
+							dataType: "json",
+							async: false,
+							success : function(data) {
+							if(data == 'success'){
+                                alert('사용가능한 ID입니다!');
+							$("#cmp_id_check").val("Y");
+                            }else{
+                                alert('이미 사용중인 ID입니다');
+                            }
+							},
+							error : function(xhr, status, error) {
+                                alert('ID 중복체크 에러가 발생했습니다!');
+                            }
+						});
+     }
+    
+    function register()
+    {
+       var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+			
+        
+        if ( $("#cmp_id").val().trim() == "" )
+        {
+            var message = "회원Id를 입력해 주세요";
+            $("#cmp_id").val("");
+            $("#cmp_id").focus();
+            alert(message);
+            return false;
+        }
+        if ( $("#cmp_ceo_name").val().trim() == "" )
+        {
+            var message = "회원성명을 입력해 주세요";
+            $("#cmp_ceo_name").val("");
+            $("#cmp_ceo_name").focus();
+            alert(message);
+            return false;
+        }
+       
+        if ( $("#cmp_pass1").val().trim() == "" )
+        {
+            var message = "패스워드를 입력해 주세요";
+            $("#cmp_pass1").val("");
+            $("#cmp_pass1").focus();
+            alert(message);
+            return false;
+        }
+        if ( $("#cmp_pass2").val().trim() == "" )
+        {
+            var message = "패스워드를 입력해 주세요";
+            $("#cmp_pass2").val("");
+            $("#cmp_pass2").focus();
+            alert(message);
+            return false;
+        }
+        
+        if ( $("#cmp_pass1").val().trim() != $("#cmp_pass2").val().trim())
+        {
+            var message = "입력하신 패스워드가 서로 틀립니다";
+            $("#cmp_pass1").val("");
+            $("#cmp_pass1").focus();
+            alert(message);
+            return false;
+        }
+        if(!/^[a-zA-Z0-9]{8,16}$/.test($("#cmp_pass1").val().trim())){
+             var message = "패스워드는 영문,숫자 포함 8자리~16자리를 입력하셔야 합니다";
+            $("#cmp_pass1").val("");
+            $("#cmp_pass2").val("");
+            $("#cmp_pass1").focus();
+            alert(message);
+            return false;
+        }
+        if ( $("#cmp_email").val().trim() == "" )
+        {
+            var message = "이메일 주소를 입력해 주세요";
+            $("#cmp_email").val("");
+            $("#cmp_email").focus();
+            alert(message);
+            return false;
+        }
+        if(!re.test($("#cmp_email").val().trim())){
+            var message = "유효하지 않은 이메일주소입니다";
+            $("#cmp_email").val("");
+            $("#cmp_email").focus();
+            alert(message);
+            return false;
+        }
+        if ( $("#cmp_phone").val().trim() == "" )
+        {
+            var message = "핸드폰 번호를 입력해 주세요";
+            $("#cmp_phone").val("");
+            $("#cmp_phone").focus();
+            alert(message);
+            return false;
+        }
+        
+        
+        if($('input[name="cmp_type"]:checked').val() == 'C'){
+            
+             if ( $("#cmp_name").val().trim() == "" )
+        {
+            var message = "업체명을 입력해 주세요";
+            $("#cmp_name").val("");
+            $("#cmp_name").focus();
+            alert(message);
+            return false;
+        }
+            
+             if ( $("#cmp_number").val().trim() == "" )
+        {
+            var message = "사업자번호를 입력해 주세요";
+            $("#cmp_number").val("");
+            $("#cmp_number").focus();
+            alert(message);
+            return false;
+        }
+            
+            
+        }
+        
+        if ( $("#cmp_id_check").val().trim() == "N" )
+        {
+            var message = "회원ID 중복체크를 해주세요";
+            $("#cmp_id").val("");
+            $("#cmp_id").focus();
+            alert(message);
+            return false;
+        }
+        
+        $("#cmp_pass").val($("#cmp_pass1").val());
+        
+        var url = "/users/register";
+        
+        $("form[name='registerForm']").attr("target","_self");
+		    $("form[name='registerForm']").attr("action", url);
+		    $("form[name='registerForm']").attr("method","post");
+			$("form[name='registerForm']").ajaxSubmit({
+				success : function(data){
+					if(data == 'success'){
+                         alert('회원가입이 완료되었습니다');
+						location.href="/users/login";
+                        
+					}else{
+                        alert('회원가입중 오류가 발생했습니다!');
+					}
+				}
+				,error : function(e) {				
+					 alert('회원가입중 오류가 발생했습니다!');
+				}
+			});
+        
+    }
+    
+    
+</script>
+</body>
+
+</html>

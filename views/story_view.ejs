@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ko">
+  <% include include/head %>
+  <body>
+   
+<div id="wrap">
+    <!-- inc header -->
+    <% include include/header %>
+    <!-- //inc header -->
+    <!-- container -->
+    <section class="container tax-story">
+        <section class="contents">
+            <div class="sub-title">
+                <div class="inner">
+                    <h1>세무잇다이야기</h1>
+                </div>
+            </div>
+            <div class="location">
+                <div class="inner">
+                    <div class="breadcrumbs">
+                        <a href="/" class="btn-home"><span class="sp-comm">home</span></a>
+                        <span><a href="#">세무잇다이야기</a></span>
+                    </div>
+                </div>
+            </div>
+            <div class="inner story table view">
+                <div class="title">
+                    <em><%=boardData.title%></em>
+                    <ul>
+                        <li><em>등록일</em><%=boardData.cre_dtime%></li>
+                    </ul>
+                </div>
+                <div class="brd-cont">
+                    <%-boardData.content%>
+                </div>
+                <div class="brd-control">
+                    <%if(fileList.length>0){%>
+                    <div class="file">
+                        <em>첨부파일</em>
+                        <div>
+                            <%fileList.forEach(function (items, index){%>
+                            <p><span class="sp_comm"></span><a href="<%=items.path%>"><%=items.originalname%></a></p>
+                            <%})%>
+                        </div>
+                    </div>
+                    <%}%>
+                    <ul>
+                        <%if(getAfterBoard){%>
+                        <li><em>윗&nbsp;&nbsp;&nbsp;&nbsp;글<span class="sp_comm"></span></em><a href="/board/detail/<%=boardMasterName%>/<%=getAfterBoard.idx%>"><%=getAfterBoard.title%></a></li>
+                        <%}%>
+                        <%if(getBeforeBoard){%>
+                        <li><em>아랫글<span class="sp_comm"></span></em><a href="/board/detail/<%=boardMasterName%>/<%=getBeforeBoard.idx%>"><%=getBeforeBoard.title%></a></li>
+                        <%}%>
+
+                    </ul>
+                </div>
+                <div class="btn-wrap">
+                    <a href="/board/list/<%=boardMasterName%>/1" class="btns size-mid color-green btn-list">목록보기</a>
+                </div>
+            </div>
+        </section>
+    </section>
+    <!-- //container -->
+    <!-- inc footer -->
+    <% include include/footer %>
+    <!-- //inc footer -->
+</div>
+
+  </body>
+</html>

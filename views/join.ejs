@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ko">
+  <% include include/head %>
+  <body>
+   
+<div id="wrap">
+    <!-- inc header -->
+    <% include include/header %>
+    <!-- //inc header -->
+    <!-- container -->
+    <section class="container member">
+        <section class="contents">
+            <div class="sub-title">
+                <div class="inner">
+                    <h1>회원가입</h1>
+                </div>
+            </div>
+            <div class="location">
+                <div class="inner">
+                    <div class="breadcrumbs">
+                        <a href="/" class="btn-home"><span class="sp-comm">home</span></a>
+                        <span><a href="#">회원가입</a></span>
+                    </div>
+                </div>
+            </div>
+            <div class="inner">
+                <div class="join-box">
+                    <button  onclick="location.href='/join_info1'" class="normal">
+                        <span class="sp-comm"></span>
+                        <strong>일반회원</strong>
+                        <p>일반 사용자</p>
+                    </button>
+                    <button onclick="location.href='/join_info2'" class="affiliate">
+                        <span class="sp-comm"></span>
+                        <strong>제휴사회원</strong>
+                        <p>세무,회계사 전용</p>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </section>
+    <!-- //container -->
+    <!-- inc footer -->
+    <% include include/footer %>
+    <!-- //inc footer -->
+</div>
+
+  </body>
+</html>

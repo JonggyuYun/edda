@@ -1,0 +1,270 @@
+<% layout('manager/layout') %>
+<section class="content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="view-header">
+                        
+                    <div class="header-icon">
+                        <i class="pe page-header-icon pe-7s-menu"></i>
+                    </div>
+                    <div class="header-title">
+                        <h3><%=title%></h3>
+                        <small><%=title%></small>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </div>
+
+        <div class="row">
+                
+            <div class="col-md-12">
+                <div class="panel panel-filled">
+                    <div class="panel-heading">
+                        <div class="panel-tools">
+                            <a href="javascript:;" class="btn btn-w-md btn-accent" onclick="javascript:fn_write();"><%=subTitle%> 등록</a>
+                            <!-- <a class="panel-toggle"><i class="fa fa-chevron-up"></i></a>
+                                <a class="panel-close"><i class="fa fa-times"></i></a>-->
+                        </div>
+                        <%=title %>
+                    </div>
+                    <div class="panel-body">
+                           
+                        <div class="table-responsive">
+                            <table id="tableExample2"  class="table table-hover table-condensed">
+                                <thead>
+                                <tr>
+                                    <th>번호</th>
+                                    <th><%=subTitle%>명</th>
+                                    <th>사용여부</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <% 
+                                    for(var i=0; i<rows.length; i++){
+                                    var oneItem = rows[i]; 
+                                %>
+                                    <tr>
+                                        <td><%=i+1%></td>
+                                        <td><a href="javascript:fn_onReadBoard(<%=oneItem.idx%>)"><%=oneItem.c_name%></a></td>
+                                        <td><% if(oneItem.use_yn == "Y") {%>사용중<% } else { %>미사용<% } %></td>
+                                    </tr>
+
+                                <% } %>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="panel-body">
+                        <form method="post" name="writeForm" id="writeForm">
+                            <input type="hidden" name="mode" id="mode"/>
+                            <input type="hidden" name="idx" id="idx"/>
+                            <input type="hidden" name="cateType" id="cateType" value="<%=cateType%>"/>
+
+                            <%if(cateType == 'C'){%>
+                                <div class="form-group"><label for="mcode"><i class="fa fa-star-o" aria-hidden="true"></i>부서 선택</label>
+                                    <select name="mcode" id="mcode" class="form-control">
+                                        <%
+                                        for(var j=0; j<cateList.length; j++){
+                                            var oneItem2 = cateList[j];
+                                            console.log("oneItem2:"+oneItem2);
+                                        %>
+                                        <option value="<%=oneItem2.c_code%>"><%=oneItem2.c_name%></option>
+                                        <%}%>
+                                    </select>
+                                </div>
+                                <div class="form-group"><label for="mname"><i class="fa fa-star-o" aria-hidden="true"></i>직급 선택</label>
+                                    <select name="mname" id="mname" class="form-control">
+                                        <%
+                                        for(var j=0; j<cateList2.length; j++){
+                                            var oneItem2 = cateList2[j];
+                                            console.log("oneItem2:"+oneItem2);
+                                        %>
+                                        <option value="<%=oneItem2.c_code%>"><%=oneItem2.c_name%></option>
+                                        <%}%>
+                                    </select>
+                                </div>
+                            <%}%>
+                            <div class="form-group"><label for="c_name"><%=subTitle%>명</label><input type="text" class="form-control" name="c_name" id="c_name" placeholder="<%=subTitle%>명"></div>
+                            <div class="form-group"><label for="use_yn">사용여부</label> 
+                                <div class="radio">
+                                    <label> <input type="radio" name="use_yn" id="use_yn" value="Y" checked="checked"> 사용 </label>
+                                    <label> <input type="radio" name="use_yn" id="use_yn" value="N" > 미사용 </label>
+                                </div>
+                            </div>
+                           
+                            <button type="button" onclick="onWriteSubmit();" class="btn btn-default">저장하기</button>
+                            <button type="button" onclick="fn_delete();" id="deleteBtn" class="btn btn-default">삭제하기</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        toastr.options = {
+            "debug": false,
+            "newestOnTop": false,
+            "positionClass": "toast-bottom-right",
+            "closeButton": true,
+            "timeOut": "1000"
+
+        };
+
+        $('#tableExample2').DataTable({
+            "dom": "<'row'<'col-sm-6'l><'col-sm-6'f>>t<'row'<'col-sm-6'i><'col-sm-6'p>>",
+            "lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "All"] ],
+            "iDisplayLength": 10,
+            "order": [[0, 'asc']]
+
+        });
+
+    });
+
+
+	var reload = function(){
+        location.reload();
+    }
+    
+        
+
+    
+    
+    function fn_write(){
+        
+        $("#mode").val("write");
+        $("#idx").val("");
+        $("#c_name").val("");
+        //$("input:radio[name='c_mcode']:radio[value='A0000']").prop("checked",true);
+        $("input:radio[name='use_yn']:radio[value='Y']").prop("checked",true);
+
+        $("#deleteBtn").hide();
+         
+        $('#myModal2').modal('show');
+    }
+    
+    function onWriteSubmit()
+    {
+       
+        if ( $("#c_name").val().trim() == "" )
+        {
+            var message = "부서명을 입력해 주세요";
+            $("#c_name").val("");
+            $("#c_name").focus();
+            toastr.error(message);
+            return false;
+        }
+        
+
+       
+        if($("#mode").val() == 'modify'){
+            var url = "/manager/code/update";
+       	}else{
+            var url = "/manager/code/write";
+       	}
+        
+        $("form[name='writeForm']").attr("target","_self");
+        $("form[name='writeForm']").attr("action", url);
+        $("form[name='writeForm']").attr("method","post");
+        $("form[name='writeForm']").ajaxSubmit({
+            success : function(data){
+                if(data == 'success'){
+                    toastr.success('저장되었습니다!');
+                    $('#myModal2').modal('toggle');
+                    setTimeout(reload, 1000);					
+                }else{
+                    toastr.error('오류가 발생했습니다!');					
+                }
+            }
+            ,error : function(e) {				
+                toastr.error('오류가 발생했습니다!');
+            }
+        });
+    }
+    
+    function fn_onReadBoard(idx){
+        
+        $("#deleteBtn").show();
+        $.ajax({
+            type : "POST",
+            url  : "/manager/code/read",
+            data : {
+                     idx        : idx
+            },
+            dataType: "json",
+            async: false,
+            success : function(data) {
+
+
+                    
+                    $("#mode").val("modify");
+                    $("#idx").val(data.dbdata.idx);
+                    $("#c_name").val(data.dbdata.c_name);
+
+                    if(data.dbdata.c_mcode == 'R0000'){
+                        $("input:radio[name='c_mcode']:radio[value='R0000']").prop("checked",true);
+                    }else if(data.dbdata.c_mcode == 'B0000'){
+                        $("input:radio[name='c_mcode']:radio[value='B0000']").prop("checked",true);
+                    }else{
+                        $("input:radio[name='c_mcode']:radio[value='C0000']").prop("checked",true);
+                    }
+
+                    if(data.dbdata.use_yn == 'Y'){
+                        $("input:radio[name='use_yn']:radio[value='Y']").prop("checked",true);
+                    }else{
+                        $("input:radio[name='use_yn']:radio[value='N']").prop("checked",true);
+                    }
+                    $('#myModal2').modal('show');
+
+
+            },
+            error : function(xhr, status, error) {
+                toastr.error('오류가 발생했습니다!');
+            }
+        });
+    }
+     
+    function fn_delete(){
+        
+        $.ajax({
+            type : "POST",
+            url  : "/manager/code/delete",
+            data : {
+                    idx        : $("#idx").val()
+            },
+            dataType: "json",
+            async: false,
+            success : function(data) {
+                if(data == 'success'){ 
+                    toastr.success('삭제되었습니다!');
+                    $('#myModal2').modal('toggle');
+                    setTimeout(reload, 1000);
+                
+                }else{
+                    toastr.error('오류가 발생했습니다!');
+                }
+            },
+            error : function(xhr, status, error) {
+                toastr.error('오류가 발생했습니다!');
+            }
+        });
+    }
+</script>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900' rel='stylesheet' type='text/css'>
+
+    <!-- Page title -->
+    <title>잇다</title>
+
+    <!-- Vendor styles -->
+    <link rel="stylesheet" href="/manager/vendor/fontawesome/css/font-awesome.css"/>
+    <link rel="stylesheet" href="/manager/vendor/animate.css/animate.css"/>
+    <link rel="stylesheet" href="/manager/vendor/bootstrap/css/bootstrap.css"/>
+
+    <!-- App styles -->
+    <link rel="stylesheet" href="/manager/styles/pe-icons/pe-icon-7-stroke.css"/>
+    <link rel="stylesheet" href="/manager/styles/pe-icons/helper.css"/>
+    <link rel="stylesheet" href="/manager/styles/stroke-icons/style.css"/>
+    <link rel="stylesheet" href="/manager/styles/style.css">
+</head>
+<body class="blank">
+
+<!-- Wrapper-->
+<div class="wrapper">
+
+
+    <!-- Main content-->
+    <section class="content">
+
+        <div class="container-center animated slideInDown">
+
+
+            <div class="view-header">
+                <div class="header-icon">
+                    <i class="pe page-header-icon pe-7s-unlock"></i>
+                </div>
+                <div class="header-title">
+                    <h3>잇다 Login</h3>
+                    <small>
+                        아이디와 패스워드를 입력해주세요!
+                    </small>
+                </div>
+            </div>
+
+            <div class="panel panel-filled">
+                <div class="panel-body">
+                    <form action="/users/login" method="post" id="loginForm"  name="loginForm">
+                        <div class="form-group">
+                            <label class="control-label" for="username">Username</label>
+                            <input type="text" placeholder="ID를 입력하세요!" title="Please enter you username" required="" value="admin" name="username" id="username" class="form-control">
+                            <span class="help-block small">Your unique username to app</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="password">Password</label>
+                            <input type="password" placeholder="패스워드를 입력하세요!" title="패스워드를 입력하세요!" placeholder="******" required="" value="1q2w3e4r" name="password" id="password" class="form-control">
+                            <span class="help-block small">Your strong password</span>
+                        </div>
+                        <div>
+                            <a class="btn btn-accent" onclick="loginProc();">로그인</a>
+                          <!--  <a class="btn btn-default" href="/users/register">회원가입</a>-->
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <!-- End main content-->
+
+</div>
+<!-- End wrapper-->
+
+<!-- Vendor scripts -->
+<script src="/manager/vendor/pacejs/pace.min.js"></script>
+<script src="/manager/vendor/jquery/dist/jquery.min.js"></script>
+<script src="/manager/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="/manager/vendor/toastr/toastr.min.js"></script>
+<script src="/manager/vendor/jquery/dist/jquery.form.js"></script>
+<!-- App scripts -->
+<script src="/manager/scripts/luna.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        toastr.options = {
+            "debug": true,
+            "newestOnTop": false,
+            "positionClass": "toast-top-right",
+            "closeButton": false,
+            "timeOut": "1000"
+        };
+
+
+        $("#password").keypress(function(e) {
+
+            if (e.keyCode == 13){
+                loginProc();
+            }
+        });
+
+    });
+
+
+    function loginProc(){	
+		//로그인 
+        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        var email = $("#username").val();
+        if(email == ""){
+            alert("ID를 입력해 주세요", "로그인");
+            //layer_open("alert-layer", "", "Email 주소를 입력해 주세요");
+            return false;
+        }
+        /*if(!re.test(email)){
+            alert("유효하지 않은<br>Email 주소 입니다. ", "로그인");
+            return false;
+        }*/
+			
+        if($("#password").val() == ''){
+            alert("패스워드를 입력해 주세요.", "로그인");
+            return ;
+        }
+			
+        /*if(!/^[a-zA-Z0-9]{8,16}$/.test($("#password").val())){
+            alert("비밀번호는<br>영문,숫자 포함 8자리~16자리를<br>입력하셔야 합니다", "로그인");
+            return false;
+        }*/
+			
+           
+        $(".btn btn-accent").css("background-color", "gray");
+			
+        var url = "/manager/users/login";
+        $("form[name='loginForm']").attr("target","_self");
+        $("form[name='loginForm']").attr("action", url);
+        $("form[name='loginForm']").attr("method","post");
+        $("form[name='loginForm']").ajaxSubmit({
+            success : function(data){
+                if(data == 'success'){
+				    location.href="/manager/users/list/A";
+				}else{
+                    alert("패스워드를 확인해 주세요.", "로그인");
+				    $(".btn btn-accent").css("background-color", "#f39300");
+				}
+            }
+            ,error : function(e) {				
+				alert("서비스 접속이 원할하지 않습니다. 다시 시도해 주세요.", "로그인");
+				$(".btn btn-accent").css("background-color", "#f39300");
+            }
+        });
+	}
+</script>    
+
+</body>
+
+</html>

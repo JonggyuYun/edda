@@ -1,0 +1,700 @@
+<!doctype html>
+<html lang="ko">
+  <% include include/head %>
+  <!--<script src="https://www.google.com/recaptcha/api.js?render=6LcugM8UAAAAAP-nYOd3TzrfyjjRKn9qt7b0LI4D"></script>-->
+  <body>
+
+<div id="wrap">
+    <!-- inc header -->
+    <% include include/header %>
+    <!-- //inc header -->
+    <!-- container -->
+    <section class="container member">
+        <section class="contents">
+            <div class="sub-title">
+                <div class="inner">
+                    <h1>회원가입 (제휴사회원)</h1>
+                </div>
+            </div>
+            <div class="location">
+                <div class="inner">
+                    <div class="breadcrumbs">
+                        <a href="/" class="btn-home"><span class="sp-comm">home</span></a>
+                        <span><a href="#">회원가입 (제휴사회원)</a></span>
+                    </div>
+                </div>
+            </div>
+            <div class="inner">
+                        <div class="privacy-agree">
+                    <!-- 191120 -->
+                    <%-companyInfo.cmp_text1%>
+                    <!-- //191120 -->
+                    <div class="inp-check">
+                        <input type="checkbox" id="checkbox0" checked name="checkbox0"><label for="checkbox0">개인정보 수집 및 이용안내에 동의합니다.</label>
+                    </div>
+                </div>
+                <form method="post" name="semuForm1" id="semuForm1">
+                    <input type="hidden" name="memberAuthType" id="memberAuthType" value="B">
+                    <input type='file' id='file0' name='attatch' onchange="changeValue1(this)"/>
+                    <input type="hidden" id="key" name="key" value="">
+                    <input type="hidden" id="idCheckV" name="idCheckV" value="N">
+                    <input type="hidden" id="phoneCheckV" name="phoneCheckV" value="N">
+                    <div class="apply-form">
+                    <ul>
+                        <li>
+                            <label for="">이메일 <span>*</span></label>
+                            <div class="inp-box file">
+                                <input type="text" id="memberId" name="memberId" placeholder="이메일 주소를 입력해 주세요.">
+                                <button onclick="javascript:idCheck();return false;" class="btns">중복확인</button>
+
+                            </div>
+                        </li>
+                        <li>
+                            <label for="">휴대전화<span>*</span></label>
+                            <div class="inp-box file">
+                                <input type="text" id="memberPhone" name="memberPhone" placeholder="(예) 01012341234" maxlength="11" numberOnly>
+                                <button onclick="javascript:phoneCheck();return false;" class="btns">중복확인</button>
+                                <p class="txt right">‘-’ 없이 입력해 주세요.</p>
+
+                            </div>
+                        </li>
+                        <li id="phoneCheck" style="display: none">
+                            <label for="">휴대전화 인증<span>*</span></label>
+                            <div class="inp-box file">
+                                <input type="number" id="memberPhoneR" name="memberPhoneR" placeholder="(예) 01012341234" readonly>
+                                <button onclick="javascript:getVerifyNumber();return false;" class="btns">인증번호발송</button>
+
+                            </div>
+                        </li>
+                        <li id="verify" style="display: none;">
+                            <label for="">인증번호<span>*</span></label>
+                            <div class="inp-box file">
+                                <input type="text" id="verifyNumberChk" name="verifyNumberChk" placeholder="인증번호를 입력하세요.">
+                                <input type="hidden" name="verifyNumber" id="verifyNumber" value="">
+                                <input type="hidden" name="verifyYn" id="verifyYn" value="N">
+                                <button onclick="javascript:chkVerifyNumber();return false;" class="btns">인증</button>
+
+
+                            </div>
+                        </li>
+                        <li>
+                            <label for="">비밀번호 <span>*</span></label>
+                            <div class="inp-box">
+                                <input type="password" id="password" name="password" placeholder="비밀번호를 입력해 주세요.">
+                            </div>
+                        </li>
+                        <li>
+                            <label for="">비밀번호 확인 <span>*</span></label>
+                            <div class="inp-box">
+                                <input type="password" id="rePassword" name="rePassword" placeholder="비밀번호를 입력해 주세요.">
+                            </div>
+                        </li>
+                        <li>
+                            <label for="">이름 <span>*</span></label>
+                            <div class="inp-box">
+                                <input type="text" id="memberName" name="memberName" placeholder="이름을 입력해 주세요.">
+                            </div>
+                        </li>
+
+                        <li>
+                            <label for="">회사주소</label>
+                            <div class="address">
+                                <div class="inp-box file">
+                                    <input type="text" id="zipcode" name="zipcode" placeholder="우편번호">
+                                    <button id="addBtn" onclick="javascript:execDaumPostcode();return false;" class="btns">주소검색</button>
+                                </div>
+                                <div class="inp-box">
+                                    <input type="text" id="address1" name="address1" placeholder="기본주소">
+                                </div>
+                                <div class="inp-box">
+                                    <input type="text" id="address2" name="address2" placeholder="상세주소">
+                                </div>
+                            </div>
+                            <div id="daumWrap" style="display:none;border:1px solid;width:500px;height:300px;margin:5px 0;position:relative">
+                                <img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" onclick="foldDaumPostcode()" alt="접기 버튼">
+                            </div>
+                        </li>
+                        <li>
+                            <label>라이선스종류</label>
+                            <div class="inp-check">
+                                <span class="form-ele"><input type="checkbox" id="check1" name="license_type" value="A" checked><label for="check1">공인회계사</label></span>
+                                <span class="form-ele"><input type="checkbox" id="check2" name="license_type" value="B"><label for="check2">세무사</label></span>
+                                <span class="form-ele">(복수선택가능)</span>
+                            </div>
+                        </li>
+                        <li>
+                            <label for="">관리번호</label>
+                            <div class="inp-box">
+                                <input type="text" id="auth_number" name="auth_number" placeholder="관리번호를 입력해 주세요.">
+                            </div>
+                        </li>
+                        <li>
+                            <label for="">소속</label>
+                            <div class="inp-box">
+                                <input type="text" id="affiliation" name="affiliation" placeholder="現 소속기업 또는 기관, 프리랜서 입력">
+                            </div>
+                        </li>
+                        <li>
+                            <label>영업가능지역</label>
+                            <div class="inp-check row-align all-check-wrap">
+                                <span class="form-ele"><input type="checkbox" id="checkAll" name="all-check"><label for="checkAll">모두 동의</label></span>
+                                <% areaList.forEach(function (items,index){ %>
+                                <span class="form-ele"><input type="checkbox" id="saleArea<%=index%>" value="<%=items.c_code%>" name="businessdistrict"><label for="saleArea<%=index%>"><%=items.c_name%></label></span>
+                                <%})%>
+                                <!--<span class="form-ele"><input type="checkbox" id="business03" name="business-district"><label for="business03">경상남도</label></span>-->
+                                <!--<span class="form-ele"><input type="checkbox" id="business04" name="business-district"><label for="business04">경상북도</label></span>-->
+                                <!--<span class="form-ele"><input type="checkbox" id="business05" name="business-district"><label for="business05">광주광역시</label></span>-->
+                                <!--<span class="form-ele"><input type="checkbox" id="business06" name="business-district"><label for="business06">대구광역시</label></span>-->
+                                <!--<span class="form-ele"><input type="checkbox" id="business07" name="business-district"><label for="business07">대전광역시</label></span>-->
+                                <!--<span class="form-ele"><input type="checkbox" id="business08" name="business-district"><label for="business08">부산광역시</label></span>-->
+                                <!--<span class="form-ele"><input type="checkbox" id="business09" name="business-district"><label for="business09">서울특별시</label></span>-->
+                                <!--<span class="form-ele"><input type="checkbox" id="business10" name="business-district"><label for="business10">세종특별자치시</label></span>-->
+                                <!--<span class="form-ele"><input type="checkbox" id="business11" name="business-district"><label for="business11">울산광역시</label></span>-->
+                                <!--<span class="form-ele"><input type="checkbox" id="business12" name="business-district"><label for="business12">인천광역시</label></span>-->
+                                <!--<span class="form-ele"><input type="checkbox" id="business13" name="business-district"><label for="business13">전라남도</label></span>-->
+                                <!--<span class="form-ele"><input type="checkbox" id="business14" name="business-district"><label for="business14">전라북도</label></span>-->
+                                <!--<span class="form-ele"><input type="checkbox" id="business15" name="business-district"><label for="business15">제주특별자치도</label></span>-->
+                                <!--<span class="form-ele"><input type="checkbox" id="business16" name="business-district"><label for="business16">충청남도</label></span>-->
+                                <!--<span class="form-ele"><input type="checkbox" id="business17" name="business-district"><label for="business17">충청북도</label></span>-->
+                            </div>
+                        </li>
+
+                        <li>
+                            <label for="">학력/주요경력</label>
+                            <div class="textarea-box">
+                                <textarea class="form-control" rows="5" name="carrer" id="carrer" placeholder="학력/주요경력"></textarea>
+                            </div>
+                        </li>
+                        <li>
+                            <label for="">자기소개</label>
+                            <div class="textarea-box">
+                                <textarea class="form-control" rows="5" name="content" id="content" placeholder="자기소개"></textarea>
+                            </div>
+                        </li>
+                        <li class="represent">
+                            <label for="">대표이미지</label>
+                            <div class="inp-box file">
+                                <input type="text" id="file1_text" name="file1_text" placeholder="선택된 파일 없음">
+                                <button class="btns" id='btn-upload1'>파일선택</button>
+                                <p class="txt">5M 이하의 이미지 파일만 등록 가능합니다.</p>
+                            </div>
+                        </li>
+                        <!--<li class="certify02">-->
+                            <!--<label>자동등록방지</label>-->
+                            <!--<div class="certify">-->
+                                <!--<div>-->
+                                    <!--<p class="img"><img src="/captcha/image?key=<%=key%>" alt="cap" title="cap" id="cap_img"></p>-->
+                                    <!--<button onclick="javascript:caprefesh();return false;" class="sp-comm replay">replay</button>-->
+                                    <!--<input type="text" id="captcha" name="captcha" placeholder="숫자입력">-->
+                                <!--</div>-->
+                                <!--<p class="txt">자동등록방지 숫자를 순서대로 입력하세요.</p>-->
+                            <!--</div>-->
+                        <!--</li>-->
+                    </ul>
+                    <div class="btn-wrap">
+                        <a href="/" class="btns size-mid color-gray">취소하기</a>
+                        <a href="javascript:onMatchingSave();" class="btns size-mid color-green">가입하기</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+    <!-- //container -->
+    <!-- inc footer -->
+    <% include include/footer %>
+    <!-- //inc footer -->
+</div>
+<style>
+    #file0 { display:none; }
+</style>
+<div id="layer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;">
+    <img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()" alt="닫기 버튼">
+</div>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+
+
+    $(document).ready(function () {
+
+        // grecaptcha.ready(function() {
+        //     grecaptcha.execute('6LcugM8UAAAAAP-nYOd3TzrfyjjRKn9qt7b0LI4D', {action: 'homepage'})
+        //         .then(function (token) {
+        //             $("#key").val(token);
+        //         });
+        // })
+
+
+        $("input:text[numberOnly]").on("keyup", function() {
+            $(this).val($(this).val().replace(/[^0-9]/g,""));
+        });
+
+
+
+    });
+
+
+    var element_layer = document.getElementById('layer');
+
+    function closeDaumPostcode() {
+        // iframe을 넣은 element를 안보이게 한다.
+        element_layer.style.display = 'none';
+    }
+
+
+    $(function () {
+
+
+        $('#btn-upload1').click(function(e){
+            e.preventDefault();
+            $("#file0").click();
+
+        });
+
+
+
+    });
+
+    function changeValue1(obj){
+
+        console.log("file1 click");
+        var ext = $("#file0").val().split(".").pop().toLowerCase();
+        console.log("ext:"+ext);
+        if(ext.length > 0){
+            if($.inArray(ext, ["gif","png","jpg","jpeg"]) == -1) {
+                alert("gif,png,jpg 파일만 업로드 할수 있습니다.");
+                return false;
+            }
+        }
+        $("#file0").val().toLowerCase();
+        console.log("file:"+$("#file0").val());
+        $("#file1_text").val($("#file0").val().toLowerCase());
+
+    }
+
+    function caprefesh(){
+        //console.log("caprefresh:");
+        var imgsrc = document.getElementById("cap_img");
+        //console.log("imgsrc:"+imgsrc);
+        imgsrc.src = "/captcha/image?key=<%=key%>";
+    }
+
+    function execDaumPostcode() {
+
+        $("#addBtn").focus();
+
+        setTimeout(function () {
+            
+
+        initLayerPosition();
+
+        var currentScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);
+
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var addr = ''; // 주소 변수
+                var extraAddr = ''; // 참고항목 변수
+
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+
+                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                if(data.userSelectedType === 'R'){
+                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                        extraAddr += data.bname;
+                    }
+                    // 건물명이 있고, 공동주택일 경우 추가한다.
+                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                    if(extraAddr !== ''){
+                        extraAddr = ' (' + extraAddr + ')';
+                    }
+                    // 조합된 참고항목을 해당 필드에 넣는다.
+                    //document.getElementById("sample6_extraAddress").value = extraAddr;
+
+                } else {
+                   // document.getElementById("sample6_extraAddress").value = '';
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('zipcode').value = data.zonecode;
+                document.getElementById("address1").value = addr;
+                // 커서를 상세주소 필드로 이동한다.
+                document.getElementById("address2").focus();
+
+                element_layer.style.display = 'none';
+                // 우편번호 찾기 화면이 보이기 이전으로 scroll 위치를 되돌린다.
+                document.body.scrollTop = currentScroll;
+            },
+            // 우편번호 찾기 화면 크기가 조정되었을때 실행할 코드를 작성하는 부분. iframe을 넣은 element의 높이값을 조정한다.
+            onresize : function(size) {
+                element_wrap.style.height = size.height+'px';
+            },
+            width : '100%',
+            height : '100%'
+        }).embed(element_layer);
+        // iframe을 넣은 element를 보이게 한다.
+        element_layer.style.display = 'block';
+
+        // iframe을 넣은 element의 위치를 화면의 가운데로 이동시킨다.
+        initLayerPosition();
+
+        },1000);
+    }
+
+    function initLayerPosition(){
+        var width = 300; //우편번호서비스가 들어갈 element의 width
+        var height = 400; //우편번호서비스가 들어갈 element의 height
+        var borderWidth = 5; //샘플에서 사용하는 border의 두께
+
+        // 위에서 선언한 값들을 실제 element에 넣는다.
+        element_layer.style.width = width + 'px';
+        element_layer.style.height = height + 'px';
+        element_layer.style.border = borderWidth + 'px solid';
+        // 실행되는 순간의 화면 너비와 높이 값을 가져와서 중앙에 뜰 수 있도록 위치를 계산한다.
+        element_layer.style.left = (((window.innerWidth || document.documentElement.clientWidth) - width)/2 - borderWidth) + 'px';
+        element_layer.style.top = (((window.innerHeight || document.documentElement.clientHeight) - height)/2 - borderWidth) + 'px';
+    }
+
+    function onMatchingSave(){
+
+        var pattern1 = /[0-9]/;
+
+        var pattern2 = /[a-zA-Z]/;
+
+        var pattern3 = /[~!@\#$%<>^&*]/;     // 원하는 특수문자 추가 제거
+
+        var pw_msg = "";
+
+
+        if ( $("input:checkbox[id='checkbox0']").is(":checked") == false )
+        {
+            var message = "개인정보 수집에 동의해 주세요";
+            $("#checkbox0").val("");
+            $("#checkbox0").focus();
+            alert(message);
+            return false;
+        }
+
+        if ( $("#memberId").val().trim() == "" )
+        {
+            var message = "이메일주소를 입력해 주세요.";
+            $("#memberId").val("");
+            $("#memberId").focus();
+            alert(message);
+            return false;
+        }
+
+        if (!validateEmail($("#memberId").val()))
+        {
+            var message = "올바른 이메일 주소를 입력해 주세요.";
+            //$("#memberId").val("");
+            $("#memberId").focus();
+            alert(message);
+            return false;
+        }
+
+
+        if ( $("#idCheckV").val() == "N" )
+        {
+            var message = "이메일주소 중복확인을 해주세요.";
+            //$("#memberId").val("");
+            $("#memberId").focus();
+            alert(message);
+            return false;
+        }
+
+
+        if ( $("#memberPhone").val().trim() == "" )
+        {
+            var message = "휴대전화를 입력해 주세요.";
+            $("#memberPhone").val("");
+            $("#memberPhone").focus();
+            alert(message);
+            return false;
+        }
+
+        if ( $("#phoneCheckV").val() == "N" )
+        {
+            var message = "휴대전화 중복확인을 해주세요.";
+            //$("#memberId").val("");
+            $("#memberPhone").focus();
+            alert(message);
+            return false;
+        }
+
+        if ( $("#verifyYn").val().trim() == "N" )
+        {
+            var message = "휴대폰인증을 해주세요.";
+            //$("#memberPhone").val("");
+            $("#memberPhone").focus();
+            alert(message);
+            return false;
+        }
+
+        if ( $("#password").val().trim() == "" )
+        {
+            var message = "비밀번호를 입력해 주세요.";
+            $("#password").val("");
+            $("#password").focus();
+            alert(message);
+            return false;
+        }
+        if ( $("#rePassword").val().trim() == "" )
+        {
+            var message = "비밀번호 확인을 입력해 주세요.";
+            $("#rePassword").val("");
+            $("#rePassword").focus();
+            alert(message);
+            return false;
+        }
+
+        if ( $("#password").val().trim() != $("#rePassword").val().trim() )
+        {
+            var message = "비밀번호가 같지 않습니다. 비밀번호를 확인해 주세요.";
+            $("#rePassword").val("");
+            $("#rePassword").focus();
+            alert(message);
+            return false;
+        }
+
+        var pw = $("#password").val().trim();
+
+        if(!pattern1.test(pw)||!pattern2.test(pw)||!pattern3.test(pw)||pw.length<8||pw.length>50){
+
+            alert("패스워드는 영문+숫자+특수기호 8자리 이상으로 구성하여야 합니다.");
+            $("#password").focus();
+            return false;
+
+        }
+
+
+        if ( $("#memberName").val().trim() == "" )
+        {
+            var message = "이름을 입력해 주세요.";
+            $("#memberName").val("");
+            $("#memberName").focus();
+            alert(message);
+            return false;
+        }
+
+
+
+
+
+                    var url = "/member/join";
+
+
+
+                    $("form[name='semuForm1']").attr("target","_self");
+                    $("form[name='semuForm1']").attr("action", url);
+                    $("form[name='semuForm1']").attr("method","post");
+                    $("form[name='semuForm1']").ajaxSubmit({
+                        success : function(data){
+                            if(data.result == 'success'){
+                                alert('가입이 완료 되었습니다. 회원승인 완료 후 로그인 가능합니다.');
+                                location.href="/";
+
+                            }else{
+                                alert('오류가 발생했습니다!');
+                            }
+                        }
+                        ,error : function(e) {
+                            alert('오류가 발생했습니다!');
+                        }
+                    });
+
+
+
+
+
+
+ }
+
+
+ function idCheck(){
+
+     if ( $("#memberId").val().trim() == "" )
+     {
+         var message = "이메일주소를 입력해 주세요.";
+         $("#memberId").val("");
+         $("#memberId").focus();
+         alert(message);
+         return false;
+     }
+
+     if (!validateEmail($("#memberId").val()))
+     {
+         var message = "올바른 이메일 주소를 입력해 주세요.";
+         //$("#memberId").val("");
+         $("#memberId").focus();
+         alert(message);
+         return false;
+     }
+
+     $.ajax({
+         type : "GET",
+         url  : "/member/idCheck",
+         data : {
+             member_id : $("#memberId").val()
+         },
+         dataType: "json",
+         async: false,
+         success : function(data) {
+             if(data.result == 'success'){
+
+
+                 alert('사용가능한 이메일입니다.');
+                 $("#idCheckV").val("Y");
+                 return false;
+
+             }else if(data.result == 'withdraw'){
+
+
+                 alert('탈퇴한 이메일은 재가입이 불가합니다.');
+                 $("#idCheckV").val("N");
+                 return false;
+             }else{
+                 alert('이미 사용중인 이메일입니다.');
+                 $("#idCheckV").val("N");
+                 return false;
+             }
+
+
+         },
+         error : function(xhr, status, error) {
+             alert('오류가 발생했습니다!');
+             $("#idCheckV").val("N");
+         }
+     });
+
+ }
+
+    function phoneCheck(){
+
+        if ( $("#memberPhone").val().trim() == "" )
+        {
+            var message = "핸드폰번호를 입력해 주세요.";
+            $("#memberPhone").val("");
+            $("#memberPhone").focus();
+            alert(message);
+            return false;
+        }
+
+
+
+        $.ajax({
+            type : "GET",
+            url  : "/member/phoneCheck",
+            data : {
+                memberPhone : $("#memberPhone").val()
+            },
+            dataType: "json",
+            async: false,
+            success : function(data) {
+                if(data.result == 'success'){
+
+
+                    alert('사용가능한 핸드폰번호입니다.');
+                    $("#phoneCheckV").val("Y");
+                    //return false;
+
+                    $("#phoneCheck").show();
+                    $("#memberPhoneR").val($("#memberPhone").val());
+
+
+                }else{
+                    alert('이미 사용중인 핸드폰번호입니다.');
+                    $("#phoneCheckV").val("N");
+                    //return false;
+                }
+
+
+            },
+            error : function(xhr, status, error) {
+                alert('오류가 발생했습니다!');
+                $("#phoneCheckV").val("N");
+            }
+        });
+
+    }
+
+    function validateEmail(sEmail) {
+        var filter = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+        if (filter.test(sEmail)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function getVerifyNumber(){
+        console.log($("#memberPhone").val());
+        if ( $("#memberPhone").val().trim() == "" )
+        {
+            var message = "휴대전화를 입력해 주세요.";
+            $("#memberPhone").val("");
+            $("#memberPhone").focus();
+            alert(message);
+            return false;
+        }
+
+        var params = {
+            member_phone: $("#memberPhone").val()
+        };
+
+        console.log(params);
+        $.ajax({
+            method: "POST",
+            url: "/getVerifyNumber",
+            data: params
+        }).done(function( data ) {
+            if(data.result == 'success'){
+                alert("인증번호가 전송되었습니다.");
+                $("#verify").show();
+                $("#verifyNumber").val($.trim(data.message));
+                $("#verifyNumberChk").focus();
+                //myFunction();
+            }
+            else{
+                alert(msg.message);
+            }
+        });
+
+        // $("#verify").show();
+        // $("#verifyNumber").val('123456');
+        // $("#verifyNumberChk").focus();
+    }
+
+    function chkVerifyNumber(){
+        if ($("#verifyNumberChk").val() != "") {
+            if ($("#verifyNumber").val() != $("#verifyNumberChk").val()) {
+                alert("인증번호가 정확하지 않습니다.");
+                $("#verifyNumberChk").focus();
+            } else {
+                alert('※ 휴대폰인증이 정상처리 되었습니다.');
+
+                //$("#time").hide();
+                $("#verifyYn").val("Y");
+            }
+        } else {
+            alert("인증번호를 입력하지 않았습니다.");
+            $("#verifyNumberChk").focus();
+        }
+    }
+
+
+</script>
+  </body>
+</html>

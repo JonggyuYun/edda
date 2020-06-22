@@ -1,0 +1,38 @@
+<header><!-- 로그인시 class="login" 추가 -->
+    <div class="head">
+        <h1><a href="/">잇다</a></h1>
+        <em>Contact Connect Tax & Accounting on Edda</em>
+        <button class="btn-nav"><span class="sp-comm"></span><span class="sp-comm"></span></button>
+    </div>
+    <nav>
+        <%if(whoami != null){%>
+            <!-- 로그인상태 -->
+            <%if(authType == 'A'){%>
+            <a href="/mypage/my_info/A">회원정보 수정</a>
+            <a href="/mypage/consulting/1">내견적현황</a>
+            <%}else{%>
+            <a href="/mypage/my_info/B">회원정보 수정</a>
+            <a href="/mypage/estimate/1">내견적현황</a>
+            <%}%>
+            <a href="/pw">패스워드 변경</a>
+            <a href="/leave">회원탈퇴</a>
+            <a href="/logout">로그아웃</a>
+            <!-- //로그인상태 -->
+        <%}else{%>
+            <!-- 로그아웃상태 -->
+            <a href="/login">로그인</a>
+            <a href="/join">회원가입</a>
+            <a href="/noPage/index">내견적현황</a>
+
+            <!-- //로그아웃상태 -->
+        <%}%>
+    </nav>
+</header>
+<form id="searchForm" name="searchForm" method="post" action="/board/list">
+    <input type="hidden" id="searchT" name="searchT" value="">
+    <input type="hidden" id="boardMasterName" name="boardMasterName" value="">
+    <input type="hidden" id="searchGubun" name="searchGubun" value="">
+    <input type="hidden" id="searchType" name="searchType" value="">
+    <input type="hidden" id="cur" name="cur">
+    <input type="hidden" id="boardIdx" name="boardIdx">
+</form>

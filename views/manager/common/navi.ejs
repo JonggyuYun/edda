@@ -1,0 +1,147 @@
+<aside class="navigation">
+        <nav>
+            <ul class="nav luna-nav">
+               <!-- <li>
+                    <a href="/" target="_blank">홈페이지 바로가기</a>
+                </li>
+				-->
+                <li class="active">
+                    <a href="/manager/company">기본정보 관리</a>
+                </li>
+				<!--<li>-->
+                    <!--<a href="/code/list">-->
+                        <!--코드 관리-->
+                    <!--</a>-->
+                <!--</li>-->
+                <li class="active" id="eddaA"><a href="/manager/semu/list/A">기장대행</a></li>
+                <li class="active" id="eddaB"><a href="/manager/semu/list/B">신고대행</a></li>
+                <li class="active" id="eddaC"><a href="/manager/semu/list/C">세무조사/불복</a></li>
+                <li class="active" id="eddaD"><a href="/manager/semu/list/D">양도/상속/증여</a></li>
+                <li class="active" id="eddaE"><a href="/manager/semu/list/E">컨설팅/평가/감사</a></li>
+				<!--<li>-->
+                    <!--<a href="#menu2" data-toggle="collapse" aria-expanded="false">-->
+                        <!--상담 및 견적 관리<span class="sub-nav-icon"> <i class="stroke-arrow"></i> </span>-->
+                    <!--</a>-->
+                    <!--<ul id="menu2" class="nav nav-second collapse">-->
+                        <!--<li><a href="/manager/semu/list/A">기장대행</a></li>-->
+                        <!--<li><a href="/manager/semu/list/B">신고대행</a></li>-->
+                        <!--<li><a href="/manager/semu/list/C">세무조사/불복</a></li>-->
+                        <!--<li><a href="/manager/semu/list/D">양도/상속/증여</a></li>-->
+                        <!--<li><a href="/manager/semu/list/E">컨설팅/평가/감사</a></li>-->
+                    <!--</ul>-->
+                <!--</li>-->
+                <li class="active">
+                    <a href="#menu1" data-toggle="collapse" aria-expanded="false">
+                        회원관리<span class="sub-nav-icon"> <i class="stroke-arrow"></i> </span>
+                    </a>
+                    <ul id="menu1" class="nav nav-second collapse">
+                        <li><a href="/manager/users/list/A">일반회원</a></li>
+                        <li><a href="/manager/users/list/B">제휴사회원</a></li>
+                    </ul>
+                </li>
+                <li class="active">
+                    <a href="#menu3" data-toggle="collapse" aria-expanded="false">
+                        게시판 관리<span class="sub-nav-icon"> <i class="stroke-arrow"></i> </span>
+                    </a>
+                    <ul id="menu3" class="nav nav-second collapse">
+                        <li><a href="/manager/community/1">공지사항</a></li>
+                        <li><a href="/manager/community/2">무료 세무상담</a></li>
+                        <li><a href="/manager/community/3">세무잇다이야기</a></li>
+                    </ul>
+                </li>
+                <!--<li>-->
+                    <!--<a href="/sales/list">-->
+                        <!--매출 현황-->
+                    <!--</a>-->
+                <!--</li>-->
+            </ul>
+        </nav>
+    </aside>
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+<script>
+
+    $(document).ready(function () {
+
+
+
+        callCount();
+
+    });
+
+
+
+    //var socket = io.connect('http://54.180.163.44:3000', {
+    var socket = io.connect('http://54.180.137.109:3000', {
+    reconnection: true,
+        reconnectionDelay: 1000,
+        reconnectionDelayMax: 5000,
+        reconnectionAttempts: Infinity,
+        transports: ["websocket"],
+        secure: false,
+        rejectUnauthorized: false,
+        forceNew: true,
+        timeout: 6000
+    });
+
+    //socket.connect();
+    //var socket = io();
+
+    socket.on('recMsg', function (data) {
+        //scores.push(data);
+        callCount();
+
+       // socket.close();
+    });
+
+
+    socket.on('disconnect', function (){
+
+        console.log('disconnected');
+        socket.socket.connect();
+    });
+
+    function callCount() {
+
+        console.log("callCount!!");
+
+
+        $("#eddaA").html('<a href="/manager/semu/list/A">기장대행</a>');
+        $("#eddaB").html('<a href="/manager/semu/list/B">신고대행</a>');
+        $("#eddaC").html('<a href="/manager/semu/list/C">세무조사/불복</a>');
+        $("#eddaD").html('<a href="/manager/semu/list/D">양도/상속/증여</a>');
+        $("#eddaE").html('<a href="/manager/semu/list/E">컨설팅/평가/감사</a>');
+
+
+
+        $.ajax({
+            type : "get",
+            url  : "/manager/code/menuCount",
+            dataType: "json",
+            async: false,
+            success : function(data) {
+                console.log(data);
+                if(data.result == 'success'){
+                    console.log(data);
+
+                    for(var i = 0; i < data.dbdata.length;i++){
+                       // $('#edda'+data.dbdata[i].semu_type+' a *').remove();
+                        $('#edda'+data.dbdata[i].semu_type+' a').append('['+data.dbdata[i].cnt+']');
+                    }
+
+                    //socket.close();
+
+                }else{
+                    console.log("error!!");
+                }
+            },
+            error : function(xhr, status, error) {
+                console.log("error!!!");
+            }
+        });
+
+    }
+
+
+</script>

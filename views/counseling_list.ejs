@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="ko">
+  <% include include/head %>
+  <body>
+   
+<div id="wrap">
+    <!-- inc header -->
+    <% include include/header %>
+    <!-- //inc header -->
+    <!-- container -->
+    <!-- 191118 -->
+    <section class="container counsel">
+    <!-- //191118 -->
+        <section class="contents">
+            <div class="sub-title">
+                <div class="inner">
+                    <h1>세무 상담실</h1>
+                </div>
+            </div>
+            <div class="location">
+                <div class="inner">
+                    <div class="breadcrumbs">
+                        <a href="/" class="btn-home"><span class="sp-comm">home</span></a>
+                        <span><a href="#">세무 상담실</a></span>
+                    </div>
+                </div>
+            </div>
+            <div class="inner counseling">
+                <div class="srch">
+                    <input type="text" id="searchTxt" name="searchTxt" value="<%=pasing.searchGubun=='search'?pasing.searchTxt:''%>" onkeypress="if(event.keyCode==13) {fnSearch('search');}" placeholder="검색어를 입력해주세요.">
+                    <button onclick="fnSearch('search')" class="btn-srch"><span class="sp-comm">검색</span></button>
+                </div>
+                <div class="btn-wrap right">
+                    <%if(whoami != null){%>
+                        <a href="/counseling_write" class="btns size-mid color-green">글쓰기</a>
+                    <%}else{%>
+                            <a href="javascript:alert('로그인을 해주세요!')" class="btns size-mid color-green">글쓰기</a>
+                    <%}%>
+
+                </div>
+                <%
+                var curSet = pasing.curSet
+                var endPage = pasing.endPage
+                var startPage = pasing.startPage
+                var totalSet = pasing.totalSet
+                var totalPage = pasing.totalPage
+                var page_list_size = pasing.page_list_size
+                var page_size = pasing.page_size
+                var curPage = pasing.curPage
+                var totalCount = pasing.totalPageCount
+                %>
+                <div>
+                    <table class="list">
+                        <thead>
+                            <tr>
+                                <th>질문자</th>
+                                <th>제목</th>
+                                <th>답변자</th>
+                                <th>등록일</th>
+                                <th>조회수</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <% data.forEach(function (items,index){ %>
+                            <tr>
+                                <td><%=items.cre_name%></td>
+                                <%if(items.secret_yn == 'Y'){%>
+                                <td class="subject"><a href="javascript:checkPwd('<%=items.idx%>')"><%=items.title%><span class="sp-comm"></span></a></td>
+                                <%}else{%>
+                                <td class="subject"><a href="/board/detail/<%=boardMasterName%>/<%=items.idx%>"><%=items.title%></a></td>
+                                <%}%>
+                                <td><%=items.comment_name%></td>
+                                <td><%=items.cre_dtime%></td>
+                                <td><%=items.hit%></td>
+                            </tr>
+                        <% })%>
+
+                        </tbody>
+                    </table>
+                    <div class="pagination">
+                        <%
+                        if(curSet > 1){
+                        %>
+
+                            <span class="navi prev"><a href="javascript:fnPage('<%= ( startPage - 1) %>')">이전 페이지</a></span>
+
+                        <%
+                        }
+                        %>
+                        <%
+                        for(var i = startPage; i <= endPage; i++){
+                            if(i > totalPage){break;}
+
+                        if(i == curPage){
+                        %>
+                            <span class="btn-num active"><a href="javascript:fnPage('<%= i %>')"><%= i %></a></span>
+                        <%
+                        }else{
+                        %>
+                            <span class="btn-num"><a href="javascript:fnPage('<%= i %>')"><%= i %></a></span>
+
+                        <%
+                        }
+                        %>
+
+                        <%
+                        }
+                        %>
+                        <%
+                        if(curSet < totalSet){
+                        %>
+                            <span class="navi next"><a href="javascript:fnPage('<%=  ( endPage + 1) %>');">다음 페이지</a></span>
+                        <%
+                        }
+                        %>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+    <section class="wrap-layer-popup" id="layer-password">
+        <div class="dimmed"></div>
+        <div class="pop-layer">
+            <div class="contents">
+                <p>가입하신 회원 비밀번호를 입력해주세요.</p>
+                <div class="inp-box">
+                    <label for="cre_pw" class="ir-blind"></label>
+                    <input type="password" id="cre_pw" name="cre_pw" placeholder="">
+                </div>
+                <div class="btn-wrap">
+                    <button onclick="javascript:fn_cancel();" class="btns size-mid color-gray">취소</button>
+                    <button onclick="javascript:fn_commit();" class="btns size-mid color-green">확인</button>
+                </div>
+            </div>
+            <p class="btn-close"><button class="sp-comm">Close</button></p>
+        </div>
+    </section>
+    <!-- //container -->
+    <!-- inc footer -->
+    <% include include/footer %>
+    <!-- //inc footer -->
+</div>
+<form id="checkForm" name="checkForm" method="post">
+    <input type="hidden" id="boardIdxT" name="boardIdxT" value="">
+    <input type="hidden" id="cre_pwd" name="cre_pwd" value="">
+    <input type="hidden" id="member_id" name="member_id" value="<%=whoami%>">
+    <input type="hidden" id="mode" name="mode" value="">
+</form>
+<script>
+    //edda.layerOpen($(this), 'layer-password');
+
+    function fnSearch(idx){
+
+        $("#boardMasterName").val("<%=boardMasterName%>");
+        if(idx == 'search'){
+            $("#searchGubun").val("search");
+            $("#searchT").val($("#searchTxt").val());
+            $("#searchType").val($("#search_select option:selected").val());
+            $("#cur").val("1");
+        }else{
+            $("#searchGubun").val("menu");
+            $("#searchT").val(idx);
+            $("#cur").val("1");
+        }
+
+        $("#searchForm").submit();
+
+    }
+
+    function fnPage(idx){
+
+        $("#boardMasterName").val("<%=boardMasterName%>");
+        $("#searchGubun").val("<%=pasing.searchGubun%>");
+        $("#searchT").val("<%=pasing.searchTxt%>");
+        $("#searchType").val("<%=pasing.searchType%>");
+        $("#cur").val(idx);
+
+
+        $("#searchForm").submit();
+
+    }
+
+    function checkPwd(idx){
+
+        $("#boardIdxT").val(idx);
+        edda.layerOpen($(this), 'layer-password');
+
+    }
+
+    function fn_commit() {
+        console.log("fn_commit:");
+
+
+        if ( $("#cre_pw").val().trim() == "" )
+        {
+            var message = "회원 비밀번호를 입력해 주세요.";
+            $("#cre_pw").val("");
+            $("#cre_pw").focus();
+            alert(message);
+            return false;
+        }
+
+        $("#cre_pwd").val($("#cre_pw").val());
+
+        $("form[name='checkForm']").attr("target","_self");
+        $("form[name='checkForm']").attr("action", "/board/checkPwd");
+        $("form[name='checkForm']").attr("method","post");
+        $("form[name='checkForm']").ajaxSubmit({
+            success : function(data){
+                if(data.result == 'success'){
+
+                    if(data.pwdCheck == 'OK') {
+                        $('.wrap_layer_popup').css("display", "none");
+
+                            location.href="/board/detail/counseling/"+$("#boardIdxT").val();
+                    }else{
+                        alert("패스워드가 틀립니다!");
+
+                    }
+                }else{
+                    alert('오류가 발생했습니다! 관리자에게 문의바랍니다.');
+
+                }
+            }
+            ,error : function(e) {
+                alert('오류가 발생했습니다! 관리자에게 문의바랍니다.');
+                $("#mode").val("");
+            }
+        });
+    }
+
+    function fn_cancel() {
+        console.log("fn_cancel:");
+        $('.wrap-layer-popup').css("display", "none");
+        //location.href="/";
+    }
+
+
+
+
+</script>
+  </body>
+</html>

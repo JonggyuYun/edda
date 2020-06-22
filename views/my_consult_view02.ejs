@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="ko">
+  <% include include/head %>
+  <body>
+   
+<div id="wrap">
+    <!-- inc header -->
+    <% include include/header %>
+    <!-- //inc header -->
+    <!-- container -->
+    <section class="container my_consult">
+        <section class="contents">
+            <div class="sub-title">
+                <div class="inner">
+                    <h1>내견적현황</h1>
+                </div>
+            </div>
+            <div class="location">
+                <div class="inner">
+                    <div class="breadcrumbs">
+                        <a href="/" class="btn-home"><span class="sp-comm">home</span></a>
+                        <span><a href="/mypage/consulting/1">내견적현황</a></span>
+                    </div>
+                </div>
+            </div>
+            <div class="inner consult">
+
+                <%if(semuType == 'A' || semuType == 'B'){%>
+                <div class="detail">
+                    <h3><strong><%=row.semusa_name%>[<%if(row.license_type == 'A,B'){%>공인회계사,세무사<%}else if(row.license_type == 'A'){%>공인회계사<%}else{%>세무사<%}%>]</strong>에서 발송한 견적서 샘플</h3>
+                    <ul>
+                        <li><em>견적가<p>(용역비,부가세별도)</p></em><p><%=row.estimate%></p></li>
+                        <li class="explain"><em>맞춤소개</em><p><%=row.contents%></p></li>
+                    </ul>
+                </div>
+                <%}else if(semuType == 'C'){%>
+                <div class="detail">
+                    <h3><strong><%=row.semusa_name%> <%=row.license_type%></strong>에서 발송한 견적서 샘플</h3>
+                    <ul>
+                        <li><em>견적가<p>(용역비,부가세별도)</p></em><p><%=row.estimate%></p></li>
+                        <li><em>불복내용</em><p><%=row.bulbok%></p></li>
+                        <li><em>고지내용</em><p><%=row.goji%></p></li>
+                        <li><em>용역비 지급방식</em><p>
+                                <span><strong>착수금</strong> <%=row.charge_before%></span>
+                                <span><strong>성공액</strong> <%=row.charge_after%></span>
+                            </p></li>
+                        <li class="explain"><em>맞춤소개</em><p><%=row.contents%></p></li>
+                    </ul>
+
+                </div>
+                <%}else if(semuType == 'D'){%>
+
+                <div class="detail">
+                    <h3><strong><%=row.semusa_name%></strong>에서 발송한 견적서 샘플</h3>
+                    <ul>
+                        <li><em>견적가<p>(용역비,부가세별도)</p></em><p><%=row.estimate%></p></li>
+                        <li><em>평가대상 자산</em><p><%=row.pyunggajasan%></p></li>
+                        <li><em>평가기준일</em><p><%=row.pyunggadate%></p></li>
+                        <li><em>용역비 지급방식</em><p>
+                                <span><strong>착수금</strong><%=row.charge_before%></span>
+                                <span><strong>성공액</strong><%=row.charge_after%></span>
+                            </p></li>
+                        <li><em>평가보고 제출일</em><p><%=row.pyungga_submission_date%></p></li>
+                        <li class="explain"><em>맞춤소개</em><p><%=row.contents%></p></li>
+                    </ul>
+                </div>
+                <%}else if(semuType == 'E'){%>
+                <div class="detail">
+                    <h3><strong><%=row.semusa_name%></strong>에서 발송한 견적서 샘플</h3>
+                    <ul>
+                        <li><em>견적가<p>(용역비,부가세별도)</p></em><p><%=row.estimate%></p></li>
+                        <li><em>감사대상</em><p><%=row.gamsidaesang%></p></li>
+                        <li><em>감사책임자</em><p><%=row.gamsiowner%></p></li>
+                        <li><em>용역비 지급방식</em><p>
+                                <span><strong>계약금</strong> <%=row.charge_before%></span>
+                                <span><strong>중도금</strong> <%=row.charge_center%></span>
+                                <span><strong>잔여금</strong> <%=row.charge_after%></span>
+                            </p></li>
+                        <li><em>용역비 지급시기</em><p><%=row.jigubdate%></p></li>
+                        <li class="explain"><em>맞춤소개</em><p><%=row.contents%></p></li>
+                    </ul>
+
+                </div>
+
+                <%}%>
+                <p class="txt">※ 관련 계약서는 세무대리인과 추후 별도 작성 계약 합니다.</p>
+                <div class="btn-wrap">
+                    <a href="javascript:history.back(-1);" class="btns size-mid color-gray">뒤로가기</a>
+                <%if(row.semu_status != 'F'){%>
+                    <a href="javascript:onSelectSemusa();" class="btns size-mid color-green">결정하기</a>
+                <%}%>
+                </div>
+            </div>
+        </section>
+    </section>
+    <!-- //container -->
+    <!-- inc footer -->
+    <% include include/footer %>
+    <!-- //inc footer -->
+</div>
+<script>
+
+    function onSelectSemusa(){
+
+     var seq = "<%=semuSeq%>";
+        var semuIdx = "<%=semuIdx%>";
+
+        $.ajax({
+            type : "POST",
+            url  : "/mypage/selectSemusa",
+            data : {
+            seq: seq,
+                semuIdx: semuIdx,
+                name: '<%=row.name%>',
+                semuMatchSeq: '<%=semuMatchSeq%>'
+            },
+            dataType: "json",
+            async: false,
+            success : function(data) {
+                if(data == 'success'){
+
+                    var msg = "정상적으로 세무사 선택을 완료하였습니다.";
+                    alert(msg);
+                    location.href= "/mypage/consulting/1";
+                }else{
+                    console.log('suc&fail')
+                    alert('오류가 발생했습니다!');
+
+                }
+            },
+            error : function(xhr, status, error) {
+                alert('오류가 발생했습니다!');
+            }
+        })
+
+    }
+
+</script>
+  </body>
+</html>

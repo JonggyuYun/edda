@@ -1,0 +1,45 @@
+@charset "utf-8";
+
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6,
+p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q,
+samp, small, strong, sub, sup, var, b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {margin:0; outline:0 none; padding:0; font-family:'NotoSans', '돋움', 'Dotum', 'Apple Gothic', sans-serif;letter-spacing:-.25px;vertical-align:top}
+html {width:100%;height:100%}
+body {width:100%;height:100%; color:#666; font-size:14px;line-height:1.2;font-weight:normal; word-break:break-all}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {display:block}
+h1, h2, h3, h4 {font-size:100%;}
+nav ul, ul, ol, li {list-style:outside none none}
+img {border:0 none; vertical-align:top}
+fieldset {border:0 none}
+a:link {text-decoration:none; color:#666}
+a:visited {text-decoration:none; color:#666}
+a:hover {text-decoration:none; color:#666}
+a:active {text-decoration:none; color:#666}
+hr {display:none}
+input, select, textarea {vertical-align:middle; font-family:'NotoSans', '돋움', 'Dotum', 'Apple Gothic', sans-serif;font-size:14px;}
+input[type="text"],
+input[type="number"],
+input[type="password"]{text-indent:20px; border:solid 1px #c4c4c4;}
+em, address {font-style:normal}
+button {border:0 none; cursor:pointer; padding:0; background-color:transparent; font-family:'NotoSans', '돋움', 'Dotum', 'Apple Gothic', sans-serif}
+table {width:100%; border-collapse:collapse; border-spacing:0; table-layout:fixed}
+table th,table td{vertical-align:middle}
+table caption, legend {font-size:medium; height:0; line-height:normal; opacity:0; overflow:hidden; width:100%; word-break:break-all; display:none;}
+
+*{-webkit-text-size-adjust:none;}
+textarea:focus{outline:none;}
+button:focus{outline:none;}
+input:focus{outline:none;}
+/* 드레그 & 크롬 하이라이트 */
+body{-webkit-user-select:none;-webkit-tap-highlight-color:rgba(0,0,0,0);-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;}
+/* clear */
+.clear{*zoom:1;}
+.clear:after{content:"";display:block;clear:both;}
+/* ir */
+.ir-blind{height:0;width:0;position:absolute;overflow:hidden;clip:rect(1px 1px 1px 1px)}

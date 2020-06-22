@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="ko">
+  <% include include/head %>
+  <body>
+   
+<div id="wrap">
+    <!-- inc header -->
+    <% include include/header %>
+    <!-- //inc header -->
+    <!-- container -->
+    <section class="container apply">
+        <section class="contents">
+            <div class="sub-title">
+                <div class="inner">
+                    <h1>세무조사/불복</h1>
+                    <button onclick="location.href='/apply02'" class="btn-prev"><span class="sp-comm"></span>신고대행</button>
+                    <button onclick="location.href='/apply04'" class="btn-next"><span class="sp-comm"></span>양도/상속/증여</button>
+                </div>
+            </div>
+            <div class="location">
+                <div class="inner">
+                    <div class="breadcrumbs">
+                        <a href="/" class="btn-home"><span class="sp-comm">home</span></a>
+                        <span><a href="#">세무 상담 및 견적 신청</a></span>
+                        <span><a href="#">세무조사/불복</a></span>
+                    </div>
+                </div>
+            </div>
+            <div class="inner">
+                <!-- 비회원 작성시 개인정보취급방침 내용 추가 -->
+                <div class="privacy-agree">
+                    <%-companyInfo.cmp_notice%>
+                    <div class="inp-check">
+                        <input type="checkbox" id="checkbox0" checked name="checkbox0"><label for="checkbox0">개인정보 수집 및 이용안내에 동의합니다.</label>
+                    </div>
+                </div>
+                <!-- //비회원 작성시 개인정보취급방침 내용 추가 -->
+                <form method="post" name="semuForm1" id="semuForm1">
+                    <input type="hidden" name="semuType" id="semuType" value="C">
+                    <div class="apply-form">
+                        <ul>
+                            <li>
+                                <label for="">이름 <span>*</span></label>
+                                <div class="inp-box">
+                                    <input type="text" id="name" name="name" value="<%=member_name%>" placeholder="신청자 이름">
+                                </div>
+                            </li>
+                            <li>
+                                <label for="">휴대전화<span>*</span></label>
+                                <div class="inp-box file">
+                                    <input type="number" id="phone" name="phone" value="<%=memberPhone%>" placeholder="(예) 01012341234">
+                                    <button onclick="javascript:getVerifyNumber();return false;" class="btns">인증번호발송</button>
+                                    <p class="txt right">‘-’ 없이 입력해 주세요.</p>
+
+                                </div>
+                            </li>
+                            <li id="verify" style="display: none;">
+                                <label for="">인증번호<span>*</span></label>
+                                <div class="inp-box file">
+                                    <input type="text" id="verifyNumberChk" name="verifyNumberChk" placeholder="인증번호를 입력하세요.">
+                                    <input type="hidden" name="verifyNumber" id="verifyNumber" value="">
+                                    <input type="hidden" name="verifyYn" id="verifyYn" value="N">
+                                    <button onclick="javascript:chkVerifyNumber();return false;" class="btns">인증</button>
+
+
+                                </div>
+                            </li>
+                            <li>
+                                <label>지역 <span>*</span></label>
+                                <div class="select-box">
+                                    <select id="area" name="area">
+                                        <option value="">시/도 선택</option>
+                                        <% areaList.forEach(function (items,index){ %>
+                                        <option value="<%=items.c_code%>"><%=items.c_name%></option>
+                                        <%})%>
+
+                                    </select>
+                                    <label for="area">시/도 선택</label>
+                                </div>
+                            </li>
+                            <li>
+                                <label>세무분야</label>
+                                <div class="inp-radio">
+                                    <span class="form-ele"><input type="radio" id="radio1" name="type1" value="A" checked><label for="radio1">세무조사</label></span>
+                                    <span class="form-ele"><input type="radio" id="radio2" name="type1" value="B"><label for="radio2">조세불복</label></span>
+                                    <span class="form-ele"><input type="radio" id="radio2" name="type1" value="C"><label for="radio2">내부조사</label></span>
+                                </div>
+                            </li>
+
+                            <li class="textarea-box">
+                                <textarea id="etc" name="etc" placeholder="기타사항 입력"></textarea>
+                            </li>
+                        </ul>
+                        <p class="inp-box txt" style="text-align: center;margin-top: 15px; font-size: 15px">'신청하기'를 누르시면 개인정보제공 및 이용약관에 동의하는 것으로 간주합니다.</p>
+                        <div class="btn-wrap">
+                            <a href="/" class="btns size-mid color-gray">취소하기</a>
+                            <a href="javascript:onMatchingSave();" class="btns size-mid color-green">신청하기</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </section>
+    <!-- //container -->
+    <!-- inc footer -->
+    <% include include/footer %>
+    <!-- //inc footer -->
+</div>
+<script>
+
+
+    $(document).ready(function () {
+
+
+
+
+
+    });
+
+    function cmaComma(obj) {
+        var firstNum = obj.value.substring(0,1); // 첫글자 확인 변수
+        var strNum = /^[\,0-9]*$/; // 숫자와 , 만 가능
+        var str = "" + obj.value.replace(/,/gi,''); // 콤마 제거  /[^0-9]/gi;
+        var regx = new RegExp(/(-?\d+)(\d{3})/);
+        var bExists = str.indexOf(".",0);
+        var strArr = str.split('.');
+        if (!strNum.test(obj.value)) {
+            alert("숫자만 입력하십시오.\n\n특수문자와 한글/영문은 사용할수 없습니다.");
+            obj.value = 1;
+            obj.focus();
+            return false;
+        }
+        while(regx.test(strArr[0])){
+            strArr[0] = strArr[0].replace(regx,"$1,$2");
+        }
+        if (bExists > -1)  {
+            obj.value = strArr[0] + "." + strArr[1];
+        } else  {
+            obj.value = strArr[0];
+        }
+    }
+
+    function commaSplit(n) {// 콤마 나누는 부분
+        var txtNumber = '' + n;
+        var rxSplit = new RegExp('([0-9])([0-9][0-9][0-9][,.])');
+        var arrNumber = txtNumber.split('.');
+        arrNumber[0] += '.';
+        do {
+            arrNumber[0] = arrNumber[0].replace(rxSplit, '$1,$2');
+        }
+        while (rxSplit.test(arrNumber[0]));
+        if(arrNumber.length > 1) {
+            return arrNumber.join('');
+        } else {
+            return arrNumber[0].split('.')[0];
+        }
+    }
+
+    function onMatchingSave(){
+
+
+
+
+        if ( $("input:checkbox[id='checkbox0']").is(":checked") == false )
+        {
+            var message = "개인정보 수집에 동의해 주세요";
+            $("#checkbox0").val("");
+            $("#checkbox0").focus();
+            alert(message);
+            return false;
+        }
+
+        if ( $("#name").val().trim() == "" )
+        {
+            var message = "이름을 입력해 주세요.";
+            $("#name").val("");
+            $("#name").focus();
+            alert(message);
+            return false;
+        }
+        if ( $("#phone").val().trim() == "" )
+        {
+            var message = "휴대폰 번호를 입력해 주세요.";
+            $("#phone").val("");
+            $("#phone").focus();
+            alert(message);
+            return false;
+        }
+
+        if ( $("#verifyYn").val().trim() == "N" )
+        {
+            var message = "휴대폰인증을 해주세요.";
+            //$("#memberPhone").val("");
+            $("#phone").focus();
+            alert(message);
+            return false;
+        }
+
+        if ( $("#area").val().trim() == "" )
+        {
+            var message = "지역을 입력해 주세요.";
+            $("#area").val("");
+            $("#area").focus();
+            alert(message);
+            return false;
+        }
+
+
+
+        var url = "/semu/matchingSave";
+
+
+
+        $("form[name='semuForm1']").attr("target","_self");
+        $("form[name='semuForm1']").attr("action", url);
+        $("form[name='semuForm1']").attr("method","post");
+        $('.btns').click(function () {return false;});
+
+
+        $("form[name='semuForm1']").ajaxSubmit({
+            success : function(data){
+                if(data.result == 'success'){
+                    $('.btns').unbind('click');
+                    location.href="/apply/apply_result/C";
+
+                }else{
+                    alert('오류가 발생했습니다!');
+                }
+            }
+            ,error : function(e) {
+                alert('오류가 발생했습니다!');
+            }
+        });
+   }
+
+
+    function getVerifyNumber(){
+        console.log($("#phone").val());
+        if ( $("#phone").val().trim() == "" )
+        {
+            var message = "휴대전화를 입력해 주세요.";
+            $("#phone").val("");
+            $("#phone").focus();
+            alert(message);
+            return false;
+        }
+
+        var params = {
+            member_phone: $("#phone").val()
+        };
+
+        console.log(params);
+        $.ajax({
+            method: "POST",
+            url: "/getVerifyNumber",
+            data: params
+        }).done(function( data ) {
+            if(data.result == 'success'){
+                alert("인증번호가 전송되었습니다.");
+                $("#verify").show();
+                $("#verifyNumber").val($.trim(data.message));
+                $("#verifyNumberChk").focus();
+                //myFunction();
+            }
+            else{
+                alert(msg.message);
+            }
+        });
+
+        // $("#verify").show();
+        // $("#verifyNumber").val('123456');
+        // $("#verifyNumberChk").focus();
+    }
+
+    function chkVerifyNumber(){
+        if ($("#verifyNumberChk").val() != "") {
+            if ($("#verifyNumber").val() != $("#verifyNumberChk").val()) {
+                alert("인증번호가 정확하지 않습니다.");
+                $("#verifyNumberChk").focus();
+            } else {
+                alert('※ 휴대폰인증이 정상처리 되었습니다.');
+
+                //$("#time").hide();
+                $("#verifyYn").val("Y");
+            }
+        } else {
+            alert("인증번호를 입력하지 않았습니다.");
+            $("#verifyNumberChk").focus();
+        }
+    }
+
+</script>
+  </body>
+</html>

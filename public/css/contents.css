@@ -1,0 +1,834 @@
+@charset "utf-8";
+
+body{margin:0;padding:0}
+* {-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
+/* common */
+.sp-comm{background:url('../images/sp_comm.png') no-repeat 0 0; text-indent:-9999px; display:inline-block}
+.inner{margin:0 auto;max-width:1240px}
+.inner:after{content:"";display:block;clear:both}
+
+/* layout */
+#wrap header{position:relative;top:0;left:0;right:0; z-index:100}
+#wrap header .head{margin:0 auto;padding-top:40px;height:120px; border-bottom:solid 1px #e1e1e1; position:relative}
+#wrap header .head h1{position:absolute;top:22px;left:50%;margin-left:-628px; transition:all .4s}
+#wrap header .head h1 a{width:102px;height:77px; background:url('../images/logo.png') no-repeat 0 0; text-indent:-9999px;display:block}
+#wrap header .head em{font-family:'Helvetica'; font-size:32px;color:#fff;font-weight:700;text-align:center; display:block}
+#wrap header .head .btn-nav{width:150px;height:100%;border-left:solid 1px rgba(255,255,255,.5); position:absolute;top:0;right:0}
+#wrap header .head .btn-nav .sp-comm:nth-child(1){width:42px;height:44px; background-position:0 0;vertical-align:middle}
+#wrap header .head .btn-nav .sp-comm:nth-child(2){margin-left:14px;width:16px;height:14px; background-position:-400px 0;vertical-align:middle}
+#wrap header .head .btn-nav.active .sp-comm:nth-child(2){background-position:-400px -20px}
+#wrap header nav{padding:15px;min-width:150px; background-color:rgba(0,0,0,.4); position:absolute;top:100%;right:0;display:none}
+#wrap header nav a{padding:8px 0;font-size:18px;color:#fff; display:block}
+#wrap header.login .head .btn-nav .sp-comm:nth-child(1){background-position:-50px 0}
+#wrap footer{padding-bottom:80px;background-color:#606060}
+#wrap footer .utile{border-bottom:solid 1px #a9a9a9;transition:all .4s}
+#wrap footer .utile ul{margin:0 auto;max-width:1240px}
+#wrap footer .utile li{padding:30px 0;float:left}
+#wrap footer .utile li a{margin-left:30px;padding-left:30px; font-size:20px;line-height:1;color:#fff;font-weight:500; border-left:solid 1px #c8c8c8;display:block}
+#wrap footer .utile li:first-child a{margin-left:0;padding-left:0;border-left:0}
+#wrap footer .inner{padding-top:65px;position:relative}
+#wrap footer .inner >div{padding-left:140px}
+#wrap footer .inner >div h1{width:102px;height:77px; background:url('../images/ft_logo.png') no-repeat 0 0; text-indent:-9999px; position:absolute;top:70px;left:-10px;transition:all .4s}
+#wrap footer .inner >div address{font-size:18px;color:#d8d8d8; display:block;transition:all .4s}
+#wrap footer .inner >div span{margin:7px 0 0 23px; font-size:18px;color:#d8d8d8; display:inline-block; transition:all .4s}
+#wrap footer .inner >div address +span{margin-left:0}
+#wrap footer .inner >div span strong{font-weight:400}
+#wrap footer .inner >div span a{font-size:inherit;color:inherit;vertical-align:top}
+#wrap footer .inner >div p{margin-top:10px; font-size:18px;color:#d8d8d8; transition:all .4s}
+#wrap footer .inner .sns{position:absolute;top:75px;right:0;transition:all .4s}
+#wrap footer .inner .sns a{margin-left:11px; width:46px;height:46px; display:inline-block}
+#wrap footer .inner .sns .facebook{background-position:-350px -250px}
+#wrap footer .inner .sns .instagram{background-position:-400px -250px}
+#wrap footer .inner .sns .blog{background-position:-450px -250px}
+#wrap footer .inner .sns .youtube{background-position:-500px -250px}
+#wrap footer .inner .sns .google{background-position:-550px -250px}
+#wrap .container{margin-top:-120px}
+#wrap .contents{padding-bottom:120px}
+/* main */
+#wrap .main .contents{padding-bottom:100px}
+.main .title-wrap{padding-top:94px; text-align:center}
+.main .title-wrap h2{font-size:36px;color:#000}
+.main .title-wrap p{margin-top:19px; font-size:24px;line-height:1.5;font-weight:500;word-break:keep-all}
+.main .keyvi{position:relative}
+.main .keyvi .bxslider{height:800px}
+.main .keyvi .keyvi-item{background-size:100% 100% !important}
+.main .keyvi .keyvi-item.item01{background:url('/images/main_keyvi01.png') no-repeat center}
+.main .keyvi .keyvi-item.item02{background:url('/images/main_keyvi02.png') no-repeat center}
+.main .keyvi .keyvi-item.item03{background:url('/images/main_keyvi03.png') no-repeat center}
+.main .keyvi .keyvi-item{height:100%}
+.main .keyvi .keyvi-item .inner{color:#fff;text-align:center;position:relative;}
+.main .keyvi .keyvi-item .inner h1{width:100%; font-size:108px; position:absolute;top:202px;opacity:0;}
+.main .keyvi .keyvi-item .inner .bar{width:2px;height:50px; background-color:#fff;display:inline-block; position:absolute;top:420px;left:50%;opacity:0;}
+.main .keyvi .keyvi-item .inner p{width:100%; font-size:28px;line-height:1.6; position:absolute;top:510px;opacity:0;}
+.main .keyvi .keyvi-item.item01 .inner h1 span:nth-child(1){margin-right:15%;display:inline-block}
+.main .keyvi .keyvi-item.item01 .inner h1 span:nth-child(2){margin-left:15%;display:inline-block}
+.main .keyvi .bx-controls{width:100%; text-align:center; display:flex;display:-ms-flexbox;flex-direction:row-reverse;justify-content:center; position:absolute;bottom:90px;left:0;z-index:10}
+.main .keyvi .bx-controls .bx-pager{display:inline-block}
+.main .keyvi .bx-controls .bx-pager .bx-pager-item{margin:0 9px; display:inline-block}
+.main .keyvi .bx-controls .bx-pager .bx-pager-item .bx-pager-link{width:18px;height:18px; text-indent:-9999px; border-radius:100%;background-color:#fff;opacity:0.6;display:block}
+.main .keyvi .bx-controls .bx-pager .bx-pager-item .bx-pager-link.active{opacity:1}
+.main .tax-consultation{padding-bottom:120px}
+.main .tax-consultation ul{margin-top:74px}
+.main .tax-consultation ul:after{content:'';display:block;clear:both}
+.main .tax-consultation ul li{margin:70px 0 0 6.45%; padding-top:43px;width:29.03%;height:380px;text-align:center; border:solid 1px #cbcbcb;border-radius:30px;background-color:#fafafa; float:left}
+.main .tax-consultation ul li:nth-child(3n+1){margin-left:0}
+.main .tax-consultation ul li:nth-child(-n+3){margin-top:0}
+.main .tax-consultation ul li em{font-size:32px;color:#000;font-weight:500; display:block}
+.main .tax-consultation ul li p{margin-top:15px; font-size:20px;line-height:1.4;font-weight:500; display:block}
+.main .tax-consultation ul li .sp-comm{margin:25px auto 0;width:150px;height:100px; display:block}
+.main .tax-consultation ul li:nth-child(1) .sp-comm{background-position:0 -50px}
+.main .tax-consultation ul li:nth-child(2) .sp-comm{background-position:-150px -50px}
+.main .tax-consultation ul li:nth-child(3) .sp-comm{background-position:-300px -50px}
+.main .tax-consultation ul li:nth-child(4) .sp-comm{background-position:0 -150px}
+.main .tax-consultation ul li:nth-child(5) .sp-comm{background-position:-150px -150px}
+.main .tax-consultation ul li:nth-child(6) .sp-comm{background-position:-300px -150px}
+.main .tax-consultation ul li button{margin-top:23px;width:190px;height:50px; font-size:20px;color:#009900;font-weight:500; border:solid 2px #009900;border-radius:25px}
+.main .tax-consultation ul li:hover{padding-top:41px;border:solid 3px #009900}
+.main .tax-consultation ul li:hover button{color:#fff; background-color:#009900}
+.main .accountant{padding-bottom:120px; background-color:#e6e7e6}
+.main .accountant .inner >.bx-wrapper{margin:95px auto 0; position:relative}
+.main .accountant .item >img{width:280px;height:260px}
+.main .accountant .item .info{padding:21px 30px 35px; width:280px; background-color:#fff;position:relative}
+.main .accountant .item .info >div{padding-right:20px; position:relative}
+.main .accountant .item .info >div strong{font-size:24px;color:#333; white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+.main .accountant .item .info >div p{margin-top:4px; font-size:22px;color:#333;font-weight:500; white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.main .accountant .item .info >div .sp-comm{width:12px;height:20px; background-position:-300px 0; position:absolute;top:11px;right:0}
+.main .accountant .item .info >p{margin-top:25px;font-size:32px;color:#009900;font-weight:500;text-align:center}
+.main .accountant .item .info >p span{margin-left:5px; font-size:24px;color:#333; vertical-align:baseline}
+.main .accountant .inner >.bx-wrapper .bx-controls .bx-controls-direction a{width:32px;height:57px; text-indent:-9999px; background:url('/images/sp_arrow.png') no-repeat 0 0; position:absolute;top:50%;margin-top:-28px}
+.main .accountant .inner >.bx-wrapper .bx-controls .bx-controls-direction a.bx-prev{background-position:0 0; left:-85px}
+.main .accountant .inner >.bx-wrapper .bx-controls .bx-controls-direction a.bx-next{background-position:-32px 0; right:-85px}
+.main .accountant +.inner >div{width:45.96%; float:left}
+.main .accountant +.inner >div .title-wrap{text-align:left; position:relative}
+.main .accountant +.inner >div .title-wrap .btn-more{font-size:20px; position:absolute;bottom:2px;right:0}
+.main .tax-talk ul{margin-top:40px}
+.main .tax-talk li{margin-top:24px;padding-left:110px; position:relative}
+.main .tax-talk li .date{padding-top:40px; width:88px; font-size:18px;text-align:center; position:absolute;top:50%;left:0;margin-top:-32px}
+.main .tax-talk li .date strong{width:100%; font-size:40px;line-height:1;color:#009900; position:absolute;top:0;left:0}
+.main .tax-talk li .cont{min-height:40px; font-size:24px;line-height:1.3;color:#333;font-weight:500; overflow:hidden;text-overflow:ellipsis;white-space:normal;height:2.6em;word-wrap:break-word;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.main .free-consultation{margin-left:8.08%}
+.main .free-consultation table{margin-top:30px}
+.main .free-consultation table td{padding:10px 0;font-size:24px}
+.main .free-consultation table td:nth-child(2){color:#000;text-align:center}
+.main .free-consultation table td:nth-child(3) a{display:block; white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* keyvi */
+.company .sub-title{background:url('/images/keyvi_company.png') no-repeat center;background-size:100% 100%}
+.apply .sub-title{background:url('/images/keyvi_apply.png') no-repeat center;background-size:100% 100%}
+.counsel .sub-title{background:url('/images/keyvi_counsel.png') no-repeat center;background-size:100% 100%}
+.tax-story .sub-title{background:url('/images/keyvi_story.png') no-repeat center;background-size:100% 100%}
+.accountant .sub-title{background:url('/images/keyvi_accountant.png') no-repeat center;background-size:100% 100%}
+.member .sub-title{background:url('/images/keyvi_member.png') no-repeat center;background-size:100% 100%}
+.my_consult .sub-title{background:url('/images/keyvi_my_consult.png') no-repeat center;background-size:100% 100%}
+.etc .sub-title{background:url('/images/keyvi_etc.png') no-repeat center;background-size:100% 100%}
+/* sub-title */
+.contents .sub-title .inner{padding:220px 0 103px; text-align:center; position:relative}
+.contents .sub-title h1{font-size:48px;color:#fff;font-weight:700; transition:all .4s}
+.contents .sub-title button{font-size:24px;line-height:38px;color:#fff;font-weight:500;  position:absolute;top:230px;transition:all .4s}
+.contents .sub-title button .sp-comm{width:24px;height:38px}
+.contents .sub-title .btn-prev{left:4.03%}
+.contents .sub-title .btn-prev .sp-comm{margin-right:30px; background-position:-320px 0;float:left}
+.contents .sub-title .btn-next{right:4.03%}
+.contents .sub-title .btn-next .sp-comm{margin-left:30px; background-position:-350px 0;float:right}
+/* location */
+.contents .location{border-bottom:solid 1px #c8c8c8}
+.contents .location:after{content:'';display:block;clear:both}
+.contents .location .breadcrumbs{border-left:solid 1px #c8c8c8;border-right:solid 1px #c8c8c8; float:left}
+.contents .location .breadcrumbs >span{padding:19px 20px;width:210px; font-size:18px; border-left:solid 1px #c8c8c8; float:left}
+.contents .location .breadcrumbs .btn-home{padding:17px 18px 16px;line-height:1; float:left}
+.contents .location .breadcrumbs .btn-home .sp-comm{width:24px;height:26px; background-position:-490px -190px}
+/* company */
+.company-wrap >div{margin-top:150px}
+.company-wrap >div:after{content:'';display:block;clear:both}
+.company-wrap >div .img{width:40.32%; float:left}
+.company-wrap >div .img img{width:100%}
+.company-wrap >div .txt{margin:110px 0 0 0%; font-size:24px;line-height:1.8;color:#333; float:right; transition:all .4s}
+.company-wrap >div .txt strong{margin-bottom:34px; font-size:36px;text-indent:-23px; display:block}
+.company-wrap >div:nth-child(1){margin-top:130px}
+.company-wrap >div:nth-child(2) .img{float:right}
+.company-wrap >div:nth-child(2) .txt{margin-left:0; float:left;}
+/* apply-common */
+.privacy-agree{padding-top:80px}
+.privacy-agree .privacy{padding:30px 60px;height:220px; font-size:20px; overflow-y:auto; border:solid 1px #bebebe;background-color:#f9f9f9}
+.privacy-agree .privacy h2{font-size:22px;color:#333;font-weight:700}
+.privacy-agree .privacy h2 +div{margin-top:25px}
+.privacy-agree .privacy >em{margin-top:35px; font-size:20px;line-height:1.5;color:#333;font-weight:700; display:inline-block}
+.privacy-agree .privacy >div{margin-top:15px; font-size:20px;line-height:1.5;color:#333;word-break:keep-all}
+.privacy-agree .privacy >em#privacy01{margin-top:40px}
+.privacy-agree .privacy >div a{color:#333;line-height:1.8}
+.privacy-agree .privacy >div li li{padding-left:26px}
+.privacy-agree .privacy >div li p{padding-left:26px}
+.privacy-agree.special .privacy >em{margin-left:-13px;}
+.privacy-agree .inp-check{margin-top:22px; text-align:right}
+.privacy-agree .inp-check input + label{padding-left:30px;height:20px; font-size:18px;line-height:20px; background-size:20px}
+.privacy-agree +.apply-form{padding-top:80px}
+.apply-form{margin:0 auto;padding-top:100px;width:880px}
+.apply-form ul li{margin-top:15px;padding-left:200px; position:relative}
+.apply-form ul li:first-child{margin-top:0}
+.apply-form ul li >label{padding:17px 0;width:200px; font-size:22px;color:#333;font-weight:500; position:absolute;top:0;left:0}
+.apply-form ul li >label span{color:#e40d0d}
+.apply-form ul li >div{min-height:60px}
+.apply-form ul li >div.inp-text{font-size:22px;line-height:60px;color:#333;text-indent:30px}
+.apply-form ul li >.inp-radio{padding:5px 0}
+.apply-form ul li >.inp-radio .form-ele{padding:10px 0}
+.apply-form ul li >.inp-check{padding:5px 0}
+.apply-form ul li >.inp-check .form-ele{padding:10px 0}
+.apply-form ul li.double label{padding:3px 0}
+.apply-form ul li.textarea-box{margin-top:40px;padding-left:0}
+.apply-form ul li.textarea-box.detail{margin-top:15px;padding-top:60px;height:400px}
+.apply-form ul li >.certify{padding-left:220px; position:relative}
+.apply-form ul li >.certify .img{width:200px;height:60px; position:absolute;top:0;left:0}
+.apply-form ul li >.certify .img img{width:100%;height:100%}
+.apply-form ul li >.certify input{width:150px;height:60px; font-size:22px;line-height:60px;color:#333;text-indent:20px}
+.apply-form ul li >.certify input:focus{border:solid 1px #009900}
+.apply-form ul li >.certify .txt{margin-left:16px; font-size:20px;color:#333;line-height:60px;letter-spacing:-.5px; display:inline-block}
+.apply-form ul li.certify02 >label{padding:27px 0}
+.apply-form ul li.certify02 >.certify{padding-left:0}
+.apply-form ul li.certify02 >.certify >div{padding-left:300px; position:relative}
+.apply-form ul li.certify02 >.certify >div .img{height:80px}
+.apply-form ul li.certify02 >.certify input{width:200px;height:80px}
+.apply-form ul li.certify02 >.certify >div button{width:46px;height:46px; position:absolute;left:220px}
+.apply-form ul li.certify02 >.certify >div .speaker{background-position:-500px -130px;top:6px}
+.apply-form ul li.certify02 >.certify >div .replay{background-position:-540px -160px;top:17px}
+.apply-form ul li.certify02 >.certify .txt{margin-left:0}
+.apply-form ul li.brief{padding-left:150px}
+.apply-form ul li.brief >label{width:150px}
+.apply-form ul li >.address .file{width:60%}
+.apply-form ul li .inp-box +.inp-box{margin-top:15px}
+.apply-form ul li >.inp-check.row-align >.form-ele{width:33.33%}
+.apply-form ul li >.inp-check.row-align >.form-ele:nth-child(1){width:100%}
+.apply-form ul li.represent .file{width:73.5%}
+/* apply-result */
+.apply-result{margin:120px auto 0;padding:90px 0 100px;width:800px; color:#333;text-align:center; border:solid 1px #bebebe;background-color:#f9f9f9}
+.apply-result .sp-comm{width:120px;height:120px; background-position:-450px 0}
+.apply-result em{margin-top:50px; font-size:28px;font-weight:500; display:block}
+.apply-result p{margin-top:10px; font-size:24px;line-height:1.8}
+.apply-result +.btn-wrap{margin-top:90px}
+/* counseling */
+.counseling{padding-top:80px}
+.counseling .srch{margin:0 auto;padding-right:80px; width:880px; position:relative}
+.counseling .srch input{width:100%;height:53px; font-size:24px;color:#333; border:0;border-bottom:solid 3px #292929}
+.counseling .srch .btn-srch{position:absolute;top:0;right:0}
+.counseling .srch .btn-srch .sp-comm{width:46px;height:44px; background-position:-450px -130px}
+.counseling .srch +.btn-wrap{margin:37px 30PX 0}
+.counseling .srch +.btn-wrap .size-mid{width:150px}
+.counseling table.list{margin-top:10px}
+.counseling table.list thead th:nth-child(1),
+.counseling table.list tbody td:nth-child(1){width:13%}
+.counseling table.list thead th:nth-child(2),
+.counseling table.list tbody td:nth-child(2){width:50%}
+.counseling table.list thead th:nth-child(3),
+.counseling table.list tbody td:nth-child(3){width:12%}
+.counseling table.list thead th:nth-child(4),
+.counseling table.list tbody td:nth-child(4){width:14%}
+.counseling table.list thead th:nth-child(5),
+.counseling table.list tbody td:nth-child(5){width:11%}
+.counseling table.list .subject .sp-comm{margin:2px 0 0 10px;width:16px;height:20px; background-position:-500px -160px}
+.counseling.view .btn-wrap{margin:40px 60px 0}
+.counseling.view .btn-wrap .btn-list{float:left}
+#layer-comment .pop-layer{padding:80px 40px 65px;width:600px;}
+#layer-comment .pop-layer .textarea-box{margin-top:40px;}
+#layer-comment .pop-layer .btn-wrap{margin-top:30px;}
+#layer-comment .pop-layer .btn-wrap .btns{width:160px;}
+#layer-password .pop-layer .inp-box{margin-top:40px;}
+#layer-password .pop-layer .btn-wrap{margin-top:30px;}
+#layer-password .pop-layer .btn-wrap .btns{width:160px;}
+/* story */
+.story{padding-top:100px}
+.story table.list tbody td.subject a{text-indent:70px}
+.tax-story .story.view .brd-cont{border-bottom:0}
+.tax-story .story.view .brd-control{margin-top:0}
+/* accountant */
+.accountant-list{margin:0 auto;padding-top:100px;width:1240px}
+.accountant-list:after{content:'';display:block;clear:both}
+.accountant-list .item{margin:60px 0 0 45px; display:inline-block}
+.accountant-list .item:nth-child(3n + 1){margin-left:0}
+.accountant-list .item:nth-child(-n + 3){margin-top:0}
+.accountant-list .item >img{width:380px;height:340px}
+.accountant-list .item .info{margin:-80px 0 0 40px;padding:21px 30px 35px; width:340px; background-color:#fff;border:solid 1px #adadad;position:relative}
+.accountant-list .item .info >div{padding-right:20px; position:relative}
+.accountant-list .item .info >div strong{font-size:24px;color:#333; white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+.accountant-list .item .info >div p{margin-top:4px; font-size:22px;color:#333;font-weight:500; white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.accountant-list .item .info >div .sp-comm{width:12px;height:20px; background-position:-300px 0; position:absolute;top:11px;right:0}
+.accountant-list .item .info >p{margin-top:25px;font-size:32px;color:#009900;font-weight:500;text-align:center}
+.accountant-list .item .info >p span{margin-left:5px; font-size:24px;color:#333; vertical-align:baseline}
+.accountant-detail{padding-top:100px}
+.accountant-detail .info-wrap:after{content:'';display:block;clear:both}
+.accountant-detail .info-wrap .img{margin-right:60px;width:380px;height:420px; border:solid 1px #adadad;float:left}
+.accountant-detail .info-wrap .img img{width:100%;height:100%}
+.accountant-detail .info-wrap .info{width:calc(100% - 440px); float:left}
+.accountant-detail .info-wrap .info .name{width:100%; float:left}
+.accountant-detail .info-wrap .info .name p{padding-left:40px; font-size:24px;color:#333;font-weight:500; display:inline-block;position:relative}
+.accountant-detail .info-wrap .info .name p:before{content:'';display:block; width:1px;height:80%; background-color:#7a7a7a; position:absolute;top:10%;left:0}
+.accountant-detail .info-wrap .info .name p:first-child{padding-left:0;min-width:30%}
+.accountant-detail .info-wrap .info .name p:first-child:before{display:none}
+.accountant-detail .info-wrap .info .name strong{margin-top:20px; font-size:36px;color:#333;font-weight:500; display:block}
+.accountant-detail .info-wrap .info .history{margin-top:80px;width:55%; float:left}
+.accountant-detail .info-wrap .info .history +.history{width:45%}
+.accountant-detail .info-wrap .info .history h3{font-size:28px;color:#009900;font-weight:700}
+.accountant-detail .info-wrap .info .history ul{margin-top:22px}
+.accountant-detail .info-wrap .info .history li{font-size:24px;line-height:1.5;color:#666; white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.accountant-detail .cont{margin-top:85px;padding:40px 20px;min-height:300px; font-size:24px;line-height:1.5;color:#666;word-break:keep-all; border-top:solid 2px #7a7a7a;border-bottom:solid 1px #7a7a7a}
+.accountant-detail .cont h3{font-size:32px;color:#009900;font-weight:700}
+.accountant-detail .cont p{margin-top:40px}
+.accountant-detail .cont p:first-child{margin-top:0}
+/* member */
+/* password */
+.password li:first-child{margin-bottom:40px}
+.password .txt{margin-top:44px;padding-left:20px;text-indent:-20px; font-size:20px;line-height:1.5;color:#333;letter-spacing:-1px}
+/* leave */
+.leave-box{margin:100px auto 0;padding:86px 0 70px;width:1000px; line-height:1.5;color:#333;text-align:center;word-break:keep-all; border:solid 1px #bebebe;background-color:#f9f9f9}
+.leave-box strong{font-size:24px; font-weight:500}
+.leave-box p{margin-top:35px; font-size:22px}
+/* join */
+.join-box{margin:130px auto 0;width:840px}
+.join-box button{width:400px;height:400px; border:solid 1px #bebebe;background-color:#f9f9f9}
+.join-box button .sp-comm{width:150px;height:150px}
+.join-box button strong{margin-top:35px; font-size:28px;color:#333;font-weight:700; display:block}
+.join-box button p{margin-top:7px; font-size:24px;color:#333}
+.join-box button.normal .sp-comm{background-position:0 -250px}
+.join-box button.affiliate{margin-left:36px}
+.join-box button.affiliate .sp-comm{background-position:-150px -250px}
+/* login */
+.log-wrap{padding:100px 0}
+.log-wrap .member-box{padding:40px 0; border-top:solid 3px #292929;background-color:#f5f5f5}
+.log-wrap .member-box:after{content:'';display:block; clear:both}
+.log-wrap .member-box >div{width:50%; float:left}
+.log-wrap .member-box >div >div{padding-right:177px; position:relative}
+.log-wrap .member-box >div >div button{width:160px;height:135px; font-size:24px;color:#fff;background-color:#009900; position:absolute;top:0;right:0}
+.log-wrap .member-box >.login{padding:25px 35px 23px 30px; border-right:solid 1px #c4c4c4}
+.log-wrap .member-box >.login .log-box >input{width:100%;height:60px; font-size:22px;line-height:60px;color:#333;text-indent:30px}
+.log-wrap .member-box >.login .log-box >input::placeholder{color:#888}
+.log-wrap .member-box >.login .log-box >input:focus{border:solid 1px #009900}
+.log-wrap .member-box >.login .log-box >input +input{margin-top:15px}
+.log-wrap .member-box >.login .log-link{margin-top:18px;padding-right:0}
+.log-wrap .member-box >.login .log-link:after{content:'';display:block; clear:both}
+.log-wrap .member-box >.login .log-link .inp-check{margin-left:0; float:left}
+.log-wrap .member-box >.login .log-link .inp-check input + label{padding-left:30px;height:20px; font-size:18px;line-height:20px; background-size:20px}
+.log-wrap .member-box >.login .log-link .find{float:right}
+.log-wrap .member-box >.login .log-link .find a{padding:0 20px; font-size:18px;line-height:20px; display:inline-block;position:relative}
+.log-wrap .member-box >.login .log-link .find a:nth-child(1){padding-left:0}
+.log-wrap .member-box >.login .log-link .find a:nth-child(2){padding-right:0}
+.log-wrap .member-box >.login .log-link .find a:nth-child(2):before{content:'';display:block; width:1px;height:60%; background-color:#ccc; position:absolute;top:20%;left:0}
+.log-wrap .member-box >.join{padding:25px 35px 23px 50px}
+.log-wrap .member-box >.join .join-mem em{margin-top:5px; font-size:28px;line-height:1.3;color:#333;font-weight:500;word-break:keep-all; display:block}
+.log-wrap .member-box >.join .join-mem p{margin-top:18px; font-size:22px;line-height:1.5;word-break:keep-all}
+/* my_consult */
+/* consult_list */
+.consult{padding-top:100px}
+.consult table.list thead th:nth-child(1),
+.consult table.list tbody td:nth-child(1){width:16%}
+.consult table.list thead th:nth-child(2),
+.consult table.list tbody td:nth-child(2){width:54%}
+.consult table.list thead th:nth-child(3),
+.consult table.list tbody td:nth-child(3){width:15%}
+.consult table.list thead th:nth-child(4),
+.consult table.list tbody td:nth-child(4){width:15%}
+.consult .detail{padding-bottom:30px; border-bottom:solid 1px #adadad}
+.consult .detail h3{padding:19px 0 23px; font-size:20px;color:#333;text-align:center; border-top:solid 3px #292929;border-bottom:solid 1px #adadad;background-color:#f5f5f5}
+.consult .detail h3 strong{margin-right:5px; font-size:24px; vertical-align:baseline}
+.consult .detail ul{margin-top:30px}
+.consult .detail ul +ul{margin-top:40px}
+.consult .detail ul li:after{content:'';display:block;clear:both}
+.consult .detail ul li >em{padding:15px 0 15px 14.5%;width:32.5%; font-size:22px;line-height:1.4;color:#333;font-weight:500; float:left}
+.consult .detail ul li >em p{font-size:20px;font-weight:400}
+.consult .detail ul li >p{padding:15px 0;width:67.5%; font-size:22px;line-height:1.4;color:#333; float:left}
+.consult .detail ul li >p span{margin-right:50px; display:inline-block}
+.consult .detail ul li >p span strong{margin-right:25px;font-weight:500}
+.consult .detail +.detail{margin-top:50px}
+.consult .detail +.txt{padding:20px 0 0 180px; font-size:20px;color:#333}
+.my_consult .accountant >.bx-wrapper{margin:60px auto 0; position:relative}
+.my_consult .accountant .item >img{width:380px;height:340px}
+.my_consult .accountant .item .info{margin:-80px 0 0 40px;padding:21px 30px 35px; width:340px; border:solid 1px #adadad;background-color:#fff;position:relative}
+.my_consult .accountant .item .info >div{padding-right:20px; position:relative}
+.my_consult .accountant .item .info >div strong{font-size:24px;color:#333; white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+.my_consult .accountant .item .info >div p{margin-top:4px; font-size:22px;color:#333;font-weight:500; white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.my_consult .accountant .item .info >div .sp-comm{width:12px;height:20px; background-position:-300px 0; position:absolute;top:11px;right:0}
+.my_consult .accountant .item .info >div.txt{padding:35px 0 0; font-size:20px;line-height:1.3;color:#666;  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.my_consult .accountant .item .info >p{margin-top:35px;font-size:32px;color:#009900;font-weight:500;text-align:center}
+.my_consult .accountant .item .info >p span{margin-left:5px; font-size:24px;color:#333; vertical-align:baseline}
+.my_consult .accountant >.bx-wrapper .bx-controls .bx-controls-direction a{width:32px;height:57px; text-indent:-9999px; background:url('/images/sp_arrow.png') no-repeat 0 0; position:absolute;top:50%;margin-top:-28px}
+.my_consult .accountant >.bx-wrapper .bx-controls .bx-controls-direction a.bx-prev{background-position:0 0; left:-85px}
+.my_consult .accountant >.bx-wrapper .bx-controls .bx-controls-direction a.bx-next{background-position:-32px 0; right:-85px}
+/* etc */
+.etc-wrap{padding-top:100px}
+.etc-wrap h2{font-size:36px;color:#333;font-weight:700;text-align:center}
+.etc-wrap >em{margin-top:40px; font-size:20px;line-height:1.5;color:#333; display:inline-block}
+.etc-wrap >div{font-size:20px;line-height:1.5;color:#333;word-break:keep-all}
+.etc-wrap.service >h3{margin-top:80px; font-size:24px;color:#333;font-weight:700}
+.etc-wrap.service >div{margin-top:7px}
+.etc-wrap.privacy h2 +div{margin-top:70px}
+.etc-wrap.privacy >em{font-weight:700}
+.etc-wrap.privacy >div{margin-top:40px}
+.etc-wrap.privacy >div a{color:#333;line-height:1.8}
+.etc-wrap.privacy >div li li{padding-left:26px}
+.etc-wrap.privacy >div li p{padding-left:26px}
+.etc-wrap.privacy >em#privacy01{margin-top:100px}
+@media (max-width:1260px){
+    .inner{margin:0 30px}
+    /* layout */
+    #wrap header .head h1{margin-left:0;left:30px}
+    #wrap footer .inner >div h1{left:0}
+    #wrap footer .utile{padding:0 30px}
+    /* main */
+    .main .tax-talk li .cont{font-size:20px}
+    .main .free-consultation table td{font-size:20px}
+    /* company */
+    .company-wrap >div .txt{margin:110px 0 0 0;letter-spacing:-.5px;}
+    /* accountant */
+    .accountant-list{width:810px}
+    .accountant-list .item{margin:60px 0 0 40px}
+    .accountant-list .item:nth-child(3n + 1){margin-left:40px}
+    .accountant-list .item:nth-child(-n + 3){margin-top:60px}
+    .accountant-list .item:nth-child(-n + 2){margin-top:0}
+    .accountant-list .item:nth-child(2n + 1){margin-left:0}
+    .accountant-detail .info-wrap .info .name p{padding-left:0; display:block}
+    .accountant-detail .info-wrap .info .name p:before{display:none}
+    .accountant-detail .info-wrap .info .name p +p{margin-top:15px}
+    .accountant-detail .info-wrap .info .name strong{margin-top:42px}
+    .accountant-detail .info-wrap .info .history{width:100%}
+    .accountant-detail .info-wrap .info .history +.history{margin-top:40px;width:100%}
+    /* leave */
+    .leave-box{width:100%}
+    /* login */
+    .log-wrap .member-box >div >div{padding-right:150px}
+    .log-wrap .member-box >div >div button{width:135px}
+    .log-wrap .member-box >.join .join-mem p{font-size:20px}
+}
+@media (max-width:1000px){
+    /* layout */
+    #wrap header .head h1{left:35px}
+    #wrap header .head em{display:none}
+    #wrap header .head .btn-nav{border-left:0}
+    #wrap footer{padding-bottom:50px}
+    #wrap footer .utile{padding:0}
+    #wrap footer .utile li{width:18.5%}
+    #wrap footer .utile li:nth-child(3){width:26%}
+    #wrap footer .utile li a{margin-left:0;padding-left:0; font-size:24px;text-align:center}
+    #wrap footer .inner{padding-top:140px;margin:0 50px}
+    #wrap footer .inner >div{padding-left:0}
+    #wrap footer .inner >div h1{top:40px;left:0}
+    #wrap footer .inner .sns{top:55px}
+    /* main */
+    .main .title-wrap{padding:94px 120px 0; text-align:center}
+    .main .keyvi .keyvi-item{background-size:auto !important}
+    .main .tax-consultation ul li{margin:40px 0 0 4.48%; width:47.76%}
+    .main .tax-consultation ul li:nth-child(3n+1){margin-left:4.48%}
+    .main .tax-consultation ul li:nth-child(-n+3){margin-top:40px}
+    .main .tax-consultation ul li:nth-child(-n+2){margin-top:0}
+    .main .tax-consultation ul li:nth-child(odd){margin-left:0}
+    .main .accountant +.inner >div{width:100%; float:left}
+    .main .accountant +.inner >div .title-wrap{padding:94px 0 0}
+    .main .tax-talk li .cont{font-size:24px}
+    .main .free-consultation{margin-left:0}
+    .main .free-consultation table td{font-size:24px}
+    /* sub-title */
+    .contents .sub-title button{text-indent:-9999px}
+    /* company */
+    .company-wrap >div{margin-top:180px}
+    .company-wrap >div .txt{margin:70px 0 0 0; font-size:19px;letter-spacing:-1.5px}
+    .company-wrap >div .txt strong{margin-bottom:20px; font-size:28px;text-indent:-20px}
+    .company-wrap >div:nth-child(1){margin-top:110px}
+    /* apply */
+    .apply .sub-title{background:url('/images/keyvi_apply.png') no-repeat center;background-size:auto 100%}
+    /* apply-common */
+    .privacy-agree{padding-top:50px}
+    .privacy-agree .privacy{padding:30px}
+    .privacy-agree .privacy h2{font-size:20px}
+    .privacy-agree .privacy >em,
+    .privacy-agree .privacy >div{font-size:16px}
+    .privacy-agree .inp-check label{font-size:20px;line-height:30px}
+    .privacy-agree +.apply-form{padding-top:70px}
+    .privacy-agree.special .privacy >em{margin-left:-9px;}
+    .apply-form{padding-top:80px;width:100%}
+    .apply-form ul li{margin-top:25px}
+    .apply-form ul li >label{padding:27px 0}
+    .apply-form ul li >div{min-height:80px}
+    .apply-form ul li >div.inp-text{font-size:28px;line-height:80px}
+    .apply-form ul li >.inp-radio{padding:15px 0}
+    .apply-form ul li.double label{padding:14px 0}
+    .apply-form ul li.textarea-box{margin-top:30px}
+    .apply-form ul li.textarea-box.detail{margin-top:15px;padding-top:70px;height:600px}
+    .apply-form ul li.textarea-box.detail >label{padding-bottom:17px}
+    .apply-form ul li >.certify{padding:0 0 60px 280px}
+    .apply-form ul li >.certify .img{width:260px;height:80px}
+    .apply-form ul li >.certify input{width:100%;height:80px}
+    .apply-form ul li >.certify .txt{margin-left:0; font-size:22px; position:absolute;bottom:0;left:0}
+    .apply-form ul li.certify02 >.certify input{width:100%}
+    .apply-form ul li.certify02 >.certify >div .img{width:200px;height:80px}
+    .apply-form ul li.brief{padding-left:200px}
+    .apply-form ul li.brief >label{width:200px}
+    .apply-form ul li >.address .file{width:100%}
+    .apply-form ul li .inp-box +.inp-box{margin-top:25px}
+    .apply-form ul li >.inp-check.row-align >.form-ele{width:50%}
+    .apply-form ul li.represent .file{width:100%}
+    /* apply-result */
+    .apply-result{width:100%}
+    .apply-result em{font-size:32px}
+    .apply-result p{font-size:28px}
+    /* counseling */
+    .counseling .srch{padding-right:70px;width:100%}
+    .counseling .srch +.btn-wrap{margin-right:70px}
+    .counseling table.list thead th:nth-child(2),
+    .counseling table.list tbody td:nth-child(2){width:45%}
+    .counseling table.list thead th:nth-child(3),
+    .counseling table.list tbody td:nth-child(3){width:15%}
+    .counseling table.list thead th:nth-child(4),
+    .counseling table.list tbody td:nth-child(4){width:20%}
+    .counseling table.list th:nth-child(1),
+    .counseling table.list td:nth-child(1),
+    .counseling table.list th:nth-child(5),
+    .counseling table.list td:nth-child(5){display:none}
+    /* story */
+    .story table.list tbody td.subject a{text-indent:30px}
+    /* accountant */
+    .accountant-detail .info-wrap .img{margin-right:30px;width:300px;height:332px}
+    .accountant-detail .info-wrap .info{width:100%; float:none}
+    .accountant-detail .info-wrap .info .name{float:none}
+    .accountant-detail .info-wrap .info .name p{font-size:28px}
+    .accountant-detail .info-wrap .info .name strong{font-size:38px}
+    .accountant-detail .info-wrap .info .history{margin-top:50px}
+    .accountant-detail .info-wrap .info .history h3{font-size:32px}
+    .accountant-detail .info-wrap .info .history li{font-size:28px}
+    .accountant-detail .cont{padding:50px 0; font-size:28px}
+    .accountant-detail .cont h3{font-size:36px}
+    /* join */
+    .join-box{margin:130px 5% 0;width:90%}
+    .join-box button{width:46%}
+    .join-box button.affiliate{margin-left:calc(8% - 4px)}
+    /* login */
+    .log-wrap .member-box{padding:50px 35px}
+    .log-wrap .member-box >div{width:100%; float:none}
+    .log-wrap .member-box >div >div{padding-right:0}
+    .log-wrap .member-box >div >div button{margin-top:20px;width:100%;height:70px; font-size:26px; position:relative}
+    .log-wrap .member-box >.login{padding:0 0 70px 0; border-right:0;border-bottom:solid 1px #c4c4c4}
+    .log-wrap .member-box >.login .log-box >input{height:80px; font-size:28px;line-height:80px}
+    .log-wrap .member-box >.login .log-box >input +input{margin-top:20px}
+    .log-wrap .member-box >.login .log-link{margin-top:30px}
+    .log-wrap .member-box >.login .log-link .inp-check input + label{padding-left:39px;height:30px; font-size:28px;line-height:30px; background-size:30px}
+    .log-wrap .member-box >.login .log-link .find a{padding:0 30px; font-size:28px;line-height:30px}
+    .log-wrap .member-box >.join{padding:52px 0 0 0}
+    .log-wrap .member-box >.join .join-mem em{margin-top:0; font-size:36px}
+    .log-wrap .member-box >.join .join-mem p{margin:20px 0; font-size:28px}
+    /* my_consult */
+    /* consult_list */
+    .consult{padding-top:100px}
+    .consult table.list thead th:nth-child(1),
+    .consult table.list tbody td:nth-child(1){width:27%}
+    .consult table.list thead th:nth-child(2),
+    .consult table.list tbody td:nth-child(2){width:50%}
+    .consult table.list thead th:nth-child(3),
+    .consult table.list tbody td:nth-child(3){display:none}
+    .consult table.list thead th:nth-child(4),
+    .consult table.list tbody td:nth-child(4){width:23%}
+    .consult .detail{padding-bottom:40px}
+    .consult .detail h3{padding:17px 0 21px}
+    .consult .detail h3 strong{font-size:28px}
+    .consult .detail ul{margin-top:38px}
+    .consult .detail ul +ul{margin-top:56px}
+    .consult .detail ul li >em{padding:18px 0 18px 5%;width:35%; font-size:28px}
+    .consult .detail ul li >em p{font-size:22px}
+    .consult .detail ul li >p{padding:18px 0;width:65%; font-size:28px}
+    .consult .detail ul li >p span{margin-right:0; display:block}
+    .consult .detail ul li >p span strong{margin-right:30px}
+    .consult .detail ul li.explain >p{padding:18px 0 18px 5%;width:100%}
+    .consult .detail +.detail{margin-top:70px}
+    .consult .detail +.txt{padding:20px 0 0 5%; font-size:24px}
+    /* etc */
+    .etc-wrap h2{font-size:40px}
+    .etc-wrap >em{margin-top:50px; font-size:24px}
+    .etc-wrap >div{font-size:24px}
+    .etc-wrap.service >h3{margin-top:90px; font-size:28px}
+}
+@media (max-width:900px){
+    /* accountant */
+    .accountant-list{width:380px}
+    .accountant-list .item{margin:60px 0 0 0 !important}
+}
+@media (min-width: 769px) and (max-width: 1000px) and (orientation: landscape) {}
+@media (max-width: 768px){
+    /* common */
+    .sp-comm{background:url('../images/sp_comm.png') no-repeat 0 0;background-size:300px 300px}
+    .inner{margin:0 15px}
+    /* layout */
+    #wrap header .head{padding-top:20px;height:60px}
+    #wrap header .head h1{top:11px;left:18px}
+    #wrap header .head h1 a{width:51px;height:39px; background-size:100%}
+    #wrap header .head .btn-nav{width:75px}
+    #wrap header .head .btn-nav .sp-comm:nth-child(1){width:21px;height:22px; background-position:0 0}
+    #wrap header .head .btn-nav .sp-comm:nth-child(2){margin-left:7px;width:8px;height:7px; background-position:-200px 0}
+    #wrap header .head .btn-nav.active .sp-comm:nth-child(2){background-position:-200px -10px}
+    #wrap header nav{padding:10px;min-width:75px}
+    #wrap header nav a{padding:4px 0;font-size:12px}
+    #wrap header.login .head .btn-nav .sp-comm:nth-child(1){background-position:-25px 0}
+    #wrap footer{padding-bottom:25px}
+    #wrap footer .utile li{padding:15px 0}
+    #wrap footer .utile li a{font-size:11px}
+    #wrap footer .inner{padding-top:70px;margin:0 25px}
+    #wrap footer .inner >div h1{width:51px;height:39px; background-size:100%; top:20px}
+    #wrap footer .inner >div address{font-size:11px}
+    #wrap footer .inner >div span{margin:8px 0 0 12px; font-size:11px}
+    #wrap footer .inner >div p{margin-top:5px; font-size:11px}
+    #wrap footer .inner .sns{top:28px}
+    #wrap footer .inner .sns a{margin-left:6px; width:23px;height:23px}
+    #wrap footer .inner .sns .facebook{background-position:-175px -125px}
+    #wrap footer .inner .sns .instagram{background-position:-200px -125px}
+    #wrap footer .inner .sns .blog{background-position:-225px -125px}
+    #wrap footer .inner .sns .youtube{background-position:-250px -125px}
+    #wrap footer .inner .sns .google{background-position:-275px -125px}
+    #wrap .container{margin-top:-60px}
+    #wrap .contents{padding-bottom:60px}
+    /* main */
+    #wrap .main .contents{padding-bottom:50px}
+    .main .title-wrap{padding:47px 60px 0}
+    .main .title-wrap h2{font-size:18px}
+    .main .title-wrap p{margin-top:10px; font-size:12px}
+    .main .keyvi .bxslider{height:400px}
+    .main .keyvi .keyvi-item .inner h1{font-size:54px; top:105px;}
+    .main .keyvi .keyvi-item .inner .bar{height:25px; top:210px;}
+    .main .keyvi .keyvi-item .inner p{font-size:14px; top:255px;}
+    .main .keyvi .bx-controls{bottom:45px}
+    .main .keyvi .bx-controls .bx-pager .bx-pager-item{margin:0 5px}
+    .main .keyvi .bx-controls .bx-pager .bx-pager-item .bx-pager-link{width:9px;height:9px}
+    .main .tax-consultation{padding-bottom:60px}
+    .main .tax-consultation ul{margin-top:37px}
+    .main .tax-consultation ul li{margin-top:20px; padding-top:22px;height:190px;border-radius:15px}
+    .main .tax-consultation ul li:nth-child(3n+1){margin-left:4.48%}
+    .main .tax-consultation ul li:nth-child(-n+3){margin-top:20px}
+    .main .tax-consultation ul li:nth-child(-n+2){margin-top:0}
+    .main .tax-consultation ul li:nth-child(odd){margin-left:0}
+    .main .tax-consultation ul li em{font-size:16px}
+    .main .tax-consultation ul li p{margin-top:8px; font-size:10px}
+    .main .tax-consultation ul li .sp-comm{margin:12px auto 0;width:75px;height:50px}
+    .main .tax-consultation ul li:nth-child(1) .sp-comm{background-position:0 -25px}
+    .main .tax-consultation ul li:nth-child(2) .sp-comm{background-position:-75px -25px}
+    .main .tax-consultation ul li:nth-child(3) .sp-comm{background-position:-150px -25px}
+    .main .tax-consultation ul li:nth-child(4) .sp-comm{background-position:0 -75px}
+    .main .tax-consultation ul li:nth-child(5) .sp-comm{background-position:-75px -75px}
+    .main .tax-consultation ul li:nth-child(6) .sp-comm{background-position:-150px -75px}
+    .main .tax-consultation ul li button{margin-top:12px;width:95px;height:25px; font-size:10px; border:solid 1px #009900;border-radius:13px}
+    .main .tax-consultation ul li:hover{padding-top:21px;border:solid 2px #009900}
+    .main .accountant{padding-bottom:60px; overflow:hidden}
+    .main .accountant .inner >.bx-wrapper{margin:47px auto 0}
+    .main .accountant .item >img{width:140px;height:130px}
+    .main .accountant .item .info{padding:11px 15px 17px; width:140px}
+    .main .accountant .item .info >div{padding-right:10px}
+    .main .accountant .item .info >div strong{font-size:12px}
+    .main .accountant .item .info >div p{margin-top:2px; font-size:11px}
+    .main .accountant .item .info >div .sp-comm{width:6px;height:10px; background-position:-150px 0; top:6px}
+    .main .accountant .item .info >p{margin-top:12px; font-size:16px}
+    .main .accountant .item .info >p span{margin-left:3px; font-size:12px}
+    .main .accountant .inner >.bx-wrapper .bx-controls .bx-controls-direction a{width:16px;height:29px; background-size:32px 29px; margin-top:-14px}
+    .main .accountant .inner >.bx-wrapper .bx-controls .bx-controls-direction a.bx-prev{left:-43px}
+    .main .accountant .inner >.bx-wrapper .bx-controls .bx-controls-direction a.bx-next{background-position:-16px 0; right:-43px}
+    .main .accountant +.inner >div .title-wrap{padding:47px 0 0}
+    .main .accountant +.inner >div .title-wrap .btn-more{font-size:12px; bottom:2px}
+    .main .tax-talk ul{margin-top:20px}
+    .main .tax-talk li{margin-top:12px;padding-left:55px}
+    .main .tax-talk li .date{padding-top:20px; width:44px; font-size:10px; margin-top:-16px}
+    .main .tax-talk li .date strong{font-size:20px}
+    .main .tax-talk li .cont{min-height:20px; font-size:12px}
+    .main .free-consultation table{margin-top:15px}
+    .main .free-consultation table td{padding:5px 0; font-size:12px}
+    /* sub-title */
+    .contents .sub-title .inner{padding:110px 0 52px}
+    .contents .sub-title h1{font-size:24px}
+    .contents .sub-title button{top:115px}
+    .contents .sub-title button .sp-comm{width:12px;height:19px}
+    .contents .sub-title .btn-prev .sp-comm{margin-right:0; background-position:-160px 0}
+    .contents .sub-title .btn-next .sp-comm{margin-left:0; background-position:-175px 0}
+    /* location */
+    .contents .location .breadcrumbs >span{padding:10px;width:110px; font-size:10px}
+    .contents .location .breadcrumbs .btn-home{padding:10px 9px 8px}
+    .contents .location .breadcrumbs .btn-home .sp-comm{width:12px;height:13px; background-position:-245px -95px}
+    /* company */
+    .company-wrap{margin:0 45px}
+    .company-wrap >div{margin-top:45px}
+    .company-wrap >div .img{width:100%; float:none}
+    .company-wrap >div .txt{margin:33px 0 0 0; font-size:13px; float:none}
+    .company-wrap >div .txt strong{margin-bottom:12px; font-size:18px;text-indent:-11px}
+    .company-wrap >div:nth-child(1){margin-top:55px}
+    .company-wrap >div:nth-child(2) .img{float:none}
+    /* apply-common */
+    .privacy-agree{padding-top:25px}
+    .privacy-agree .privacy{padding:15px;height:120px}
+    .privacy-agree .privacy h2{font-size:14px}
+    .privacy-agree .privacy h2 +div{margin-top:13px}
+    .privacy-agree .privacy >em{margin-top:18px; font-size:13px}
+    .privacy-agree .privacy >div{margin-top:8px; font-size:13px}
+    .privacy-agree .privacy >em#privacy01{margin-top:20px}
+    .privacy-agree .privacy >div li li,
+    .privacy-agree .privacy >div li p{padding-left:13px}
+    .privacy-agree .inp-check{margin-top:11px}
+    .privacy-agree .inp-check input +label{padding-left:20px;height:15px; font-size:12px;line-height:15px; background-size:15px}
+    .privacy-agree +.apply-form{padding-top:35px}
+    .apply-form{padding-top:40px}
+    .apply-form ul li{margin-top:13px;padding-left:100px}
+    .apply-form ul li >label{padding:13px 0;width:100px; font-size:12px}
+    .apply-form ul li >div{min-height:40px}
+    .apply-form ul li >div.inp-text{font-size:14px;line-height:40px;text-indent:15px}
+    .apply-form ul li >.inp-radio{padding:7px 0}
+    .apply-form ul li >.inp-radio .form-ele{padding:5px 0}
+    .apply-form ul li >.inp-check{padding:7px 0}
+    .apply-form ul li >.inp-check .form-ele{padding:5px 0}
+    .apply-form ul li.double label{padding:6px 0}
+    .apply-form ul li.textarea-box{margin-top:15px}
+    .apply-form ul li.textarea-box.detail{margin-top:7px;padding-top:35px;height:300px}
+    .apply-form ul li.textarea-box.detail >label{padding-bottom:8px}
+    .apply-form ul li >.certify{padding:0 0 30px 140px}
+    .apply-form ul li >.certify .img{width:130px;height:40px}
+    .apply-form ul li >.certify input{height:40px; font-size:14px;line-height:40px;text-indent:10px}
+    .apply-form ul li >.certify .txt{font-size:12px;line-height:30px}
+    .apply-form ul li.certify02 >label{padding:13px 0}
+    .apply-form ul li.certify02 >.certify >div{padding:50px 0 0 0; position:relative}
+    .apply-form ul li.certify02 >.certify >div .img{width:130px;height:40px}
+    .apply-form ul li.certify02 >.certify input{width:130px;height:40px}
+    .apply-form ul li.certify02 >.certify >div button{width:23px;height:23px; left:140px}
+    .apply-form ul li.certify02 >.certify >div .speaker{background-position:-250px -65px;top:3px}
+    .apply-form ul li.certify02 >.certify >div .replay{background-position:-270px -80px;top:8px}
+    .apply-form ul li.brief{padding-left:100px}
+    .apply-form ul li.brief >label{width:100px}
+    .apply-form ul li .inp-box +.inp-box{margin-top:13px}
+    /* apply-result */
+    .apply-result{margin:60px auto 0;padding:45px 0 50px}
+    .apply-result .sp-comm{width:60px;height:60px; background-position:-225px 0}
+    .apply-result em{margin-top:25px; font-size:16px}
+    .apply-result p{margin-top:5px; font-size:14px}
+    .apply-result +.btn-wrap{margin-top:45px}
+    /* counseling */
+    .counseling{padding-top:40px}
+    .counseling .srch{padding-right:35px}
+    .counseling .srch input{height:27px; font-size:13px;border-bottom:solid 2px #292929}
+    .counseling .srch .btn-srch .sp-comm{width:23px;height:22px; background-position:-225px -65px}
+    .counseling .srch +.btn-wrap{margin:18px 35px 0}
+    .counseling .srch +.btn-wrap .size-mid{width:75px;height:30px;line-height:30px}
+    .counseling table.list thead th:nth-child(2),
+    .counseling table.list tbody td:nth-child(2){width:70%}
+    .counseling table.list thead th:nth-child(4),
+    .counseling table.list tbody td:nth-child(4){width:30%}
+    .counseling table.list th:nth-child(1),
+    .counseling table.list td:nth-child(1),
+    .counseling table.list th:nth-child(3),
+    .counseling table.list td:nth-child(3),
+    .counseling table.list th:nth-child(5),
+    .counseling table.list td:nth-child(5){}
+    .counseling table.list .subject .sp-comm{margin:3px 0 0 5px;width:8px;height:10px; background-position:-250px -80px}
+    .counseling.view .btn-wrap{margin:20px 30px 0}
+    #layer-password .pop-layer .inp-box{margin-top:20px;}
+    #layer-password .pop-layer .btn-wrap{margin-top:15px;}
+    #layer-password .pop-layer .btn-wrap .btns{width:78px;}
+    /* story */
+    .story{padding-top:50px}
+    .story table.list tbody td.subject a{text-indent:15px}
+    .tax-story .story.view .brd-control{border-top:0}
+    /* accountant */
+    .accountant-list{padding-top:50px;width:190px}
+    .accountant-list .item{margin:30px 0 0 0 !important}
+    .accountant-list .item >img{width:190px;height:170px}
+    .accountant-list .item .info{margin:-40px 0 0 20px;padding:11px 15px 17px; width:170px}
+    .accountant-list .item .info >div{padding-right:10px}
+    .accountant-list .item .info >div strong{font-size:12px}
+    .accountant-list .item .info >div p{margin-top:2px; font-size:11px}
+    .accountant-list .item .info >div .sp-comm{width:6px;height:10px; background-position:-150px 0; top:6px}
+    .accountant-list .item .info >p{margin-top:12px; font-size:16px}
+    .accountant-list .item .info >p span{margin-left:3px; font-size:12px}
+    .accountant-detail{padding-top:50px}
+    .accountant-detail .info-wrap .img{margin-right:15px;width:150px;height:166px}
+    .accountant-detail .info-wrap .info .name p{font-size:14px}
+    .accountant-detail .info-wrap .info .name p +p{margin-top:8px}
+    .accountant-detail .info-wrap .info .name strong{margin-top:21px; font-size:18px}
+    .accountant-detail .info-wrap .info .history{margin-top:25px !important}
+    .accountant-detail .info-wrap .info .history h3{font-size:16px}
+    .accountant-detail .info-wrap .info .history ul{margin-top:10px}
+    .accountant-detail .info-wrap .info .history li{font-size:14px}
+    .accountant-detail .cont{margin-top:40px;padding:30px 0; font-size:14px; border-top:solid 1px #7a7a7a}
+    .accountant-detail .cont h3{font-size:18px}
+    .accountant-detail .cont p{margin-top:20px}
+    /* member */
+    .password li:first-child{margin-bottom:20px}
+    .password .txt{margin-top:22px;padding-left:12px;text-indent:-12px; font-size:12px}
+    /* leave */
+    .leave-box{margin:50px auto 0;padding:43px 0 35px}
+    .leave-box strong{font-size:14px; font-weight:500}
+    .leave-box p{margin-top:17px; font-size:12px}
+    /* join */
+    .join-box{margin:65px 5% 0}
+    .join-box button{height:200px}
+    .join-box button .sp-comm{width:75px;height:75px}
+    .join-box button strong{margin-top:17px; font-size:14px}
+    .join-box button p{margin-top:4px; font-size:12px}
+    .join-box button.normal .sp-comm{background-position:0 -125px}
+    .join-box button.affiliate .sp-comm{background-position:-75px -125px}
+    /* login */
+    .log-wrap{padding:50px 0}
+    .log-wrap .member-box{padding:25px 18px}
+    .log-wrap .member-box >div >div button{margin-top:10px;height:35px; font-size:13px}
+    .log-wrap .member-box >.login{padding:0 0 35px 0}
+    .log-wrap .member-box >.login .log-box >input{height:40px; font-size:14px;line-height:40px;text-indent:15px}
+    .log-wrap .member-box >.login .log-box >input +input{margin-top:10px}
+    .log-wrap .member-box >.login .log-link{margin-top:15px}
+    .log-wrap .member-box >.login .log-link .inp-check input + label{padding-left:20px;height:15px; font-size:14px;line-height:15px; background-size:15px}
+    .log-wrap .member-box >.login .log-link .find a{padding:0 15px; font-size:14px;line-height:15px}
+    .log-wrap .member-box >.join{padding:26px 0 0 0}
+    .log-wrap .member-box >.join .join-mem em{margin-top:0; font-size:18px}
+    .log-wrap .member-box >.join .join-mem p{margin:10px 0; font-size:14px}
+    /* my_consult */
+    /* consult_list */
+    .consult{padding-top:50px}
+    .consult .detail{padding-bottom:20px}
+    .consult .detail h3{padding:9px 0 11px; font-size:12px; border-top:solid 2px #292929}
+    .consult .detail h3 strong{margin-right:3px; font-size:15px}
+    .consult .detail ul{margin-top:19px}
+    .consult .detail ul +ul{margin-top:28px}
+    .consult .detail ul li >em{padding:9px 0; font-size:14px}
+    .consult .detail ul li >em p{font-size:11px}
+    .consult .detail ul li >p{padding:9px 0; font-size:14px}
+    .consult .detail ul li >p span strong{margin-right:15px}
+    .consult .detail ul li.explain >p{padding:9px 0}
+    .consult .detail +.detail{margin-top:35px}
+    .consult .detail +.txt{padding:10px 0 0 0; font-size:12px}
+    .my_consult .accountant >.bx-wrapper{margin:30px auto 0}
+    .my_consult .accountant .item >img{width:190px;height:170px}
+    .my_consult .accountant .item .info{margin:-40px 0 0 20px;padding:11px 15px 17px; width:170px}
+    .my_consult .accountant .item .info >div{padding-right:10px}
+    .my_consult .accountant .item .info >div strong{font-size:12px}
+    .my_consult .accountant .item .info >div p{margin-top:2px; font-size:11px}
+    .my_consult .accountant .item .info >div .sp-comm{width:6px;height:10px; background-position:-150px 0; top:6px}
+    .my_consult .accountant .item .info >div.txt{padding:18px 0 0; font-size:12px}
+    .my_consult .accountant .item .info >p{margin-top:12px; font-size:16px}
+    .my_consult .accountant .item .info >p span{margin-left:3px; font-size:12px}
+    .my_consult .accountant >.bx-wrapper .bx-controls .bx-controls-direction a{width:16px;height:29px; background-size:32px 29px; margin-top:-14px}
+    .my_consult .accountant >.bx-wrapper .bx-controls .bx-controls-direction a.bx-prev{left:-43px}
+    .my_consult .accountant >.bx-wrapper .bx-controls .bx-controls-direction a.bx-next{background-position:-16px 0; right:-43px}
+    /* etc */
+    .etc-wrap{padding-top:50px}
+    .etc-wrap h2{font-size:20px}
+    .etc-wrap >em{margin-top:25px; font-size:12px}
+    .etc-wrap >div{margin-top:4px; font-size:12px}
+    .etc-wrap.service >h3{margin-top:40px; font-size:14px}
+    .etc-wrap.privacy h2 +div{margin-top:35px}
+    .etc-wrap.privacy >div{margin-top:20px}
+    .etc-wrap.privacy >div li li{padding-left:13px}
+    .etc-wrap.privacy >div li p{padding-left:13px}
+    .etc-wrap.privacy >em#privacy01{margin-top:50px}
+
+
+
+
+    #layer-comment .pop-layer{
+        padding: 40px 35px 32px;
+        width: 240px;
+        height: auto;
+        background-color: #fff;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: 10;
+    }
+
+    #layer-comment .pop-layer .btn-wrap .btns{
+        width: 78px;
+        height: 35px;
+        font-size: 13px;
+        line-height: 35px;
+    }
+}

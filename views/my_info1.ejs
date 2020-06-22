@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="ko">
+  <% include include/head %>
+  <script src="https://www.google.com/recaptcha/api.js?render=6LcugM8UAAAAAP-nYOd3TzrfyjjRKn9qt7b0LI4D"></script>
+  <body>
+   
+<div id="wrap">
+    <!-- inc header -->
+    <% include include/header %>
+    <!-- //inc header -->
+    <!-- container -->
+    <section class="container member">
+        <section class="contents">
+            <div class="sub-title">
+                <div class="inner">
+                    <h1>회원정보(일반회원) 수정</h1>
+                </div>
+            </div>
+            <div class="location">
+                <div class="inner">
+                    <div class="breadcrumbs">
+                        <a href="/" class="btn-home"><span class="sp-comm">home</span></a>
+                        <span><a href="#">회원정보 수정</a></span>
+                    </div>
+                </div>
+            </div>
+            <div class="inner">
+
+                <form method="post" name="semuForm1" id="semuForm1">
+                    <input type="hidden" name="memberSeq" id="memberSeq" value="<%=userInfo.seq%>">
+                     <div class="apply-form">
+                    <ul>
+                        <li>
+                            <label for="">이메일 </label>
+                            <div class="inp-box file">
+                                <input type="text" id="memberId" name="memberId" readonly value="<%=userInfo.member_id%>">
+
+                            </div>
+                        </li>
+                       <li>
+                            <label for="">이름 </label>
+                            <div class="inp-box file">
+                                <input type="text" id="memberName" name="memberName" readonly value="<%=userInfo.member_name%>">
+                            </div>
+                        </li>
+                        <li>
+                            <label for="">휴대전화<span>*</span></label>
+                            <div class="inp-box">
+                                <input type="text" id="memberPhone" name="memberPhone" value="<%=userInfo.member_phone%>" placeholder="(예) 01012341234">
+                                <p class="txt right">‘-’ 없이 입력해 주세요.</p>
+                            </div>
+                        </li>
+
+                    </ul>
+                    <div class="btn-wrap">
+                        <a href="/" class="btns size-mid color-gray">취소하기</a>
+                        <a href="javascript:onMatchingSave();" class="btns size-mid color-green">수정하기</a>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </section>
+    </section>
+    <!-- //container -->
+    <!-- inc footer -->
+    <% include include/footer %>
+    <!-- //inc footer -->
+</div>
+<script>
+
+
+    $(document).ready(function () {
+
+
+        $("#memberPhone").focus();
+
+    });
+
+
+    function onMatchingSave(){
+
+
+
+        if ( $("#memberPhone").val().trim() == "" )
+        {
+            var message = "휴대전화를 입력해 주세요.";
+            $("#memberPhone").val("");
+            $("#memberPhone").focus();
+            alert(message);
+            return false;
+        }
+
+
+        var url = "/member/modify/A";
+
+
+        $("form[name='semuForm1']").attr("target","_self");
+        $("form[name='semuForm1']").attr("action", url);
+        $("form[name='semuForm1']").attr("method","post");
+        $("form[name='semuForm1']").ajaxSubmit({
+            success : function(data){
+                if(data.result == 'success'){
+                    alert('수정이 완료되었습니다!');
+
+
+                }else{
+                    alert('오류가 발생했습니다!');
+                }
+            }
+            ,error : function(e) {
+                alert('오류가 발생했습니다!');
+            }
+        });
+
+
+
+
+
+    }
+
+    function idCheck(){
+
+        if ( $("#memberId").val().trim() == "" )
+        {
+            var message = "이메일주소를 입력해 주세요.";
+            $("#memberId").val("");
+            $("#memberId").focus();
+            alert(message);
+            return false;
+        }
+
+        if (!validateEmail($("#memberId").val()))
+        {
+            var message = "올바른 이메일 주소를 입력해 주세요.";
+            //$("#memberId").val("");
+            $("#memberId").focus();
+            alert(message);
+            return false;
+        }
+
+        $.ajax({
+            type : "GET",
+            url  : "/member/idCheck",
+            data : {
+                member_id : $("#memberId").val()
+            },
+            dataType: "json",
+            async: false,
+            success : function(data) {
+                if(data.result == 'success'){
+
+
+                    alert('사용가능한 이메일입니다.');
+                    $("#idCheckV").val("Y");
+                    return false;
+
+                }else{
+                    alert('이미 사용중인 이메일입니다.');
+                    $("#idCheckV").val("N");
+                    return false;
+                }
+
+
+            },
+            error : function(xhr, status, error) {
+                alert('오류가 발생했습니다!');
+                $("#idCheckV").val("N");
+            }
+        });
+
+    }
+
+    function validateEmail(sEmail) {
+        var filter = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+        if (filter.test(sEmail)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+</script>
+  </body>
+</html>

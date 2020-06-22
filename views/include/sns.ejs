@@ -1,0 +1,89 @@
+<div class="utile">
+    <button class="sp_comm btn_print">프린트</button>
+    <button class="sp_comm btn_sns">공유</button>
+    <div class="sns_wrap">
+        <button data-toggle="sns_share"  data-service="facebook" data-title="페이스북 SNS공유" class="sp_comm sns_facebook">facebook</button>
+        <button data-toggle="sns_share"  data-service="instagram" data-title="인스타그램 SNS공유"class="sp_comm sns_instagram">instagram</button>
+        <button data-toggle="sns_share"  data-service="blog" data-title="블로그 SNS공유" class="sp_comm sns_blog">blog</button>
+        <button data-toggle="sns_share"  data-service="band" data-title="네이버밴드 SNS공유" class="sp_comm sns_band">band</button>
+        <button data-toggle="sns_share"  data-service="kakaostory" data-title="카카오스토리 SNS공유" class="sp_comm sns_kakao">kakao</button>
+        <button class="sp_comm sns_url">url</button>
+        <input type="text" value="http://ydi.cafe24app.com" id="urlAddress" style="display:none;">
+    </div>
+</div>
+<style>
+    .urlCopyBtn {
+        font-weight:normal;
+        color:gray;
+        text-decoration:none;
+        font-size:12px;
+    }
+
+    .urlCopyBtnIcon {
+        border:1px solid gray;
+        border-radius:3px;
+        padding:0px 2px 1px 2px;
+        color:white;
+        background-color:gray;
+    }
+    .urlCopyBtnIcon a {
+        color:white;
+    }
+
+
+</style>
+<script>
+
+    $(document).ready(function(){
+
+        $("[data-toggle='sns_share']").click(function(e){
+            e.preventDefault();
+
+            var _this = $(this);
+            var sns_type = _this.attr('data-service');
+            var href = "http://ydi.cafe24app.com";
+            var title = _this.attr('data-title');
+            var loc = "";
+            var img = $("meta[name='og:image']").attr('content');
+
+            if( ! sns_type || !href || !title) return;
+
+            if( sns_type == 'facebook' ) {
+                loc = '//www.facebook.com/sharer/sharer.php?u='+href+'&t='+title;
+            }
+            else if ( sns_type == 'blog' ) {
+                loc = 'http://blog.naver.com/openapi/share?url="' + encodeURIComponent(href) + '"&title="'+encodeURIComponent(title);
+            }
+            else if ( sns_type == 'instagram' ) {
+
+                loc = 'https://www.instagram.com/?url='+encodeURIComponent(href)+'&description='+encodeURIComponent(title);
+            }
+            else if ( sns_type == 'kakaostory') {
+                loc = 'https://story.kakao.com/share?url='+encodeURIComponent(href);
+            }
+            else if ( sns_type == 'band' ) {
+                loc = 'http://www.band.us/plugin/share?body='+encodeURIComponent(title)+'%0A'+encodeURIComponent(href);
+            }
+            else if ( sns_type == 'naver' ) {
+                loc = "http://share.naver.com/web/shareView.nhn?url="+encodeURIComponent(href)+"&title="+encodeURIComponent(title);
+            }
+            else {
+                return false;
+            }
+
+            window.open(loc);
+            return false;
+        });
+
+
+        $('.sns_url').click(function(){
+            var urlAddress= $('#urlAddress');
+            urlAddress.css('display','block').select();
+            document.execCommand("Copy");
+            urlAddress.css('display','none');
+            alert('URL 주소가 복사 되었습니다');
+            return false;
+        });
+
+    });
+</script>

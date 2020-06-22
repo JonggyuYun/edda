@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ko">
+  <% include include/head %>
+  <body>
+   
+<div id="wrap">
+    <!-- inc header -->
+    <% include include/header %>
+    <!-- //inc header -->
+    <!-- container -->
+    <section class="container apply">
+        <section class="contents">
+            <div class="sub-title">
+                <div class="inner">
+                    <h1><%=title%></h1>
+                    <!--<button class="btn-prev"><span class="sp-comm"></span>무료 세무상담</button>-->
+                    <!--<button class="btn-next"><span class="sp-comm"></span>신고대행</button>-->
+                </div>
+            </div>
+            <div class="location">
+                <div class="inner">
+                    <div class="breadcrumbs">
+                        <a href="/" class="btn-home"><span class="sp-comm">home</span></a>
+                        <span><a href="#">세무 상담 및 견적 신청</a></span>
+                        <span><a href="#"><%=title%></a></span>
+                    </div>
+                </div>
+            </div>
+            <div class="inner">
+                <div class="apply-result">
+                    <span class="sp-comm"></span>
+                    <em>신청이 완료되었습니다.</em>
+                    <p><%= memberName%> 고객님 감사합니다!<br/>
+                        고객님의 세무견적신청이 접수되었습니다.<br/><br/>
+
+                        - 견적요청<br/>
+                        - 견적진행<br/>
+                        - 세무사선택<br/>
+                        - 세무사 전화후 미팅<br/><br/>
+
+                        이후 진행상황은 문자로 실시간 자동전송됩니다.<br/>
+                        전송된 개별서비스 견적 중<br/>
+                        고객님이 선택하신 세무사가 전화를 드릴 예정입니다.<br/>
+                        미팅 후, 계약을 진행하시거나<br/>
+                        [세무잇다]의 다른 세무사에게<br/>
+                        세무견적신청을 재요청하실 수 있습니다.<br/>
+                        고객님의 견적내역은 [세무잇다]홈페이지<br/>
+                        우측 상단의 [내견적현황]에 있습니다<br/><br/>
+
+                        상담이 필요하시면 언제든지 전화주세요.<br/>
+                        1811-7085<br/>
+                        -세무잇다주식회사</p>
+                </div>
+                <div class="btn-wrap">
+                    <a href="/" class="btns size-mid color-green">메인으로</a>
+                </div>
+            </div>
+        </section>
+    </section>
+    <!-- //container -->
+    <!-- inc footer -->
+    <% include include/footer %>
+    <!-- //inc footer -->
+</div>
+
+  </body>
+</html>
+<script>
+
+
+    $(document).ready(function () {
+        var socket = io.connect('http://54.180.137.109:3000', {
+            reconnection: true,
+            reconnectionDelay: 1000,
+            reconnectionDelayMax: 5000,
+            reconnectionAttempts: Infinity,
+            transports: ["websocket"],
+            secure: false,
+            rejectUnauthorized: false,
+            forceNew: true,
+            timeout: 6000
+        });
+
+        socket.emit('broadcast', {data: 'A'}); // 추가
+    });
+
+</script>

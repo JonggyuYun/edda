@@ -1,0 +1,1014 @@
+<% layout('manager/layout') %>
+<section class="content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="view-header">
+
+                    <div class="header-icon">
+                        <i class="pe page-header-icon pe-7s-menu"></i>
+                    </div>
+                    <div class="header-title">
+                        <h3><%=title%></h3>
+                        <small>
+                            상담 및 견적 관리
+                        </small>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="panel panel-filled">
+
+                    <div class="panel-body">
+
+                        <div class="table-responsive">
+                            <table id="tableExample2"  class="table table-hover table-condensed" width="100%">
+                                <thead>
+                                <tr>
+                                    <th>번호</th>
+                                    <th>등록일</th>
+                                    <th>이름</th>
+                                    <th>연락처</th>
+                                    <th>지역</th>
+
+                                <%
+                                if(semuType == 'A'){
+                                %>
+                                    <th>사업유형</th>
+                                    <th>업종</th>
+                                    <th>직원수</th>
+                                    <th>희망기장료(부가세별도)</th>
+                                <%}else if(semuType == 'B'){%>
+                                    <th>신고대행</th>
+                                    <th>소득구분</th>
+                                <%}else if(semuType == 'C'){%>
+                                    <th>세무분야</th>
+                                <%}else if(semuType == 'D'){%>
+                                    <th>세무분야</th>
+                                    <th>부동산</th>
+                                    <th>금융</th>
+                                    <th>기타금액</th>
+                                <%}else if(semuType == 'E'){%>
+                                    <th>분류</th>
+                                    <th>업종</th>
+                                    <th>회사명</th>
+                                    <th>매출/자산/자본금 규모</th>
+                                <%}%>
+                                    <th>회원구분</th>
+                                    <th>상태</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <%
+                                    for(var i=0; i<rows.length; i++){
+                                        var oneItem = rows[i];
+                                %>
+                                <tr>
+                                    <td><%=i+1%></td>
+                                    <td><%=oneItem.cre_date%></td>
+                                    <td><a href="javascript:fn_onReadBoard('<%=oneItem.idx%>');"><%=oneItem.name%></a></td>
+                                    <td><%=oneItem.phone%></td>
+                                    <td><%=oneItem.area%></td>
+                                    <%
+                                    if(semuType == 'A'){
+                                    %>
+                                        <td><%=oneItem.type1%></td>
+                                        <td><%=oneItem.upjong%></td>
+                                        <td><%=oneItem.jikwonsu%></td>
+                                        <td><%=oneItem.kijangcharge%></td>
+                                    <%}else if(semuType == 'B'){%>
+                                        <td><%=oneItem.type1%></td>
+                                        <td><%=oneItem.sodukgubun%></td>
+                                    <%}else if(semuType == 'C'){%>
+                                        <td><%=oneItem.type1%></td>
+                                    <%}else if(semuType == 'D'){%>
+                                        <td><%
+                                               var type2 =  oneItem.type2;
+                                               if(type2 != null){
+                                               var type3 = type2.split(",");
+                                               var type_t = "";
+                                               for(var j = 0; j< type3.length;j++){
+                                                   console.log(type3[j]);
+                                                   if(type3[j]== 'A'){
+                                                       type_t = "양도세";
+                                                   }else  if(type3[j]== 'B'){
+                                                       type_t += ",상속세";
+                                                   }else {
+                                                       type_t += ",증여세";
+                                                   }
+                                               }
+
+                                            %><%=type_t%>
+                                            <%}%></td>
+                                        <td><%=oneItem.budongsan%></td>
+                                        <td><%=oneItem.gumyoung%></td>
+                                        <td><%=oneItem.etccharge%></td>
+                                    <%}else if(semuType == 'E'){%>
+                                        <td><%
+                                                var type2 =  oneItem.type2;
+                                                var type3 = type2.split(",");
+                                                var type_t = "";
+                                                for(var j = 0; j< type3.length;j++){
+                                                    console.log(type3[j]);
+                                                    if(type3[j]== 'A'){
+                                                        type_t = "회계감사";
+                                                    }else  if(type3[j]== 'B'){
+                                                        type_t += ",기타자문";
+                                                    }
+                                                }
+
+                                            %><%=type_t%></td>
+                                        <td><%=oneItem.upjong%></td>
+                                        <td><%=oneItem.companyname%></td>
+                                        <td><%=oneItem.companymoney%></td>
+                                    <%}%>
+                                    <td><%=oneItem.member_gubun%></td>
+                                    <td><%=oneItem.semu_status%></td>
+                                </tr>
+
+                                <%
+                                    }
+                                %>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <form method="post" name="writeForm" id="writeForm">
+        <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+            <div class=" modal-dialog modal-lg">
+                <div class="printContent modal-content">
+                    <div class="panel-body">
+                            <input type="hidden" name="mode" id="mode"/>
+                            <input type="hidden" name="idx" id="idx"/>
+                            <input type="hidden" name="memberIdx" id="memberIdx" value=""/>
+                            <input type="hidden" name="areaCode" id="areaCode" value=""/>
+
+                        <div class="form-group"><label for="name"><i class="fa fa-star-o" aria-hidden="true"></i>이름</label> <input type="text" class="form-control" name="name" id="name" placeholder="이름"></div>
+                        <div class="form-group"><label for="memo">기타사항</label><textarea class="form-control" rows="5" name="memo" id="memo" placeholder="관리자 메모"></textarea></div>
+                        <div class="form-group"><label for="semu_status"><i class="fa fa-star-o" aria-hidden="true"></i>상태변경</label>
+                            <select  class="form-control" name="semu_status" id="semu_status">
+                                <option value="A">접수</option>
+                                <option value="B">견적중</option>
+                                <option value="D">견적완료</option>
+                                <option value="E">재견적요청</option>
+                                <option value="F">선택완료</option>
+                                <option value="C">취소</option>
+                            </select>
+                        </div>
+                        <div id="semusa" style="margin-bottom: 15px"></div>
+
+                        <button type="button" onclick="onSemuMatching('<%=semuType%>');" class="btn btn-default">제휴사 견적요청</button>
+                        <button type="button" onclick="onSendMatching('A');" class="btn btn-default">보낸 견적리스트</button>
+                        <button type="button" onclick="onSendMatching('B');" class="btn btn-default">받은 견적리스트</button>
+                            <button type="button" onclick="onWriteSubmit();" class="btn btn-default">저장하기</button>
+                            <!--<button type="button" id="deleteBtn" onclick="fn_delete();" class="btn btn-default">삭제하기</button>-->
+                            <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </form>
+
+
+
+
+
+        <div class="modal" id="myModal3" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h4 class="m-t-none">세무사를 선택하세요.</h4>
+                        <div class="form-group"><input type="text" class="form-control" name="semuSearch" id="semuSearch" placeholder="이름을 입력하세요." onkeyup="getSemusaList()"></div>
+
+                        <table  class="table m-t-md">
+                            <thead>
+                            <tr>
+                                <th>이름</th>
+                                <th>연락처</th>
+                                <th>소속</th>
+                                <th>선택</th>
+                            </tr>
+                            </thead>
+                            <tbody id="semuList">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+                        <button type="button" class="btn btn-accent" onclick="javascript:selectSemusa();">견적요청하기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="myModal4" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h4 class="m-t-none">보낸 세무사</h4>
+
+                        <table  class="table m-t-md">
+                            <thead>
+                            <tr>
+                                <th>이름</th>
+                                <th>연락처</th>
+                                <th>소속</th>
+                                <th>상태</th>
+                                <th>선택</th>
+                            </tr>
+                            </thead>
+                            <tbody id="semuList1">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" onclick="deleteSemusa();" class="btn btn-default">삭제하기</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="myModal5" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h4 class="m-t-none">받은 견적리스트</h4>
+
+                        <table  class="table m-t-md">
+                            <thead>
+                            <tr>
+                                <th>이름</th>
+                                <th>연락처</th>
+                                <th>소속</th>
+                                <th>견적금액</th>
+                                <th>상세보기</th>
+                                <th>세무사선택</th>
+                                <th>고객발송상태</th>
+                            </tr>
+                            </thead>
+                            <tbody id="semuList2">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                        <button type="button" class="btn btn-accent" onclick="javascript:sendSemusa();">고객전달 준비완료</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <form method="post" name="semuForm1" id="semuForm1">
+            <div class="modal fade" id="myModal6" tabindex="-1"  role="dialog" aria-hidden="true" style="display: none;">
+                <div class=" modal-dialog modal-lg">
+                    <div class="printContent modal-content">
+                        <div class="panel-body">
+                            <input type="hidden" name="semuMode" id="semuMode"/>
+                            <input type="hidden" name="semuType" id="semuType" value="<%=semuType%>"/>
+                            <input type="hidden" name="semuIdx" id="semuIdx"/>
+                            <input type="hidden" name="semuMatchIdx" id="semuMatchIdx"/>
+                            <input type="hidden" name="semuText" id="semuText"/>
+                            <div class="form-group"><label for="semu_status"><i class="fa fa-star-o" aria-hidden="true"></i>제휴사선택</label>
+                                <select  class="form-control" name="semuSelect" id="semuSelect">
+                                    <option value="">제휴사 선택</option>
+                                    <%
+                                    for(var i = 0;i<semusaSelect.length;i++){
+                                        oneItem = semusaSelect[i];
+                                    %>
+                                    <option value="<%=oneItem.seq%>"><%=oneItem.member_name%>(<%=oneItem.affiliation%>)</option>
+                                    <%}%>
+                                </select>
+                            </div>
+                            <div class="form-group"><label for="estimate"><i class="fa fa-star-o" aria-hidden="true"></i>견적가(용역비,부가세별도)</label> <input type="text" class="form-control" name="estimate" id="estimate" placeholder="견적가"></div>
+                            <%if(semuType == 'C'){%>
+                                <div class="form-group"><label for="bulbok">불복내용</label> <input type="text" class="form-control" name="bulbok" id="bulbok" placeholder="불복내용"></div>
+                                <div class="form-group"><label for="goji">고지내용</label> <input type="text" class="form-control" name="goji" id="goji" placeholder="고지내용"></div>
+                                <div class="form-group"><label for="charge_before">착수금</label> <input type="text" class="form-control" name="charge_before" id="charge_before" placeholder="착수금"></div>
+                                <div class="form-group"><label for="charge_after">성공액</label> <input type="text" class="form-control" name="charge_after" id="charge_after" placeholder="성공액"></div>
+                            <%}else if(semuType == 'D'){%>
+                                <div class="form-group"><label for="pyunggajasan">평가대상 자산</label> <input type="text" class="form-control" name="pyunggajasan" id="pyunggajasan" placeholder="평가대상 자산"></div>
+                                <div class="form-group"><label for="pyunggadate">평가기준일</label> <input type="text" class="form-control" name="pyunggadate" id="pyunggadate" placeholder="평가기준일"></div>
+                                <div class="form-group"><label for="charge_before">착수금</label> <input type="text" class="form-control" name="charge_before" id="charge_before" placeholder="착수금"></div>
+                                <div class="form-group"><label for="charge_after">성공액</label> <input type="text" class="form-control" name="charge_after" id="charge_after" placeholder="성공액"></div>
+                                <div class="form-group"><label for="pyungga_submission_date">평가보고 제출일</label> <input type="text" class="form-control" name="pyungga_submission_date" id="pyungga_submission_date" placeholder="평가보고 제출일"></div>
+                            <%}else if(semuType == 'E'){%>
+                                <div class="form-group"><label for="gamsidaesang">감사대상</label> <input type="text" class="form-control" name="gamsidaesang" id="gamsidaesang" placeholder="감사대상"></div>
+                                <div class="form-group"><label for="gamsiowner">감사책임자</label> <input type="text" class="form-control" name="gamsiowner" id="gamsiowner" placeholder="감사책임자"></div>
+                                <div class="form-group"><label for="charge_before">계약금</label> <input type="text" class="form-control" name="charge_before" id="charge_before" placeholder="계약금"></div>
+                                <div class="form-group"><label for="charge_center">중도금</label> <input type="text" class="form-control" name="charge_center" id="charge_center" placeholder="중도금"></div>
+                                <div class="form-group"><label for="charge_after">잔여금</label> <input type="text" class="form-control" name="charge_after" id="charge_after" placeholder="잔여금"></div>
+                                <div class="form-group"><label for="jigubdate">용역비 지급시기</label> <input type="text" class="form-control" name="jigubdate" id="jigubdate" placeholder="용역비 지급시기"></div>
+                            <%}%>
+                            <div class="form-group"><label for="contents">맞춤소개</label><textarea class="form-control" rows="5" name="contents" id="contents" placeholder="맞춤소개"></textarea></div>
+
+
+                            <button type="button" onclick="onMatchingSave();" class="btn btn-default">저장하기</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+
+
+
+    </div>
+</section>
+
+<script>
+
+    $(document).ready(function () {
+
+        toastr.options = {
+            "debug": false,
+            "newestOnTop": false,
+            "positionClass": "toast-bottom-right",
+            "closeButton": true,
+            "timeOut": "1000"
+
+        };
+
+        $('#tableExample2').DataTable({
+            "dom": "<'row'<'col-sm-6'l><'col-sm-6'f>>t<'row'<'col-sm-6'i><'col-sm-6'p>>",
+            "lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "All"] ],
+            "iDisplayLength": 10,
+            "order": [[1, 'desc']]
+
+        });
+
+
+        getSemusaSelectList();
+
+    });
+
+
+    // $.fn.modal.Constructor.prototype.enforceFocus = function() {
+    // $( document )
+    //     .off( 'focusin.bs.modal' ) // guard against infinite focus loop
+    //     .on( 'focusin.bs.modal', $.proxy( function( e ) {
+    //         if (this.$element[ 0 ] !== e.target && !this.$element.has( e.target ).length
+    //             // CKEditor compatibility fix start.
+    //             && !$( e.target ).closest( '.cke_dialog, .cke' ).length)
+    //             // CKEditor compatibility fix end.
+    //         {
+    //             this.$element.trigger( 'focus' );
+    //         }
+    //     }, this ) );
+    // };
+
+
+    var reload = function(){
+        location.reload();
+    }
+
+
+
+
+
+    function onMatchingSave(){
+
+
+
+
+            if ( $("#semuSelect").val().trim() == "" )
+            {
+                var message = "제휴사를 선택해 주세요";
+                $("#semuSelect").val("");
+                $("#semuSelect").focus();
+                toastr.error(message);
+                return false;
+            }
+
+            if ( $("#estimate").val().trim() == "" )
+            {
+                var message = "견적가를 입력해 주세요.";
+                $("#estimate").val("");
+                $("#estimate").focus();
+                toastr.error(message);
+                return false;
+            }
+
+
+                var semu_text = $("#semuSelect option:checked").text();
+                    $("#semu_text").val(semu_text);
+
+
+
+
+                var url = "/manager/semu/matchingSave";
+
+                if($("#semuMode").val() == 'modify'){
+                    var url = "/manager/semu/matchingModify";
+                }
+
+
+            $("form[name='semuForm1']").attr("target","_self");
+            $("form[name='semuForm1']").attr("action", url);
+            $("form[name='semuForm1']").attr("method","post");
+            $("form[name='semuForm1']").ajaxSubmit({
+                success : function(data){
+                    if(data.result == 'success'){
+                        toastr.success('저장되었습니다!');
+
+                        console.log("fff:"+data.idx);
+
+                        $('#myModal1').modal('toggle');
+
+                        if($("#semuMode").val() != 'modify') {
+                            var html = '<div class="form-group semusaF" id="childSemuDiv_' + ($(".semusaF").length + 1) + '"><button class="btn btn-default" type="button" onclick="fn_viewSemusa(' + data.idx + ');"><i class="fa fa-bell"></i>' + data.semu_text + '</button>&nbsp;&nbsp;<button class="btn btn-default btn-sm" type="button" onclick="fn_delete(' + ($(".semusaF").length + 1) + ',' + data.idx + ');"><i class="fa fa-trash-o"></i>삭제</button></div>';
+
+                            $("#semusa").append(html);
+                        }
+
+                    }else{
+                        toastr.error('오류가 발생했습니다!');
+                    }
+                }
+                ,error : function(e) {
+                    toastr.error('오류가 발생했습니다!');
+                }
+            });
+
+
+
+
+
+
+
+    }
+
+
+function onMatching(semuType){
+
+        console.log($(".semusaF").length);
+        if($(".semusaF").length> 2){
+
+            toastr.error('최대 3명까지 선택가능합니다.');
+            return false;
+        }
+
+
+
+        $('#myModal4').modal('show');
+
+
+        console.log("idx:"+$("#idx").val());
+
+
+    }
+
+
+    function onSemuMatching(semuType){
+
+        console.log("onSemuMatching");
+
+        getSemusaList();
+
+        $('#myModal3').modal('show');
+
+
+        console.log("idx:"+$("#idx").val());
+
+
+    }
+
+    function onSendMatching(type){
+
+        console.log("onSendMatching");
+        console.log("idx:"+$("#idx").val());
+
+        $.ajax({
+            type : "POST",
+            url  : "/manager/semu/getSendMatchSemusaList",
+            data : {
+                idx        : $("#idx").val(),
+                type        : type
+            },
+            dataType: "json",
+            async: false,
+            success : function(data) {
+
+
+                var html = "";
+                $("#semuList1").html(html);
+                $("#semuList2").html(html);
+                for(var i = 0; i<data.dbdata.length;i++){
+                    html += '<tr>';
+                    html += '<td>'+data.dbdata[i].member_name+'</td>';
+                    html += '<td>'+data.dbdata[i].member_phone+'</td>';
+                    html += '<td>'+data.dbdata[i].affiliation+'</td>';
+                    if(type == 'A') {
+                        html += '<td>' + data.dbdata[i].semusa_status + '</td>';
+                        html += '<td><input type="checkbox" name="semuIdxD" id="semuIdxD'+i+'" value="'+data.dbdata[i].idx+'"></td>';
+
+                    }else{
+                        html += '<td>'+data.dbdata[i].estimate+'</td>';
+                        html += '<td><button class="btn btn-default" type="button" onclick="fn_viewSemusa('+data.dbdata[i].idx+');"><i class="fa fa-bell"></i>상세보기</button></td>';
+                        html += '<td><input type="checkbox" name="semusaSeq" id="semusaSeq'+i+'" value="'+data.dbdata[i].idx+'"></td>';
+                        html += '<td>'+data.dbdata[i].match_status+'</td>';
+                    }
+
+                    html += '</tr>';
+                    }
+
+                if(type == 'A'){
+                $("#semuList1").html(html);
+                    $('#myModal4').modal('show');
+                }else{
+                $("#semuList2").html(html);
+                    $('#myModal5').modal('show');
+                }
+            },
+            error : function(xhr, status, error) {
+                toastr.error('오류가 발생했습니다!');
+            }
+        });
+
+
+
+
+
+
+
+
+    }
+
+
+
+
+    function onWriteSubmit()
+    {
+
+
+           var url = "/manager/semu/statusUpdate";
+
+        $("form[name='writeForm']").attr("target","_self");
+        $("form[name='writeForm']").attr("action", url);
+        $("form[name='writeForm']").attr("method","post");
+        $("form[name='writeForm']").ajaxSubmit({
+            success : function(data){
+                if(data == 'success'){
+                    toastr.success('저장되었습니다!');
+
+                    $('#myModal2').modal('toggle');
+                    setTimeout(reload, 1000);
+                }else{
+                    toastr.error('오류가 발생했습니다!');
+				}
+            }
+            ,error : function(e) {
+				toastr.error('오류가 발생했습니다!');
+            }
+        });
+    }
+
+    function fn_delete(idx, semuIdx){
+
+        console.log("semuIdx:"+semuIdx);
+
+         $.ajax({
+             type : "POST",
+             url  : "/manager/semu/deleteSemu",
+             data : {
+				      idx        : semuIdx
+             },
+             dataType: "json",
+             async: false,
+             success : function(data) {
+                if(data == 'success'){
+                    toastr.success('삭제되었습니다!');
+
+
+                    $("#childSemuDiv_"+idx).remove();
+
+                }else{
+                    toastr.error('오류가 발생했습니다!');
+                }
+             },
+             error : function(xhr, status, error) {
+                 toastr.error('오류가 발생했습니다!');
+             }
+         });
+    }
+
+
+    function fn_onReadBoard(idx){
+
+        $("#deleteBtn").show();
+
+        $.ajax({
+            type : "POST",
+            url  : "/manager/semu/read",
+            data : {
+				    idx        : idx
+            },
+            dataType: "json",
+            async: false,
+            success : function(data) {
+
+                $("#mode").val("modify");
+                $("#idx").val(data.dbdata.idx);
+                $("#memberIdx").val(data.dbdata.member_idx);
+                $("#areaCode").val(data.dbdata.areaCode);
+
+                $("#name").val(data.dbdata.name);
+                $("#memo").val(data.dbdata.etc);
+                $("#semu_status").val(data.dbdata.semu_status);
+
+
+                //getSemusa(idx);
+
+
+                $('#myModal2').modal('show');
+
+            },
+            error : function(xhr, status, error) {
+                 toastr.error('오류가 발생했습니다!');
+            }
+        });
+    }
+
+    function fn_viewSemusa(idx){
+
+        console.log("fn_viewSemusa:"+idx);
+
+        $.ajax({
+            type : "POST",
+            url  : "/manager/semu/viewSemusa",
+            data : {
+                idx        : idx
+            },
+            dataType: "json",
+            async: false,
+            success : function(data) {
+
+                $("#semuMode").val("modify");
+                $("#semuMatchIdx").val(data.dbdata.idx);
+                $("#semuIdx").val(data.dbdata.semu_idx);
+                $("#semuSelect").val(data.dbdata.semusa_idx);
+                $("#estimate").val(data.dbdata.estimate);
+                $("#bulbok").val(data.dbdata.bulbok);
+                $("#goji").val(data.dbdata.goji);
+                $("#charge_before").val(data.dbdata.charge_before);
+                $("#charge_center").val(data.dbdata.charge_center);
+                $("#charge_after").val(data.dbdata.charge_after);
+                $("#contents").val(data.dbdata.contents);
+                $("#pyunggajasan").val(data.dbdata.pyunggajasan);
+                $("#pyunggadate").val(data.dbdata.pyunggadate);
+                $("#pyungga_submission_date").val(data.dbdata.pyungga_submission_date);
+                $("#gamsidaesang").val(data.dbdata.gamsidaesang);
+                $("#gamsiowner").val(data.dbdata.gamsiowner);
+                $("#jigubdate").val(data.dbdata.jigubdate);
+
+                $('#myModal6').modal('show');
+
+            },
+            error : function(xhr, status, error) {
+                toastr.error('오류가 발생했습니다!');
+            }
+        });
+
+
+
+    }
+
+
+function getSemusa(idx){
+
+    $.ajax({
+        type : "POST",
+        url  : "/manager/semu/readMatching",
+        data : {
+            idx        : idx
+        },
+        dataType: "json",
+        async: false,
+        success : function(data) {
+
+
+            var html = "";
+            $("#semusa").html(html);
+            for(var i = 0; i<data.dbdata.length;i++){
+                html += '<div class="form-group semusaF" id="childSemuDiv_'+i+'"><button class="btn btn-default" type="button" onclick="fn_viewSemusa('+data.dbdata[i].idx+');"><i class="fa fa-bell"></i>'+data.dbdata[i].semusa_name+'</button>&nbsp;&nbsp;<button class="btn btn-default btn-sm" type="button" onclick="fn_delete('+i+','+data.dbdata[i].idx+');"><i class="fa fa-trash-o"></i>삭제</button></div>';
+            }
+
+            $("#semusa").html(html);
+
+        },
+        error : function(xhr, status, error) {
+            toastr.error('오류가 발생했습니다!');
+        }
+    });
+
+}
+
+
+
+    function getSemusaList(){
+        console.log("getSemusaList");
+
+        $.ajax({
+            type : "POST",
+            url  : "/manager/semu/getSemuList",
+            data : {
+                semuSearch        : $("#semuSearch").val(),
+                areaCode          : $("#areaCode").val()
+            },
+            dataType: "json",
+            async: false,
+            success : function(data) {
+
+
+                var html = "";
+                $("#semuList").html(html);
+                for(var i = 0; i<data.dbdata.length;i++){
+                    html += '<tr>';
+                    html += '<td>'+data.dbdata[i].member_name+'</td>';
+                    html += '<td>'+data.dbdata[i].member_phone+'</td>';
+                    html += '<td>'+data.dbdata[i].affiliation+'</td>';
+                    html += '<td><input type="checkbox" name="memberSeq" id="memberSeq'+i+'" value="'+data.dbdata[i].seq+'"></td>';
+                    html += '</tr>';
+
+                }
+
+                $("#semuList").html(html);
+
+            },
+            error : function(xhr, status, error) {
+                toastr.error('오류가 발생했습니다!');
+            }
+        });
+
+
+
+    }
+
+    function selectSemusa(){
+
+        var idxs = new Array;
+        console.log($('input:checkbox[id="memberSeq"]').val());
+        $('input:checkbox[name="memberSeq"]').each(function() {
+
+
+            if(this.checked){//checked 처리된 항목의 값
+
+                //alert(this.value);
+            idxs.push(this.value);
+            }
+
+        });
+
+       if($('input:checkbox[name="memberSeq"]').is(":checked")==false){
+           toastr.error('견적 보낼 세무사를 선택해주세요!');
+           return false;
+       }
+
+
+        console.log("idxs:"+idxs);
+
+        $.ajax({
+            type : "POST",
+            url  : "/manager/semu/selectSemusa",
+            data : {
+                semuIdx : $("#idx").val(),
+                memberIdx : $("#memberIdx").val(),
+                idxs        : idxs+""
+            },
+            dataType: "json",
+            async: false,
+            success : function(data) {
+
+
+               toastr.success('세무사 선택이 완료되었습니다.');
+
+                $('#myModal3').modal('toggle');
+            },
+            error : function(xhr, status, error) {
+                toastr.error('오류가 발생했습니다!');
+            }
+        });
+
+    }
+
+    function sendSemusa(){
+
+        var idxs = new Array;
+        console.log($('input:checkbox[id="semusaSeq"]').val());
+        $('input:checkbox[name="semusaSeq"]').each(function() {
+
+
+            if(this.checked){//checked 처리된 항목의 값
+
+                //alert(this.value);
+                idxs.push(this.value);
+            }
+
+        });
+
+        if($('input:checkbox[name="semusaSeq"]').is(":checked")==false){
+            toastr.error('고객에게 보낼 세무사를 선택해주세요!');
+            return false;
+        }
+
+
+        console.log("idxs:"+idxs);
+
+        $.ajax({
+            type : "POST",
+            url  : "/manager/semu/sendSemusa",
+            data : {
+                idxs        : idxs+""
+            },
+            dataType: "json",
+            async: false,
+            success : function(data) {
+
+
+                toastr.success('세무사 선택이 완료되었습니다.');
+                $('#myModal5').modal('toggle');
+            },
+            error : function(xhr, status, error) {
+                toastr.error('오류가 발생했습니다!');
+            }
+        });
+
+    }
+
+    function getSemusaSelectList(){
+        console.log("getSemusaSelectList");
+
+        $.ajax({
+            type : "POST",
+            url  : "/manager/semu/getSemuList",
+            data : {
+                idx        : $("#semuSearch").val()
+            },
+            dataType: "json",
+            async: false,
+            success : function(data) {
+
+
+                var html = "";
+                $("#semuList2").html(html);
+                for(var i = 0; i<data.dbdata.length;i++){
+                    html += '<tr>';
+                    html += '<td>'+data.dbdata[i].member_name+'</td>';
+                    html += '<td>'+data.dbdata[i].member_phone+'</td>';
+                    html += '<td>'+data.dbdata[i].affiliation+'</td>';
+                    html += '<td><button type="button" class="btn btn-default" data-dismiss="modal">상세보기</button></td>';
+                    html += '</tr>';
+
+                }
+
+                $("#semuList2").html(html);
+
+            },
+            error : function(xhr, status, error) {
+                toastr.error('오류가 발생했습니다!');
+            }
+        });
+
+
+
+    }
+
+
+    // function getSemusaList(){
+    //     console.log("getSemusaList");
+    //
+    //     $.ajax({
+    //         type : "POST",
+    //         url  : "/manager/semu/getSemuList",
+    //         data : {
+    //             semuSearch        : $("#semuSearch").val(),
+    //             areaCode          : $("#areaCode").val()
+    //         },
+    //         dataType: "json",
+    //         async: false,
+    //         success : function(data) {
+    //
+    //
+    //             var html = "";
+    //             $("#semuList").html(html);
+    //             for(var i = 0; i<data.dbdata.length;i++){
+    //                 html += '<tr>';
+    //                 html += '<td>'+data.dbdata[i].member_name+'</td>';
+    //                 html += '<td>'+data.dbdata[i].member_phone+'</td>';
+    //                 html += '<td>'+data.dbdata[i].affiliation+'</td>';
+    //                 html += '<td><input type="checkbox" name="memberSeq" id="memberSeq'+i+'" value="'+data.dbdata[i].seq+'"></td>';
+    //                 html += '</tr>';
+    //
+    //             }
+    //
+    //             $("#semuList").html(html);
+    //
+    //         },
+    //         error : function(xhr, status, error) {
+    //             toastr.error('오류가 발생했습니다!');
+    //         }
+    //     });
+    //
+    //
+    //
+    // }
+
+    function onPrint(){
+
+        var printContents = document.getElementsByClassName('printContent')[0].outerHTML;
+        console.log(printContents);
+        var win = window.open();
+        win.document.write('<!doctype html><html lang="ko"><head>');
+        win.document.write('<meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="format-detection" content="telephone=no"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />');
+
+        win.document.write('<link rel="stylesheet" href="/manager/vendor/fontawesome/css/font-awesome.css"/>');
+        win.document.write('<link rel="stylesheet" href="/manager/vendor/animate.css/animate.css"/>');
+        win.document.write('<link rel="stylesheet" href="/manager/vendor/bootstrap/css/bootstrap.css"/>');
+        win.document.write('<link rel="stylesheet" href="/manager/vendor/toastr/toastr.min.css"/>');
+        win.document.write('<link rel="stylesheet" href="/manager/vendor/bootstrap/css/bootstrap-datetimepicker.min.css"/>');
+        win.document.write('<link rel="stylesheet" href="/manager/styles/pe-icons/pe-icon-7-stroke.css"/>');
+        win.document.write('<link rel="stylesheet" href="/manager/styles/pe-icons/helper.css"/>');
+        win.document.write('<link rel="stylesheet" href="/manager/styles/stroke-icons/style.css"/>');
+        win.document.write('<link rel="stylesheet" href="/manager/styles/style.css">');
+        win.document.write('<link rel="stylesheet" href="/manager/vendor/datatables/datatables.min.css"/>');
+        // win.document.write('<script src="/manager/vendor/pacejs/pace.min.js"/>');
+        // win.document.write('<script src="/manager/vendor/jquery/dist/jquery.min.js"/>');
+        // win.document.write('<script src="/manager/vendor/jquery/dist/jquery.form.js"/>');
+        // win.document.write('<script src="/manager/vendor/bootstrap/js/bootstrap.min.js"/>');
+        // win.document.write('<script src="/manager/vendor/toastr/toastr.min.js"/>');
+        // win.document.write('<script src="/manager/vendor/datatables/datatables.min.js"/>');
+        // win.document.write('<script src="/manager/ckeditor/ckeditor.js"/>');
+        //             <!-- App scripts -->
+        // win.document.write('<script src="/manager/scripts/luna.js"/>');
+        // win.document.write('<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">');
+        // win.document.write('<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"/>');
+            win.document.write('<title>여의도연구원</title></head><body>');
+            win.document.write('<div id="wrap">');
+            win.document.write(printContents);
+            win.document.write('</div>');
+            win.document.write('</body></html>');
+            win.document.close();// 반드시 해줘야 정상 작동
+            setTimeout(function(){win.print();}, 100);
+
+
+    }
+
+    function deleteSemusa(){
+
+        var idxs = new Array;
+        console.log($('input:checkbox[id="semuIdxD"]').val());
+        $('input:checkbox[name="semuIdxD"]').each(function() {
+
+
+            if(this.checked){//checked 처리된 항목의 값
+
+                //alert(this.value);
+                idxs.push(this.value);
+            }
+
+        });
+
+        if($('input:checkbox[name="semuIdxD"]').is(":checked")==false){
+            toastr.error('삭제할 견적요청 세무사를 선택해주세요!');
+            return false;
+        }
+
+
+        console.log("idxs:"+idxs);
+
+        $.ajax({
+            type : "POST",
+            url  : "/manager/semu/deleteSemusa",
+            data : {
+                idxs        : idxs+""
+            },
+            dataType: "json",
+            async: false,
+            success : function(data) {
+
+
+                toastr.success('삭제 완료되었습니다.');
+                     $('#myModal4').modal('toggle');
+
+
+            },
+            error : function(xhr, status, error) {
+                toastr.error('오류가 발생했습니다!');
+            }
+        });
+
+    }
+</script>

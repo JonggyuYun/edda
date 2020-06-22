@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ko">
+  <% include include/head %>
+  <body>
+   
+<div id="wrap">
+    <!-- inc header -->
+    <% include include/header %>
+    <!-- //inc header -->
+    <!-- container -->
+    <section class="container accountant">
+        <section class="contents">
+            <div class="sub-title">
+                <div class="inner">
+                    <h1>회계사와 세무사</h1>
+                </div>
+            </div>
+            <div class="location">
+                <div class="inner">
+                    <div class="breadcrumbs">
+                        <a href="/" class="btn-home"><span class="sp-comm">home</span></a>
+                        <span><a href="#">회계사와 세무사</a></span>
+                    </div>
+                </div>
+            </div>
+            <div class="inner">
+                <div class="accountant-detail">
+                    <div class="info-wrap">
+                        <div class="img"><img src="<%=row.image_path%>" alt=""></div>
+                        <div class="info">
+                            <div class="name">
+                                <p><%=row.affiliation%></p>
+                                <p><%=row.address1%> <%=row.address2%></p>
+                                <strong><%=row.member_name%><br>(<%if(row.license_type == 'A,B'){%>공인회계사,세무사<%}else if(row.license_type == 'A'){%>공인회계사<%}else{%>세무사<%}%>) </strong>
+                            </div>
+                            <div class="history">
+                                <h3>주요 학력 및 경력</h3>
+                                <ul>
+                                    <li><%-row.carrer%></li>
+
+                                </ul>
+                            </div>
+                            <!--<div class="history">-->
+                                <!--<h3>주요 거래처</h3>-->
+                                <!--<ul>-->
+                                    <!--<li>- 주요거래처에 대해 씁니다.</li>-->
+                                    <!--<li>- 주요거래처에 대해 씁니다.</li>-->
+                                    <!--<li>- 주요거래처에 대해 씁니다.</li>-->
+                                    <!--<li>- 주요거래처에 대해 씁니다.</li>-->
+                                <!--</ul>-->
+                            <!--</div>-->
+                        </div>
+                    </div>
+                    <div class="cont">
+                        <h3>세무사  소개</h3>
+                        <p><%-row.content%></p>
+                    </div>
+                    <div class="btn-wrap">
+                        <a href="/" class="btns size-mid color-green">돌아가기</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+    <!-- //container -->
+    <!-- inc footer -->
+    <% include include/footer %>
+    <!-- //inc footer -->
+</div>
+
+  </body>
+</html>

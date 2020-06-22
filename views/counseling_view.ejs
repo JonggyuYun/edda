@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="ko">
+  <% include include/head %>
+  <body>
+   
+<div id="wrap">
+    <!-- inc header -->
+    <% include include/header %>
+    <!-- //inc header -->
+    <!-- container -->
+    <!-- 191118 -->
+    <section class="container counsel">
+    <!-- //191118 -->
+        <section class="contents">
+            <div class="sub-title">
+                <div class="inner">
+                    <h1><%=title%></h1>
+                </div>
+            </div>
+            <div class="location">
+                <div class="inner">
+                    <div class="breadcrumbs">
+                        <a href="/" class="btn-home"><span class="sp-comm">home</span></a>
+                        <span><a href="#"><%=title%></a></span>
+                    </div>
+                </div>
+            </div>
+            <div class="inner counseling table view">
+                <div class="title">
+                    <em><%=boardData.title%></em>
+                    <ul>
+                        <li><em>글쓴이</em><%=boardData.cre_name%></li>
+                        <li><em>등록일</em><%=boardData.cre_dtime%></li>
+                        <li class="hit"><em>조회수</em><%=boardData.hit%></li>
+                    </ul>
+                </div>
+                <div class="brd-cont">
+                    <%-boardData.content%>
+                </div>
+
+                <!-- 관리자 답변 -->
+
+                <div class="comment"  id="comment">
+
+                </div>
+
+
+                <!-- //관리자 답변 -->
+                <div class="btn-wrap right">
+                    <a href="/board/list/<%=boardMasterName%>/1" class="btns size-mid color-green btn-list">목록보기</a>
+                    <%if(authType == 'B' && boardData.comment_count == 0){%>
+                    <a href="#" class="btns size-mid color-gray btn-comment">답변쓰기</a><!-- 191226 -->
+                    <%}%>
+                    <%if(member_idx == boardData.member_idx){%>
+                    <a href="#" class="btns size-mid color-gray btn_modify">수정</a>
+                    <a href="#" class="btns size-mid color-gray btn_delete">삭제</a>
+                    <%}%>
+                </div>
+
+                <div class="brd-control">
+                    <ul>
+
+                        <%if(getAfterBoard){%>
+                        <li><em>윗&nbsp;&nbsp;&nbsp;&nbsp;글<span class="sp_comm"></span></em><a href="/board/detail/<%=boardMasterName%>/<%=getAfterBoard.idx%>"><%=getAfterBoard.title%></a></li>
+                        <%}%>
+                        <%if(getBeforeBoard){%>
+                        <li><em>아랫글<span class="sp_comm"></span></em><a href="/board/detail/<%=boardMasterName%>/<%=getBeforeBoard.idx%>"><%=getBeforeBoard.title%></a></li>
+                        <%}%>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </section>
+    <!--<section class="wrap_layer_popup" id="layer_password">-->
+        <!--<div class="dimmed"></div>-->
+        <!--<div class="pop_layer">-->
+            <!--<div class="contents">-->
+                <!--<p>비밀번호를 입력해주세요.</p>-->
+                <!--<div class="inp">-->
+
+                    <!--<label for="pw" class="ir_blind">비밀번호</label>-->
+                    <!--<input type="password" id="cre_pw" name="cre_pw" placeholder="">-->
+                <!--</div>-->
+                <!--<div class="btn_wrap">-->
+                    <!--<button onclick="javascript:fn_cancel();" class="btns size_mid2 color_gray">취소</button>-->
+                    <!--<button onclick="javascript:fn_commit();" class="btns size_mid2 color_red">확인</button>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<p class="btn_close"><button class="sp_comm">Close</button></p>-->
+        <!--</div>-->
+    <!--</section>-->
+    <!-- 191226 -->
+    <section class="wrap-layer-popup" id="layer-comment">
+        <div class="dimmed"></div>
+        <div class="pop-layer">
+            <div class="contents">
+                <p>답변을 입력해주세요.</p>
+                <div class="textarea-box">
+                    <textarea id="commentReply" name="commentReply" cols="10" rows="5" placeholder="답변 입력"></textarea>
+                </div>
+                <div class="btn-wrap">
+                    <button class="btns size-mid color-gray btn_close">취소</button>
+                    <button onclick="javascript:fn_onWriteComment();return false;" class="btns size-mid color-green">확인</button>
+                </div>
+            </div>
+            <p class="btn-close"><button class="sp-comm">Close</button></p>
+        </div>
+    </section>
+    <!-- //191226 -->
+    <form id="checkForm" name="checkForm" method="post">
+        <input type="hidden" id="boardIdxT" name="boardIdxT" value="<%=boardData.idx%>">
+        <input type="hidden" id="cre_pwd" name="cre_pwd" value="">
+        <input type="hidden" id="mode" name="mode" value="">
+    </form>
+    <!-- //container -->
+    <!-- inc footer -->
+    <% include include/footer %>
+    <!-- //inc footer -->
+</div>
+<script>
+
+    $(document).ready(function () {
+
+        getCommentList();
+
+    });
+
+    $(function(){
+        //수정하기
+        $('.btn_modify').on('click',function(e){
+            console.log("click");
+            e.preventDefault();
+            location.href="/board/modify/<%=boardData.idx%>";
+
+        });
+        //답변달기 191226
+        $('.btn-comment').on('click',function(e){
+            e.preventDefault();
+            edda.layerOpen($(this), 'layer-comment');
+        });
+
+        $('.btn_modify_comment').on('click',function(e){
+            e.preventDefault();
+            edda.layerOpen($(this), 'layer-comment');
+            $("#mode").val("modify");
+            fn_get_comment();
+        });
+
+        $('.btn_delete').on('click',function(e){
+            e.preventDefault();
+            $("#mode").val("delete");
+            fn_delete();
+        });
+        $('.btn_close').on('click',function(e){
+            e.preventDefault();
+            $("#layer-comment").hide();
+            $("#mode").val("");
+        });
+    });
+
+
+    function fn_modify(){
+
+        edda.layerOpen($(this), 'layer-comment');
+        $("#mode").val("modify");
+        fn_get_comment();
+
+    }
+
+
+    function getCommentList(){
+
+
+        $.ajax({
+            type: "GET",
+            url: "/comment/getCommentList",
+            data: {
+                boardIdx: $("#boardIdxT").val()
+            },
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                if (data.result == 'success') {
+
+                    //console.log("data.rows.length:"+data.comment.comment);
+
+                    var html = "";
+
+                    $("#comment").html(html);
+                   if(data.comment != null && data.comment != undefined){
+
+                        html += "<strong>"+data.comment.user_name+"님의 답변 :</strong>";
+                        html += "<p>"+data.comment.comment+"</p>";
+
+                        if('<%=member_idx%>' == data.comment.cre_id){
+                        html += "<a href='javascript:fn_comment_delete();' class='btns size-small color-gray btn_delete_comment'>삭제</a>";
+                        html += "<a href='javascript:fn_modify();' class='btns size-small color-gray btn_modify_comment'>수정</a>";
+                       }
+
+                   }
+
+                    $("#comment").append(html);
+
+
+                } else {
+
+
+                }
+
+
+            },
+            error: function (xhr, status, error) {
+                alert('오류가 발생했습니다!');
+            }
+        });
+
+
+    }
+
+    function fn_delete(){
+
+        var result = confirm('삭제하시겠습니까?');
+
+
+        if(result) {
+
+            $.ajax({
+                type: "GET",
+                url: "/board/delete",
+                data: {
+                    boardIdx: $("#boardIdxT").val()
+                },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    if (data == 'success') {
+                        alert('삭제되었습니다.');
+                        location.href = "/board/list/counseling/1";
+                    } else {
+                        alert('오류가 발생했습니다!');
+                        return false;
+                    }
+
+
+                },
+                error: function (xhr, status, error) {
+                    alert('오류가 발생했습니다!');
+                }
+            });
+        }else{
+
+
+        }
+
+    }
+
+    function fn_comment_delete(){
+
+        var result = confirm('삭제하시겠습니까?');
+
+
+        if(result) {
+
+            $.ajax({
+                type: "GET",
+                url: "/comment/delete",
+                data: {
+                    boardIdx: $("#boardIdxT").val()
+                },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    if (data == 'success') {
+                        alert('삭제되었습니다.');
+                        $("#layer-comment").hide();
+
+                        getCommentList();
+                    } else {
+                        alert('오류가 발생했습니다!');
+                        return false;
+                    }
+
+
+                },
+                error: function (xhr, status, error) {
+                    alert('오류가 발생했습니다!');
+                }
+            });
+        }else{
+
+
+        }
+
+    }
+
+    function fn_commit() {
+        console.log("fn_commit:");
+
+
+        if ( $("#cre_pw").val().trim() == "" )
+        {
+            var message = "비밀번호를 입력해 주세요.";
+            $("#cre_pw").val("");
+            $("#cre_pw").focus();
+            alert(message);
+            return false;
+        }
+
+        $("#cre_pwd").val($("#cre_pw").val());
+
+        $("form[name='checkForm']").attr("target","_self");
+        $("form[name='checkForm']").attr("action", "/board/checkPwd");
+        $("form[name='checkForm']").attr("method","post");
+        $("form[name='checkForm']").ajaxSubmit({
+            success : function(data){
+                if(data.result == 'success'){
+
+                    if(data.pwdCheck == 'OK') {
+                        $('.wrap_layer_popup').css("display", "none");
+
+                        if($("#mode").val() == 'delete'){
+
+
+                            $.ajax({
+                                type : "GET",
+                                url  : "/board/delete",
+                                data : {
+                                    boardIdx : $("#boardIdxT").val()
+                                },
+                                dataType: "json",
+                                async: false,
+                                success : function(data) {
+                                    if(data == 'success'){
+                                        alert('삭제되었습니다.');
+                                        location.href = "/board/list/<%=boardMasterName%>/1";
+                                    }else{
+                                        alert('오류가 발생했습니다!');
+                                        return false;
+                                    }
+
+
+                                },
+                                error : function(xhr, status, error) {
+                                    alert('오류가 발생했습니다!');
+                                }
+                            });
+
+
+
+                        }else{
+                            location.href = "/board/modify/<%=boardData.idx%>";
+                        }
+                    }else{
+                        alert("패스워드가 틀립니다!");
+
+                    }
+                }else{
+                    alert('오류가 발생했습니다! 관리자에게 문의바랍니다.');
+
+                }
+            }
+            ,error : function(e) {
+                alert('오류가 발생했습니다! 관리자에게 문의바랍니다.');
+                $("#mode").val("");
+            }
+        });
+    }
+
+    function fn_cancel() {
+        console.log("fn_cancel:");
+        $('.wrap_layer_popup').css("display", "none");
+        location.href="/";
+    }
+
+
+
+    function fn_get_comment(){
+
+
+        $.ajax({
+            type: "GET",
+            url: "/comment/getCommentList",
+            data: {
+                boardIdx: $("#boardIdxT").val()
+            },
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                if (data.result == 'success') {
+
+                    //console.log("data.rows.length:"+data.comment.comment);
+
+
+                    if(data.comment != null && data.comment != undefined){
+
+                        $("#commentReply").val(data.comment.comment.replace(/(<br>|<br\/>|<br \/>)/g, '\r\n'));
+
+                    }
+
+
+
+
+                }
+
+
+            },
+            error: function (xhr, status, error) {
+                alert('오류가 발생했습니다!111');
+            }
+        });
+
+
+    }
+
+
+    function fn_onWriteComment(){
+
+        if ( $("#commentReply").val().trim() == "" )
+        {
+            var message = "답변을 입력해 주세요";
+            $("#commentReply").val("");
+            $("#commentReply").focus();
+            alert(message);
+            return false;
+        }
+
+        var url = "/consult/commentWrite";
+
+        if($("#mode").val() == 'modify'){
+            url = "/consult/commentModify";
+         }
+
+        $.ajax({
+            type : "POST",
+            url  : url,
+            data : {
+                idx        : $('#boardIdxT').val(),
+                comment    : $('#commentReply').val()
+            },
+            dataType: "json",
+            async: false,
+            success : function(data) {
+
+                alert('저장되었습니다!');
+                $("#layer-comment").hide();
+                $(".btn-comment").hide();
+                getCommentList();
+
+
+            },
+            error : function(xhr, status, error) {
+                alert('오류가 발생했습니다!');
+            }
+        });
+
+    }
+
+</script>
+  </body>
+</html>

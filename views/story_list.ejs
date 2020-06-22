@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="ko">
+  <% include include/head %>
+  <body>
+   
+<div id="wrap">
+    <!-- inc header -->
+    <% include include/header %>
+    <!-- //inc header -->
+    <!-- container -->
+    <section class="container tax-story">
+        <section class="contents">
+            <div class="sub-title">
+                <div class="inner">
+                    <h1><%=title%></h1>
+                </div>
+            </div>
+            <div class="location">
+                <div class="inner">
+                    <div class="breadcrumbs">
+                        <a href="/" class="btn-home"><span class="sp-comm">home</span></a>
+                        <span><a href="#"><%=title%></a></span>
+                    </div>
+                </div>
+            </div>
+            <%
+            var curSet = pasing.curSet
+            var endPage = pasing.endPage
+            var startPage = pasing.startPage
+            var totalSet = pasing.totalSet
+            var totalPage = pasing.totalPage
+            var page_list_size = pasing.page_list_size
+            var page_size = pasing.page_size
+            var curPage = pasing.curPage
+            var totalCount = pasing.totalPageCount
+            %>
+            <div class="inner story">
+                <div>
+                    <table class="list">
+                        <colgroup>
+                            <col width="75%"><col width="25%">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>제목</th>
+                                <th>등록일</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <% data.forEach(function (items,index){ %>
+                        <tr onclick="location.href='/board/detail/<%=boardMasterName%>/<%=items.idx%>'">
+                                <td class="subject"><a href="#"><%=items.title%><span></span></a></td>
+                                <td><%=items.cre_dtime%></td>
+                            </tr>
+                        <% })%>
+                        </tbody>
+                    </table>
+                    <div class="pagination">
+                        <%
+                        if(curSet > 1){
+                        %>
+
+                            <span class="navi prev"><a href="javascript:fnPage('<%= ( startPage - 1) %>')">이전 페이지</a></span>
+
+                        <%
+                        }
+                        %>
+                        <%
+                        for(var i = startPage; i <= endPage; i++){
+                            if(i > totalPage){break;}
+
+                        if(i == curPage){
+                        %>
+                            <span class="btn-num active"><a href="javascript:fnPage('<%= i %>')"><%= i %></a></span>
+                        <%
+                        }else{
+                        %>
+                            <span class="btn-num"><a href="javascript:fnPage('<%= i %>')"><%= i %></a></span>
+
+                        <%
+                        }
+                        %>
+
+                        <%
+                        }
+                        %>
+                        <%
+                        if(curSet < totalSet){
+                        %>
+                            <span class="navi next"><a href="javascript:fnPage('<%=  ( endPage + 1) %>');">다음 페이지</a></span>
+                        <%
+                        }
+                        %>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+    <!-- //container -->
+    <!-- inc footer -->
+    <% include include/footer %>
+    <!-- //inc footer -->
+</div>
+<script>
+    function fnSearch(idx){
+
+        $("#boardMasterName").val("<%=boardMasterName%>");
+        if(idx == 'search'){
+            $("#searchGubun").val("search");
+            $("#searchT").val($("#searchTxt").val());
+            $("#searchType").val($("#search_select option:selected").val());
+            $("#cur").val("1");
+        }else{
+            $("#searchGubun").val("menu");
+            $("#searchT").val(idx);
+            $("#cur").val("1");
+        }
+
+        $("#searchForm").submit();
+
+    }
+
+    function fnPage(idx){
+
+        $("#boardMasterName").val("<%=boardMasterName%>");
+        $("#searchGubun").val("<%=pasing.searchGubun%>");
+        $("#searchT").val("<%=pasing.searchTxt%>");
+        $("#searchType").val("<%=pasing.searchType%>");
+        $("#cur").val(idx);
+
+
+        $("#searchForm").submit();
+
+    }
+
+</script>
+  </body>
+</html>

@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="ko">
+  <% include include/head %>
+  <body>
+   
+<div id="wrap">
+    <!-- inc header -->
+    <% include include/header %>
+    <!-- //inc header -->
+    <!-- container -->
+    <section class="container my_consult">
+        <section class="contents">
+            <div class="sub-title">
+                <div class="inner">
+                    <h1>내견적현황</h1>
+                </div>
+            </div>
+            <div class="location">
+                <div class="inner">
+                    <div class="breadcrumbs">
+                        <a href="/" class="btn-home"><span class="sp-comm">home</span></a>
+                        <span><a href="/mypage/estimate/1">내견적현황</a></span>
+                    </div>
+                </div>
+            </div>
+            <div class="inner consult">
+                <div class="detail">
+                    <h3><strong><%=member_name%></strong>님의 의뢰내용</h3>
+                    <%if(semuType == 'A'){%>
+                    <ul>
+                        <li><em>구분</em><p><strong>기장대행</strong></p></li>
+                        <li><em>상태</em><p>
+                            <%if(row.semu_status == 'A'){%>
+                                견적요청
+                            <%}else if(row.semu_status == 'B'){%>
+                                    견적중
+                                <%}else if(row.semu_status == 'D'){%>
+                                    견적완료
+                                <%}else if(row.semu_status == 'E'){%>
+                                    재견적요청
+                                <%}else if(row.semu_status == 'C'){%>
+                                    취소
+                                <%}%>
+                        </p></li>
+                    </ul>
+                    <ul>
+                        <li><em>신청일</em><p><%=row.cre_date%></p></li>
+                        <li><em>고객명</em><p><%=row.name%>(<%=row.phone%>)</p></li>
+                        <li><em>사업자유형</em><p><%=row.type1=='A'?'법인':'개인'%></p></li>
+                        <li><em>업종</em><p><%=row.upjong%></p></li>
+                        <li><em>직원수</em><p><%=row.jikwonsu%></p></li>
+                        <li><em>(선택)희망기장료</em><p><%=row.kijangcharge%></p></li>
+                        <li class="explain"><em>기타사항</em><p><%=row.etc%></p></li>
+                    </ul>
+                    <%}else if(semuType == 'B'){%>
+                    <ul>
+                        <li><em>구분</em><p><strong>신고대행</strong></p></li>
+                        <li><em>상태</em><p>
+                                <%if(row.semu_status == 'A'){%>
+                                    견적요청
+                                <%}else if(row.semu_status == 'B'){%>
+                                    견적중
+                                <%}else if(row.semu_status == 'D'){%>
+                                    견적완료
+                                <%}else if(row.semu_status == 'E'){%>
+                                    재견적요청
+                                <%}else if(row.semu_status == 'C'){%>
+                                    취소
+                                <%}%>
+                            </p></li>
+                    </ul>
+                    <ul>
+                        <li><em>신청일</em><p><%=row.cre_date%></p></li>
+                        <li><em>고객명</em><p><%=row.name%></p></li>
+                        <li><em>사업유형</em><p><%=row.type1=='A'?'부가가치세':'종합소득세'%></p></li>
+                        <li><em>소득구분</em><p><%=row.sodukgubun%></p></li>
+                        <li class="explain"><em>기타사항</em><p><%=row.etc%></p></li>
+                    </ul>
+                    <%}else if(semuType == 'C'){%>
+                    <ul>
+                        <li><em>구분</em><p><strong>세무조사/불복</strong></p></li>
+                        <li><em>상태</em><p>
+                                <%if(row.semu_status == 'A'){%>
+                                    견적요청
+                                <%}else if(row.semu_status == 'B'){%>
+                                    견적중
+                                <%}else if(row.semu_status == 'D'){%>
+                                    견적완료
+                                <%}else if(row.semu_status == 'E'){%>
+                                    재견적요청
+                                <%}else if(row.semu_status == 'C'){%>
+                                    취소
+                                <%}%>
+                            </p></li>
+                    </ul>
+                    <ul>
+                        <li><em>신청일</em><p><%=row.cre_date%></p></li>
+                        <li><em>고객명</em><p><%=row.name%></p></li>
+                        <li><em>세무분야</em><p><%=row.type1=='A'?'세무조사':row.type1=='B'?'조세불복':'내부조사'%></p></li>
+                        <li class="explain"><em>기타사항</em><p><%=row.etc%></p></li>
+                    </ul>
+                    <%}else if(semuType == 'D'){%>
+                    <ul>
+                        <li><em>구분</em><p><strong>양도/상속/증여</strong></p></li>
+                        <li><em>상태</em><p>
+                                <%if(row.semu_status == 'A'){%>
+                                    견적요청
+                                <%}else if(row.semu_status == 'B'){%>
+                                    견적중
+                                <%}else if(row.semu_status == 'D'){%>
+                                    견적완료
+                                <%}else if(row.semu_status == 'E'){%>
+                                    재견적요청
+                                <%}else if(row.semu_status == 'C'){%>
+                                    취소
+                                <%}%>
+                            </p></li>
+                    </ul>
+                    <ul>
+                        <li><em>신청일</em><p><%=row.cre_date%></p></li>
+                        <li><em>고객명</em><p><%=row.name%></p></li>
+                        <li><em>세무분야</em><p>
+                                <%
+                                    var type2 =  row.type2;
+                                    var type3 = type2.split(",");
+                                    var type_t = "";
+                                    for(var j = 0; j< type3.length;j++){
+                                        console.log(type3[j]);
+                                        if(type3[j]== 'A'){
+                                            type_t = "양도세";
+                                        }else  if(type3[j]== 'B'){
+                                            type_t += ",상속세";
+                                        }else {
+                                            type_t += ",증여세";
+                                        }
+                                    }
+
+                                %><%=type_t%>
+
+                            </p></li>
+                        <li><em>부동산</em><p><%=row.budongsan%></p></li>
+                        <li><em>금융</em><p><%=row.gumyoung%></p></li>
+                        <li><em>기타금액</em><p><%=row.etccharge%></p></li>
+                        <li class="explain"><em>기타사항</em><p><%=row.etc%></p></li>
+                    </ul>
+                    <%}else if(semuType == 'E'){%>
+                    <ul>
+                        <li><em>구분</em><p><strong>컨설팅/평가/감사</strong></p></li>
+                        <li><em>상태</em><p>
+                                <%if(row.semu_status == 'A'){%>
+                                    견적요청
+                                <%}else if(row.semu_status == 'B'){%>
+                                    견적중
+                                <%}else if(row.semu_status == 'D'){%>
+                                    견적완료
+                                <%}else if(row.semu_status == 'E'){%>
+                                    재견적요청
+                                <%}else if(row.semu_status == 'C'){%>
+                                    취소
+                                <%}%>
+                            </p></li>
+                    </ul>
+                    <ul>
+                        <li><em>신청일</em><p><%=row.cre_date%></p></li>
+                        <li><em>고객명</em><p><%=row.name%></p></li>
+                        <li><em>분류</em><p><%
+                                    var type2 =  row.type2;
+                                    var type3 = type2.split(",");
+                                    var type_t = "";
+                                    for(var j = 0; j< type3.length;j++){
+                                        console.log(type3[j]);
+                                        if(type3[j]== 'A'){
+                                            type_t = "회계감사";
+                                        }else  if(type3[j]== 'B'){
+                                            type_t += ",기타자문";
+                                        }
+                                    }
+
+                                %><%=type_t%></p></li>
+                        <li><em>업종</em><p><%=row.upjong%></p></li>
+                        <li><em>회사명</em><p><%=row.companyname%></p></li>
+                        <li><em>매출/자산/자본금규모</em><p><%=row.companymoney%></p></li>
+                        <li class="explain"><em>기타사항</em><p><%=row.etc%></p></li>
+                    </ul>
+                    <%}%>
+
+                </div>
+                <form method="post" name="semuForm1" id="semuForm1">
+                    <input type="hidden" name="semuMatchIdx" id="semuMatchIdx" value="<%=row.semuMatchIdx%>"/>
+                    <input type="hidden" name="semuType" id="semuType" value="<%=semuType%>"/>
+                    <input type="hidden" name="semusaStatus" id="semusaStatus" value="B"/>
+                    <div class="apply-form">
+                    <%if(semuType == 'A' || semuType == 'B'){%>
+                    <ul>
+                        <li>
+                            <label for="">견적가(용역, 부가세 별도) <span>*</span></label>
+                            <div class="inp-box">
+                                <input type="text" id="estimate" name="estimate" onkeyup="cmaComma(this);" onchange="cmaComma(this);" value="<%=row.estimate%>" placeholder="견적가">
+                            </div>
+                        </li>
+                        <li class="textarea-box">
+                            <textarea id="contents" name="contents" placeholder="맞춤소개 입력"><%=row.contents%></textarea>
+                        </li>
+                    </ul>
+                <%}else if(semuType == 'C'){%>
+                    <ul>
+                        <li>
+                            <label for="">견적가(용역, 부가세 별도) <span>*</span></label>
+                            <div class="inp-box">
+                                <input type="text" id="estimate" name="estimate" onkeyup="cmaComma(this);" onchange="cmaComma(this);" value="<%=row.estimate%>" placeholder="견적가">
+                            </div>
+                        </li>
+                        <li>
+                            <label for="">불복내용</label>
+                            <div class="inp-box">
+                                <input type="text" id="bulbok" name="bulbok" value="<%=row.bulbok%>" placeholder="불복내용">
+                            </div>
+                        </li>
+                        <li>
+                            <label for="">고지내용</label>
+                            <div class="inp-box">
+                                <input type="text" id="goji" name="goji" value="<%=row.goji%>" placeholder="고지내용">
+                            </div>
+                        </li>
+                        <li>
+                            <label for="">용역비 지급방식</label>
+                            <div class="inp-box">
+                                <input type="text" id="charge_before" name="charge_before" value="<%=row.charge_before%>" placeholder="착수금">
+                            </div>
+                        </li>
+                        <li>
+                            <label for="">용역비 지급방식</label>
+                            <div class="inp-box">
+                                <input type="text" id="charge_after" name="charge_after" value="<%=row.charge_after%>" placeholder="성공액">
+                            </div>
+                        </li>
+                        <li class="textarea-box">
+                            <textarea id="contents" name="contents" placeholder="맞춤소개 입력"><%=row.contents%></textarea>
+                        </li>
+                    </ul>
+                <%}else if(semuType == 'D'){%>
+                    <ul>
+                        <li>
+                            <label for="">견적가(용역, 부가세 별도) <span>*</span></label>
+                            <div class="inp-box">
+                                <input type="text" id="estimate" name="estimate" onkeyup="cmaComma(this);" onchange="cmaComma(this);" value="<%=row.estimate%>" placeholder="견적가">
+                            </div>
+                        </li>
+                        <li>
+                            <label for="">평가대상 자산</label>
+                            <div class="inp-box">
+                                <input type="text" id="pyunggajasan" name="pyunggajasan" onkeyup="cmaComma(this);" onchange="cmaComma(this);" value="<%=row.pyunggajasan%>" placeholder="평가대상 자산">
+                            </div>
+                        </li>
+                        <li>
+                            <label for="">평가기준일</label>
+                            <div class="inp-box">
+                                <input type="text" id="pyunggadate" name="pyunggadate" value="<%=row.pyunggadate%>" placeholder="평가기준일">
+                            </div>
+                        </li>
+                        <li>
+                            <label for="">용역비 지급방식</label>
+                            <div class="inp-box">
+                                <input type="text" id="charge_before" name="charge_before" onkeyup="cmaComma(this);" onchange="cmaComma(this);" value="<%=row.charge_before%>" placeholder="착수금">
+                            </div>
+                        </li>
+                        <li>
+                            <label for="">용역비 지급방식</label>
+                            <div class="inp-box">
+                                <input type="text" id="charge_after" name="charge_after" onkeyup="cmaComma(this);" onchange="cmaComma(this);" value="<%=row.charge_after%>" placeholder="성공액">
+                            </div>
+                        </li>
+                        <li>
+                            <label for="">평가보고 제출일</label>
+                            <div class="inp-box">
+                                <input type="text" id="pyungga_submission_date" value="<%=row.pyungga_submission_date%>" name="pyungga_submission_date" placeholder="평가보고 제출일">
+                            </div>
+                        </li>
+                        <li class="textarea-box">
+                            <textarea id="contents" name="contents" placeholder="맞춤소개 입력"><%=row.contents%></textarea>
+                        </li>
+                    </ul>
+                <%}else if(semuType == 'E'){%>
+                    <ul>
+                        <li>
+                            <label for="">견적가(용역, 부가세 별도) <span>*</span></label>
+                            <div class="inp-box">
+                                <input type="text" id="estimate" name="estimate" value="<%=row.estimate%>" placeholder="견적가">
+                            </div>
+                        </li>
+                        <li>
+                            <label for="">감사대상</label>
+                            <div class="inp-box">
+                                <input type="text" id="gamsidaesang" name="gamsidaesang" value="<%=row.gamsidaesang%>" placeholder="감사대상">
+                            </div>
+                        </li>
+                        <li>
+                            <label for="">감사책임자</label>
+                            <div class="inp-box">
+                                <input type="text" id="gamsiowner" name="gamsiowner" value="<%=row.gamsiowner%>" placeholder="감사책임자">
+                            </div>
+                        </li>
+                        <li>
+                            <label for="">용역비 지급방식</label>
+                            <div class="inp-box">
+                                <input type="text" id="charge_before" name="charge_before" value="<%=row.charge_before%>" placeholder="착수금">
+                            </div>
+                        </li>
+                        <li>
+                            <label for="">용역비 지급방식</label>
+                            <div class="inp-box">
+                                <input type="text" id="charge_center" name="charge_center" value="<%=row.charge_center%>" placeholder="중도금">
+                            </div>
+                        </li>
+                        <li>
+                            <label for="">용역비 지급방식</label>
+                            <div class="inp-box">
+                                <input type="text" id="charge_after" name="charge_after" value="<%=row.charge_after%>" placeholder="잔여금">
+                            </div>
+                        </li>
+                        <li>
+                            <label for="">용역비 지급시기</label>
+                            <div class="inp-box">
+                                <input type="text" id="jigubdate" name="jigubdate" value="<%=row.jigubdate%>" placeholder="용역비 지급시기">
+                            </div>
+                        </li>
+                        <li class="textarea-box">
+                            <textarea id="contents" name="contents" placeholder="맞춤소개 입력"><%=row.contents%></textarea>
+                        </li>
+                    </ul>
+                <%}%>
+                    <div class="btn-wrap">
+                        <a href="javascript:history.back(-1);" class="btns size-mid color-gray">돌아가기</a>
+                        <a href="javascript:onSendEstimate();" class="btns size-mid color-green">견적발송</a>
+                    </div>
+                </div>
+                </form>
+            </div>
+
+
+            <%if(row.semu_status == 'D'){%>
+            <div class="btn-wrap">
+                <a href="javascript:reMatching();" class="btns size-mid color-green">재요청</a>
+            </div>
+            <%}%>
+        </section>
+    </section>
+    <!-- //container -->
+    <!-- inc footer -->
+    <% include include/footer %>
+    <!-- //inc footer -->
+</div>
+<script>
+
+    function onSendEstimate(){
+
+        if ( $("#estimate").val().trim() == "" )
+        {
+            var message = "견적가를 입력해 주세요.";
+            $("#estimate").val("");
+            $("#estimate").focus();
+            toastr.error(message);
+            return false;
+        }
+
+
+
+        var url = "/mypage/sendEstimate";
+
+
+
+
+        $("form[name='semuForm1']").attr("target","_self");
+        $("form[name='semuForm1']").attr("action", url);
+        $("form[name='semuForm1']").attr("method","post");
+        $("form[name='semuForm1']").ajaxSubmit({
+            success : function(data){
+                if(data.result == 'success'){
+                    var msg = "정상적으로 견적을 완료하였습니다.";
+                    alert(msg);
+                    location.href="/mypage/estimate/1";
+
+
+                }else{
+                    alert('오류가 발생했습니다!');
+                }
+            }
+            ,error : function(e) {
+                alert('오류가 발생했습니다!');
+            }
+        });
+
+
+
+
+
+
+
+    }
+
+    function cmaComma(obj) {
+        var firstNum = obj.value.substring(0,1); // 첫글자 확인 변수
+        var strNum = /^[\,0-9]*$/; // 숫자와 , 만 가능
+        var str = "" + obj.value.replace(/,/gi,''); // 콤마 제거  /[^0-9]/gi;
+        var regx = new RegExp(/(-?\d+)(\d{3})/);
+        var bExists = str.indexOf(".",0);
+        var strArr = str.split('.');
+        if (!strNum.test(obj.value)) {
+            alert("숫자만 입력하십시오.\n\n특수문자와 한글/영문은 사용할수 없습니다.");
+            obj.value = 1;
+            obj.focus();
+            return false;
+        }
+        while(regx.test(strArr[0])){
+            strArr[0] = strArr[0].replace(regx,"$1,$2");
+        }
+        if (bExists > -1)  {
+            obj.value = strArr[0] + "." + strArr[1];
+        } else  {
+            obj.value = strArr[0];
+        }
+    }
+
+    function commaSplit(n) {// 콤마 나누는 부분
+        var txtNumber = '' + n;
+        var rxSplit = new RegExp('([0-9])([0-9][0-9][0-9][,.])');
+        var arrNumber = txtNumber.split('.');
+        arrNumber[0] += '.';
+        do {
+            arrNumber[0] = arrNumber[0].replace(rxSplit, '$1,$2');
+        }
+        while (rxSplit.test(arrNumber[0]));
+        if(arrNumber.length > 1) {
+            return arrNumber.join('');
+        } else {
+            return arrNumber[0].split('.')[0];
+        }
+    }
+
+</script>
+  </body>
+</html>

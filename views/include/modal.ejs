@@ -1,0 +1,311 @@
+<!-- Modal Join Form -->	
+    <div class="modal fade modal-search" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="menuModalLabel">
+                        <a href="/" class="d-inline-block menu-img">
+                            고급검색
+                        </a>
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                <div class="form-group">
+                  <label for="name">제목</label>
+                  <input type="text" id="roomName" name="roomName" placeholder="검색어를 입력하세요"/>
+                </div>
+                <div class="form-group">
+                  <label for="category">카테고리선택</label>
+                  <ul id="cateCode" name="cateCode">
+						<li><a href="javascript:void(0);" value="C0001"><span>놀자</span></a></li>
+						<li><a href="javascript:void(0);" value="C0002"><span>먹자</span></a></li>
+						<li><a href="javascript:void(0);" value="C0003"><span>공유하자</span></a></li>
+						<li><a href="javascript:void(0);" value="C0004"><span>배우자</span></a></li>
+					</ul>
+                    <script>
+						$(function() {
+							// search-step02
+							$('.cate.sel').find('li > a').click(function(){
+								if($(this).parent().hasClass('active')){
+									$(this).parent().removeClass('active')
+								}else{
+									$(this).parent().addClass('active')
+								}
+							});
+						});
+					</script>
+                </div>
+                <div class="custom-control custom-checkbox mt-1">
+                  <input type="checkbox" class="custom-control-input" id="checkRemember">
+                  <label class="custom-control-label" for="checkRemember">Remember me</label>
+                </div>
+              </div>
+              <div class="modal-footer justify-content-center">
+                <div class="btn-group" role="group" aria-label="Login Action">
+                  <a class="btn btn-outline-theme" role="button" data-toggle='modal' href="javascript:;" onclick="fn_joinModal();">I want to Sign Up</a>
+                  <button type="submit" class="btn btn-theme" onclick="loginProc();">SIGN IN</button>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+        <header id="header-wrap">
+		<div id="header" class="div-cont">
+			<h2 class="top-tit"><span>고급검색</span></h2>
+			<a href="#" class="bt-close" data-dismiss="modal" aria-hidden="true"><span class="blind">닫기</span></a>
+            <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>-->
+			<a href="javascript:fn_search();" class="bt-search"><span>검색</span></a>
+		</div>
+	</header>
+	<!-- e: #header-wrap //-->
+	<!-- s: #container-wrap //-->
+	<div id="container-wrap"  class="scontainer" >
+		<div id="contents" class="div-cont">
+			<!-- // page-start -->
+			<div class="search-wrap detail">
+				<div class="tit sel">
+					<p class="select-box">
+						<select>
+							<option value="">제목</option>
+						</select>
+					</p>
+					<p class="chk-input"><input type="text" id="roomName" name="roomName" placeholder="검색어를 입력하세요" autocomplete="off" onfocus="clearText(this)"  onblur="defaultText(this)"/></p>
+				</div>
+				<div class="u-line"></div>
+				<div class="cate sel">
+					<h4>카테고리 선택</h4>
+					<ul id="cateCode" name="cateCode">
+						<li><a href="javascript:void(0);" value="C0001"><span>놀자</span></a></li>
+						<li><a href="javascript:void(0);" value="C0002"><span>먹자</span></a></li>
+						<li><a href="javascript:void(0);" value="C0003"><span>공유하자</span></a></li>
+						<li><a href="javascript:void(0);" value="C0004"><span>배우자</span></a></li>
+					</ul>
+					<script>
+						$(function() {
+							// search-step02
+							$('.cate.sel').find('li > a').click(function(){
+								if($(this).parent().hasClass('active')){
+									$(this).parent().removeClass('active')
+								}else{
+									$(this).parent().addClass('active')
+								}
+							});
+						});
+					</script>
+				</div>
+				<div class="u-line"></div>
+				<div class="region sel">
+					<div class="fl">
+						<p class="select-box w100p">
+							<select class="b" onchange="fn_locationCode(this);">
+                                <option value="">(도)선택</option>
+                                <%
+                                if(code1 != null){
+                                    for(var i=0; i<code1.length; i++){
+                                        var code1Item = code1[i];
+                                %>
+                                <option value="<%=code1Item.c_code%>"><%=code1Item.c_name%></option>
+                                <%}}%>
+							</select>
+						</p>
+					</div>
+					<div class="fr">
+						<p class="select-box w100p">
+							<select class="b">
+								<option value="">(시/군)선택</option>
+							</select>
+						</p>
+					</div>
+
+				</div>
+				<div class="u-line"></div>
+				
+				
+				<div class="u-line"></div>
+				<div class="people sel">
+					<h4>인원수</h4>
+					<div class="ov">
+						<div class="fl">
+							<p class="chk-input w100p"><input type="text" id="roomMin" name="roomMin" placeholder="최소 출발 인원" autocomplete="off" onfocus="clearText(this)"  onblur="defaultText(this)"/></p>
+						</div>
+						<div class="fr">
+							<p class="chk-input w100p"><input type="text" id="roomMax" name="roomMax" placeholder="최대 모집 인원" autocomplete="off" onfocus="clearText(this)"  onblur="defaultText(this)"/></p>
+						</div>
+					</div>
+				</div>
+				<div class="u-line"></div>
+				<div class="won sel">
+					<h4>참가비</h4>
+					<p class="chk-input w100p"><input type="text" id="roomCharge" name="roomChage" placeholder="숫자만 입력해주세요" autocomplete="off" onfocus="clearText(this)"  onblur="defaultText(this)"/></p>
+				</div>
+				<div class="u-line"></div>
+				<div class="calendar sel">
+					<h4>날짜 설정</h4>
+					<div id="datepickerInline"></div>					
+					<div class="datepickergap">
+					<div class="calendar-result">
+						<p>기간</p>
+					</div>
+                    </div>
+				</div>
+			</div>
+			<!-- // page-end -->
+		</div>
+	</div>
+    </div>
+
+<script>
+    $(function(){
+        var d = new Date();
+        
+        function formatDate(date) {
+            var d = new Date(date),
+                month = '' + (d.getMonth() + 1),
+                day = '' + d.getDate(),
+                year = d.getFullYear();
+
+            if (month.length < 2) month = '0' + month;
+            if (day.length < 2) day = '0' + day;
+
+            return [year, month, day].join('.');
+        }
+        
+        console.log('date :', formatDate(d));
+        
+         $('#datepickerInline').dateRangePicker({
+            autoClose: false,
+            format: 'YYYY-MM-DD',
+            separator: ' ~ ',
+            language: 'auto',
+            startOfWeek: 'sunday',// or monday
+            startDate: d,
+            setValue: function(s)
+            {
+                console.log('setval : ', s);
+                $(".calendar-result p").html(s);
+                /*if(!$(this).attr('readonly') && !$(this).is(':disabled') && s != $(this).val())
+                {
+                    $(this).val(s);
+                }*/
+            },
+            showShortcuts: false,
+            showTopbar: false,
+            inline:false,
+            container:'body',
+            alwaysOpen:true,
+            duration: 200,
+            singleMonth: 'auto'
+            });
+    
+        //modal 초기화
+        $('.modal').on('hidden.bs.modal', function (e) {
+            //console.log('modal close' + this);
+           
+            $(this).each(function(index) {    
+                if(this.id != 'loginModal'){
+                    $(this).find('input').each(function(){
+                        $(this).val("");
+                    });
+                }
+            });   
+        });
+    })
+    
+    function fn_search(){
+        console.log('search!!!');
+        /*if ( $("#roomName").val().trim() == ""){
+            var message = "방 제목을 입력해주세요";
+            $("#roomName").val("");
+            $("#roomName").focus();
+            alert(message);
+            return false;
+        }
+        if($("#cateCode li.active").find("a").attr("value") == ""){
+            var message = "카테고리를 선택해주세요";
+            $("#cateCode").focus();
+            alert(message);
+            return false;
+        }*/
+        var cate_code = "";
+        $("#cateCode li.active").find("a").each(function(e){
+            console.log($(this).attr("value"));
+            if($("#cateCode li.active").find("a").length > 1){
+                cate_code += $(this).attr("value");
+                cate_code += " ";
+            }else{
+                cate_code = $(this).attr("value");
+            }
+        })
+        var room_address1 = $(".fl .select-box select").val() + " " + $(".fr .select-box select").val();
+        
+        var result = {room_name: $("#roomName").val(), 
+                    cate_code: cate_code, 
+                    room_address1: room_address1, 
+                    room_min: $("#roomMin").val(), 
+                    room_max: $("#roomMax").val(),
+                    room_Charge: $("#roomCharge").val(),
+                    room_date : $(".calendar-result p").text()
+                   };
+        
+        console.log("search result : " , result);
+        
+        $.ajax({
+            type : "post",
+            url  : "/searchCode",
+            data : result,
+            dataType: "json",
+            async: false,
+            success : function(data) {
+                console.log('ajax success : ', data.dbdata);
+                //location.href=
+            },
+            error : function(xhr, status, error) {
+                alert('오류가 발생했습니다!');
+            }
+        });
+        
+    }
+    
+    function fn_locationCode(obj){
+        console.log("fn_locationCode!!!", $(obj).val());
+        var html = "<option value=''>(시/군)선택</option>";
+        $(".fr select").html(html);
+        $.ajax({
+            type : "post",
+            url  : "/locationCode",
+            data : {
+                c_mcode : $(obj).val()
+            },
+            dataType: "json",
+            async: false,
+            success : function(data) {
+               if(data.result == 'success'){
+                    html = "";
+                    $(".fr select").append(html);
+                    console.log('suc');
+                    console.log(data.dbdata);
+            
+                    for(var i = 0; i<data.dbdata.length; i++){
+                        html += '<option value="'+data.dbdata[i].c_code+'">'+data.dbdata[i].c_name+'</option>';
+                    }
+                    $(".fr select").append(html);
+                }else{
+                    console.log('suc&fail')
+                    //alert('오류가 발생했습니다!');
+                }
+            },
+            error : function(xhr, status, error) {
+                alert('오류가 발생했습니다!');
+            }
+        });
+    }
+    
+    function fn_hide(){
+        $('#searchModal').modal('toggle');
+    }
+</script>

@@ -1,0 +1,488 @@
+    <% layout('manager/layout') %>
+<section class="content">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="view-header">
+                        <div class="pull-right text-right" style="line-height: 14px">
+                            <small>Table design<br>General<br> <span class="c-white">Table styles</span></small>
+                        </div>
+                        <div class="header-icon">
+                            <i class="pe page-header-icon pe-7s-menu"></i>
+                        </div>
+                        <div class="header-title">
+                            <h3>회원 관리</h3>
+                            <small>
+                                회원 리스트
+                            </small>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-12">
+                    <div class="panel panel-filled">
+                        <div class="panel-heading">
+                            <div class="panel-tools">
+                                <a href="javascript:;" class="btn btn-w-md btn-accent" onclick="javascript:fn_write();">등록</a>
+                                <!-- <a class="panel-toggle"><i class="fa fa-chevron-up"></i></a>
+                                    <a class="panel-close"><i class="fa fa-times"></i></a>-->
+                            </div>
+                            회원관리
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="table-responsive">
+                                <table id="tableExample2"  class="table table-hover table-condensed" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th>회원ID</th>
+                                        <th>이름</th>
+                                        <th>회원구분</th>
+                                        <th>회원상태</th>
+                                        <th>가입일</th>
+                                        <th hidden>키워드</th>
+                                        <th hidden>주소1</th>
+                                        <th hidden>주소2</th>
+                                        <th hidden>소속</th>
+                                     </tr>
+                                    </thead>
+                                    <tbody>
+                               <%
+                                     for(var i=0; i<rows.length; i++)
+                                     {
+                                        var oneItem = rows[i];
+                                %>
+                                    <tr>
+                                        <td><a href="javascript:fn_onReadBoard('<%=oneItem.seq%>');"><%=oneItem.member_id%> <%if(memberType == 'B'){%>(<%=oneItem.cnt%>)<%}%></a></td>
+                                        <td><%=oneItem.member_name%></td>
+                                        <td><%=oneItem.auth_type%></td>
+                                        <td><%=oneItem.member_status%></td>
+                                        <td><%=oneItem.cre_dtime%></td>
+                                        <td hidden><%=oneItem.keyword%></td>
+                                        <td hidden><%=oneItem.address1%></td>
+                                        <td hidden><%=oneItem.address2%></td>
+                                        <td hidden><%=oneItem.affiliation%></td>
+                                     </tr>
+
+                                <%
+                                     }
+                                %>
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="panel-body">
+                <form method="post" name="writeForm">
+                    <input type="hidden" name="memberType" id="memberType" value="<%=memberType%>"/>
+                    <input type="hidden" name="mode" id="mode"/>
+                    <input type="hidden" name="seq" id="seq"/>
+                    <input type="hidden" name="f_img" id="f_img"/>
+                    <input type="hidden" name="fileDelete" id="fileDelete" value="N"/>
+                    <div class="form-group"><label for="member_id">회원ID(이메일)</label> <input type="text" class="form-control" name="member_id" id="member_id"></div>
+                    <div class="form-group"><label for="member_name">회원명</label> <input type="text" class="form-control" name="member_name" id="member_name"></div>
+                    <div class="form-group"><label for="password">회원 패스워드</label> <input type="password" class="form-control" name="password" id="password">
+                         <label>변경시 체크</label> <input type="checkbox" name="pwdCheck" id="pwdCheck" value="1">
+                     </div>
+                    <div class="form-group"><label for="member_phone">회원 연락처</label> <input type="text" class="form-control" name="member_phone" id="member_phone" ></div>
+                    <%if(memberType == 'B'){%>
+                    <div class="form-group"><label for="address1">회원 주소</label> <input type="text" class="form-control" name="address1" id="address1"></div>
+                    <div class="form-group"><label for="address2">주소 상세</label> <input type="text" class="form-control" name="address2" id="address2"></div>
+                    <div class="form-group"><label for="zipcode">우편번호</label> <input type="text" class="form-control" name="zipcode" id="zipcode"></div>
+                    <div class=form-group>
+                        <label>라이센스 종류</label>
+                    </div>
+                    <div class="checkbox"><label> <input type="checkbox" name="licenseType" id="licenseTypeA" value="A">공인회계사</label>&nbsp;<label> <input type="checkbox" name="licenseType" id="licenseTypeB" value="B">세무사(복수선택가능)</label></div>
+                    <div class="form-group"><label for="authNumber">관리번호</label> <input type="text" class="form-control" name="authNumber" id="authNumber"></div>
+                    <div class="form-group"><label for="affiliation">소속</label> <input type="text" class="form-control" name="affiliation" id="affiliation"></div>
+                    <div class=form-group>
+                        <label>영업가능지역</label><label> <input type="checkbox" id="check_all_area" value="ALL">전체선택</label>
+                    </div>
+                    <div class="checkbox">
+                        <% areaList.forEach(function (items,index){ %>
+                        <label> <input type="checkbox" class="chk" name="saleArea" id="saleArea<%=index%>" value="<%=items.c_code%>"><%=items.c_name%></label>&nbsp;
+                        <%})%>
+                    </div>
+                        <div class="form-group">
+                            <label for="bgImage">이미지 업로드</label> <input type="file" id="bgImage" name="bgImage"><div id="mainFile"></div>
+                        </div>
+                        <div class="form-group"><label for="content">회계/세무사 소개글</label><textarea class="form-control" rows="5" name="content" id="content" placeholder="소개글"></textarea></div>
+                        <div class=form-group>
+                            <label>메인노출여부</label>
+                        </div>
+                        <div class="checkbox"><label> <input type="checkbox" id="view_yn" name="view_yn" value="Y">노출</label></div>
+                    <%}%>
+                    <div class="form-group"><label for="memberAuthType"><i class="fa fa-star-o" aria-hidden="true"></i>회원구분</label>
+                        <select  class="form-control" name="memberAuthType" id="memberAuthType">
+                            <option value="A">일반회원</option>
+                            <option value="B">제휴사회원</option>
+                        </select>
+                    </div>
+                    <div class="form-group"><label for="memberStatus"><i class="fa fa-star-o" aria-hidden="true"></i>회원상태</label>
+                        <select  class="form-control" name="memberStatus" id="memberStatus">
+                            <option value="A">승인회원</option>
+                            <option value="C">탈퇴회원</option>
+                            <option value="D">비승인회원</option>
+                        </select>
+                    </div>
+                    <div class="form-group"><label for="keyword">키워드</label> <input type="text" class="form-control" name="keyword" id="keyword"></div>
+
+                    <div class="form-group"><label for="cre_dtime">가입일</label> <input type="text" class="form-control" name="cre_dtime" id="cre_dtime" readonly="readonly"></div>
+                    <button type="button" onclick="onWriteSubmit();" class="btn btn-default">저장</button>
+                    <button type="button" onclick="onMemberDelete();" id="deleteBtn" class="btn btn-default">탈퇴처리</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModal3" tabindex="1" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <a href="#" class="btn btn-default" data-dismiss="modal">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h4 class="modal-title">이미지 미리보기</h4>
+                    <div id="imgDiv"></div><br>
+                    <button type="button" onclick="deleteFile();" class="btn btn-default" data-dismiss="modal">삭제</button>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
+    <style>
+        .modal {
+            overflow-y:auto;
+        }
+
+    </style>
+<script>
+
+    $(document).ready(function () {
+
+        toastr.options = {
+            "debug": false,
+            "newestOnTop": false,
+            "positionClass": "toast-bottom-right",
+            "closeButton": true,
+            "timeOut": "1000"
+
+        };
+
+        $('#tableExample2').DataTable({
+            "dom": "<'row'<'col-sm-6'l><'col-sm-6'f>>t<'row'<'col-sm-6'i><'col-sm-6'p>>",
+            "lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "All"] ],
+            "iDisplayLength": 100,
+            "order": [[4, 'desc']]
+
+        });
+
+        $('#check_all_area').click(function () {
+
+            if($('#check_all_area').is(':checked')){
+                $('.chk').prop("checked", true);
+            }else{
+                $('.chk').prop("checked", false);
+            }
+        });
+
+        $('.chk').click(function () {
+                if($("input[name='saleArea']:checked").length == $("input[name='saleArea']").length){
+                    $('#check_all_area').prop("checked", true);
+                }else{
+                    $('#check_all_area').prop("checked", false);
+                }
+       })
+
+
+
+    });
+
+    function fn_onReadBoard(idx){
+
+        $("#mode").val("modify");
+        $("#pwdCheck").prop("checked", false);
+        $("#seq").val("");
+        $("#member_name").val("");
+        $("#member_id").val("");
+        //$("#password").val("");
+        $("#member_phone").val("");
+        $("#cre_dtime").val("");
+        $("#memberAuthType").val("");
+        $("#memberStatus").val("");
+        $("#address1").val("");
+        $("#address2").val("");
+        $("#zipcode").val("");
+        $('.chk').prop("checked", false);
+        $("#authNumber").val("");
+        $("#affiliation").val("");
+        $("#content").val("");
+        $("#keyword").val("");
+        $("#view_yn").prop("checked", false);
+        $("#bgImage").val("");
+        $("#fileDelete").val("N");
+
+
+        $.ajax({
+            type : "POST",
+            url  : "/manager/users/read",
+            data : {
+                m_idx        : idx
+            },
+            dataType: "json",
+            async: false,
+            success : function(data) {
+                $("#seq").val(data.dbdata.seq);
+                $("#member_name").val(data.dbdata.member_name);
+                $("#member_id").val(data.dbdata.member_id);
+                //$("#password").val(data.dbdata.password);
+                $("#member_phone").val(data.dbdata.member_phone);
+                $("#cre_dtime").val(data.dbdata.cre_dtime);
+                $("#address1").val(data.dbdata.address1);
+                $("#address2").val(data.dbdata.address2);
+                $("#zipcode").val(data.dbdata.zipcode);
+                $("#memberAuthType").val(data.dbdata.member_auth_type);
+                $("#memberStatus").val(data.dbdata.member_status);
+                $("#f_img").val(data.dbdata.image_name);
+                $("#authNumber").val(data.dbdata.auth_number);
+                $("#affiliation").val(data.dbdata.affiliation);
+
+
+                if(data.dbdata.content != null){
+                $("#content").val(data.dbdata.content.replace(/(<br>|<br\/>|<br \/>)/g, '\r\n'));
+                }
+                $("#keyword").val(data.dbdata.keyword);
+                if(data.dbdata.license_type != undefined && data.dbdata.license_type != ''){
+                var licenseTypeE = (data.dbdata.license_type).split(',');
+                    for (var idx in licenseTypeE) {
+                        $("input[name=licenseType][value=" + licenseTypeE[idx] + "]").prop("checked", true);
+                    }
+                }
+                if(data.dbdata.sale_area != undefined && data.dbdata.sale_area != '') {
+                    var saleAreaE = (data.dbdata.sale_area).split(',');
+
+                    for (var idx in saleAreaE) {
+                        $("input[name=saleArea][value=" + saleAreaE[idx] + "]").prop("checked", true);
+                    }
+                }
+
+                if(data.dbdata.view_yn == 'Y'){
+                    $("#view_yn").prop("checked", true);
+                }
+
+
+                var html = "";
+                $("#mainFile").html(html);
+                if(data.dbdata.image_path != null && data.dbdata.image_path != '' ) {
+                    html = '&nbsp;<span class="pe-7s-photo" onclick="showBg(\'http://www.edda.kr'+data.dbdata.image_path+'\');" style="font-size: 32px;color: #ffffff;"></span>';
+                }
+                $("#mainFile").html(html);
+
+                $('#myModal1').modal('show');
+            },
+            error : function(xhr, status, error) {
+                alert(data.result);
+            }
+        });
+
+    }
+
+
+
+
+    function onMemberDelete() {
+
+        $.ajax({
+            type : "POST",
+            url  : "/manager/users/leave",
+            data : { seq : $("#seq").val() },
+            dataType: "json",
+            async: false,
+            success : function(data) {
+
+                if(data == 'success'){
+
+                    toastr.success('정상적으로 회원탈퇴가 되었습니다!');
+                    $('#myModal1').modal('toggle');
+
+                }else{
+                    toastr.error('오류가 발생했습니다!');
+                }
+            },
+            error : function(xhr, status, error) {
+                toastr.error('오류가 발생했습니다!');
+            }
+        });
+
+    }
+
+
+
+    function fn_write(){
+
+        $("#mode").val("write");
+        $("#seq").val("");
+        $("#member_name").val("");
+        $("#member_id").val("");
+        $("#password").val("");
+        $("#member_phone").val("");
+        $("#cre_dtime").val("");
+        $("#memberAuthType").val("");
+        $("#address1").val("");
+        $("#address2").val("");
+        $("#zipcode").val("");
+        $('.chk').prop("checked", false);
+        $("#authNumber").val("");
+        $("#affiliation").val("");
+        $("#memberAuthType").val("A");
+        $('#view_yn').prop("checked", false);
+
+
+        $("#deleteBtn").hide();
+        $("#deleteBtn").hide();
+
+
+        $('#myModal1').modal('show');
+    }
+
+
+
+
+    function onWriteSubmit()
+    {
+
+        var mode = $("#mode").val();
+        var memberType = $("#memberType").val();
+
+        if ( $("#member_id").val().trim() == "" )
+        {
+            var message = "이메일을 입력해 주세요";
+            $("#member_id").val("");
+            $("#member_id").focus();
+            toastr.error(message);
+            return false;
+        }
+
+        if ( $("#member_name").val().trim() == "" )
+        {
+            var message = "회원명을 입력해 주세요";
+            $("#member_name").val("");
+            $("#member_name").focus();
+            toastr.error(message);
+            return false;
+        }
+
+        if(mode == 'write' || $('#pwdCheck').is(':checked')){
+
+        if ( $("#password").val().trim() == "" )
+        {
+            var message = "패스워드를 입력해 주세요";
+            $("#password").val("");
+            $("#password").focus();
+            toastr.error(message);
+            return false;
+        }
+
+        }
+
+        // if ( $("#member_phone").val().trim() == "" )
+        // {
+        //     var message = "연락처를 입력해 주세요";
+        //     $("#member_phone").val("");
+        //     $("#member_phone").focus();
+        //     toastr.error(message);
+        //     return false;
+        // }
+
+
+
+
+        if($("#mode").val() == 'modify'){
+            var url = "/manager/users/update";
+        }else{
+            var url = "/manager/users/write";
+        }
+
+        $("form[name='writeForm']").attr("target","_self");
+        $("form[name='writeForm']").attr("action", url);
+        $("form[name='writeForm']").attr("method","post");
+        $("form[name='writeForm']").ajaxSubmit({
+            success : function(data){
+                if(data == 'success'){
+                    toastr.success('저장되었습니다!');
+
+                    $('#myModal1').modal('toggle');
+
+
+                }else{
+                    toastr.error('오류가 발생했습니다!');
+                }
+            }
+            ,error : function(e) {
+                toastr.error('오류가 발생했습니다!');
+            }
+        });
+    }
+
+    function showBg(img) {
+
+        $("#imgDiv").html('');
+        $("#imgDiv").html('<a href="javascript:closeImage();"><img src="'+img+'" style="display:block;width:100%;height:100%"></a>');
+
+
+        $('#myModal3').modal('show');
+    }
+
+    function closeImage(){
+
+        $('#myModal3').modal('hide');
+    }
+
+    function deleteFile(){
+
+        $("#fileDelete").val("Y");
+        $('#myModal3').modal('hide');
+
+        // $.ajax({
+        //     type : "POST",
+        //     url  : "/manager/users/deleteFile",
+        //     data : { seq : $("#seq").val() },
+        //     dataType: "json",
+        //     async: false,
+        //     success : function(data) {
+        //
+        //         if(data == 'success'){
+        //
+        //             toastr.success('삭제되었습니다.');
+        //             var html = "";
+        //             $("#mainFile").html(html);
+        //             $("#bgImage").val("");
+        //         }else{
+        //             toastr.error('오류가 발생했습니다!');
+        //         }
+        //     },
+        //     error : function(xhr, status, error) {
+        //         toastr.error('오류가 발생했습니다!');
+        //     }
+        // });
+
+    }
+
+
+
+</script>

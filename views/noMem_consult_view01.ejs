@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="ko">
+  <% include include/head %>
+  <body>
+   
+<div id="wrap">
+    <!-- inc header -->
+    <% include include/header %>
+    <!-- //inc header -->
+    <!-- container -->
+    <section class="container my_consult">
+        <section class="contents">
+            <div class="sub-title">
+                <div class="inner">
+                    <h1>내견적현황</h1>
+                </div>
+            </div>
+            <div class="location">
+                <div class="inner">
+                    <div class="breadcrumbs">
+                        <a href="/" class="btn-home"><span class="sp-comm">home</span></a>
+                        <span><a href="/noPage/index">내견적현황</a></span>
+                    </div>
+                </div>
+            </div>
+            <div class="inner consult">
+                <div class="detail">
+                    <h3><strong><%=member_name%></strong>님의 의뢰내용<%if(row.semu_status == 'D'){%><br>세무전문가(<%=semuSelectList.length%>명)의 견적서가 도착했으니 확인후 선택바랍니다.<%}%></h3>
+                    <%if(semuType == 'A'){%>
+                    <ul>
+                        <li><em>구분</em><p><strong>기장대행</strong></p></li>
+                        <li><em>상태</em><p>
+                            <%if(row.semu_status == 'A'){%>
+                                견적요청
+                            <%}else if(row.semu_status == 'B'){%>
+                                    견적중
+                                <%}else if(row.semu_status == 'D'){%>
+                                    견적완료
+                                <%}else if(row.semu_status == 'E'){%>
+                                    재견적요청
+                                <%}else if(row.semu_status == 'C'){%>
+                                    취소
+                                <%}else if(row.semu_status == 'F'){%>
+                                    선택완료
+                                <%}%>
+                        </p></li>
+                    </ul>
+                    <ul>
+                        <li><em>신청일</em><p><%=row.cre_date%></p></li>
+                        <li><em>고객명</em><p><%=row.name%></p></li>
+                        <li><em>사업자유형</em><p><%=row.type1=='A'?'법인':'개인'%></p></li>
+                        <li><em>업종</em><p><%=row.upjong%></p></li>
+                        <li><em>직원수</em><p><%=row.jikwonsu%></p></li>
+                        <li><em>(선택)희망기장료</em><p><%=row.kijangcharge%></p></li>
+                        <li class="explain"><em>기타사항</em><p><%=row.etc%></p></li>
+                    </ul>
+                    <%}else if(semuType == 'B'){%>
+                    <ul>
+                        <li><em>구분</em><p><strong>신고대행</strong></p></li>
+                        <li><em>상태</em><p>
+                                <%if(row.semu_status == 'A'){%>
+                                    견적요청
+                                <%}else if(row.semu_status == 'B'){%>
+                                    견적중
+                                <%}else if(row.semu_status == 'D'){%>
+                                    견적완료
+                                <%}else if(row.semu_status == 'E'){%>
+                                    재견적요청
+                                <%}else if(row.semu_status == 'C'){%>
+                                    취소
+                                    <%}else if(row.semu_status == 'F'){%>
+                                        선택완료
+                                <%}%>
+                            </p></li>
+                    </ul>
+                    <ul>
+                        <li><em>신청일</em><p><%=row.cre_date%></p></li>
+                        <li><em>고객명</em><p><%=row.name%></p></li>
+                        <li><em>사업유형</em><p><%=row.type1=='A'?'부가가치세':'종합소득세'%></p></li>
+                        <li><em>소득구분</em><p><%=row.sodukgubun%></p></li>
+                        <li class="explain"><em>기타사항</em><p><%=row.etc%></p></li>
+                    </ul>
+                    <%}else if(semuType == 'C'){%>
+                    <ul>
+                        <li><em>구분</em><p><strong>세무조사/불복</strong></p></li>
+                        <li><em>상태</em><p>
+                                <%if(row.semu_status == 'A'){%>
+                                    견적요청
+                                <%}else if(row.semu_status == 'B'){%>
+                                    견적중
+                                <%}else if(row.semu_status == 'D'){%>
+                                    견적완료
+                                <%}else if(row.semu_status == 'E'){%>
+                                    재견적요청
+                                <%}else if(row.semu_status == 'C'){%>
+                                    취소
+                                    <%}else if(row.semu_status == 'F'){%>
+                                        선택완료
+                                <%}%>
+                            </p></li>
+                    </ul>
+                    <ul>
+                        <li><em>신청일</em><p><%=row.cre_date%></p></li>
+                        <li><em>고객명</em><p><%=row.name%></p></li>
+                        <li><em>세무분야</em><p><%=row.type1=='A'?'세무조사':row.type1=='B'?'조세불복':'내부조사'%></p></li>
+                        <li class="explain"><em>기타사항</em><p><%=row.etc%></p></li>
+                    </ul>
+                    <%}else if(semuType == 'D'){%>
+                    <ul>
+                        <li><em>구분</em><p><strong>양도/상속/증여</strong></p></li>
+                        <li><em>상태</em><p>
+                                <%if(row.semu_status == 'A'){%>
+                                    견적요청
+                                <%}else if(row.semu_status == 'B'){%>
+                                    견적중
+                                <%}else if(row.semu_status == 'D'){%>
+                                    견적완료
+                                <%}else if(row.semu_status == 'E'){%>
+                                    재견적요청
+                                <%}else if(row.semu_status == 'C'){%>
+                                    취소
+                                <%}%>
+                            </p></li>
+                    </ul>
+                    <ul>
+                        <li><em>신청일</em><p><%=row.cre_date%></p></li>
+                        <li><em>고객명</em><p><%=row.name%></p></li>
+                        <li><em>세무분야</em><p>
+                                <%
+                                    var type2 =  row.type2;
+                                    var type3 = type2.split(",");
+                                    var type_t = "";
+                                    for(var j = 0; j< type3.length;j++){
+                                        console.log(type3[j]);
+                                        if(type3[j]== 'A'){
+                                            type_t = "양도세";
+                                        }else  if(type3[j]== 'B'){
+                                            type_t += ",상속세";
+                                        }else {
+                                            type_t += ",증여세";
+                                        }
+                                    }
+
+                                %><%=type_t%>
+
+                            </p></li>
+                        <li><em>부동산</em><p><%=row.budongsan%></p></li>
+                        <li><em>금융</em><p><%=row.gumyoung%></p></li>
+                        <li><em>기타금액</em><p><%=row.etccharge%></p></li>
+                        <li class="explain"><em>기타사항</em><p><%=row.etc%></p></li>
+                    </ul>
+                    <%}else if(semuType == 'E'){%>
+                    <ul>
+                        <li><em>구분</em><p><strong>컨설팅/평가/감사</strong></p></li>
+                        <li><em>상태</em><p>
+                                <%if(row.semu_status == 'A'){%>
+                                    견적요청
+                                <%}else if(row.semu_status == 'B'){%>
+                                    견적중
+                                <%}else if(row.semu_status == 'D'){%>
+                                    견적완료
+                                <%}else if(row.semu_status == 'E'){%>
+                                    재견적요청
+                                <%}else if(row.semu_status == 'C'){%>
+                                    취소
+                                    <%}else if(row.semu_status == 'F'){%>
+                                        선택완료
+                                <%}%>
+                            </p></li>
+                    </ul>
+                    <ul>
+                        <li><em>신청일</em><p><%=row.cre_date%></p></li>
+                        <li><em>고객명</em><p><%=row.name%></p></li>
+                        <li><em>분류</em><p><%
+                                    var type2 =  row.type2;
+                                    var type3 = type2.split(",");
+                                    var type_t = "";
+                                    for(var j = 0; j< type3.length;j++){
+                                        console.log(type3[j]);
+                                        if(type3[j]== 'A'){
+                                            type_t = "회계감사";
+                                        }else  if(type3[j]== 'B'){
+                                            type_t += ",기타자문";
+                                        }
+                                    }
+
+                                %><%=type_t%></p></li>
+                        <li><em>업종</em><p><%=row.upjong%></p></li>
+                        <li><em>회사명</em><p><%=row.companyname%></p></li>
+                        <li><em>매출/자산/자본금규모</em><p><%=row.companymoney%></p></li>
+                        <li class="explain"><em>기타사항</em><p><%=row.etc%></p></li>
+                    </ul>
+                    <%}else if(semuType == 'F'){%>
+                    <ul>
+                        <li><em>구분</em><p><strong>무료 세무상담</strong></p></li>
+                        <li><em>상태</em><p>
+                                <%=row.semu_status%>
+                            </p></li>
+                    </ul>
+                    <ul>
+                        <li><em>신청일</em><p><%=row.cre_dtime%></p></li>
+                        <li><em>고객명</em><p><%=row.cre_name%></p></li>
+                        <li><em>제목</em><p><%=row.title%></p></li>
+                        <li class="explain"><em>기타사항</em><p><%-row.content%></p></li>
+                        <%if(commentList.length>0){
+                        commentList.forEach(function (items,index){
+                        %>
+                        <li class="explain"><em>답변</em><p><%-items.comment%></p></li>
+                        <%})
+                        }%>
+                    </ul>
+                    <%}%>
+                </div>
+            </div>
+            <div class="inner accountant">
+
+                <div class="bxslider">
+
+                    <% semuSelectList.forEach(function (items,index){
+                    if(row.semu_status == 'F'){
+                        if(items.match_status == "C"){
+
+                    %>
+
+                    <div class="item" onclick="location.href='/nopage/my_consult_semusa/<%=semuType%>/<%=row.idx%>/<%=items.idx%>'">
+                        <img src="<%=items.image_path==''?"/images/none.png":items.image_path%>" alt="">
+                        <div class="info">
+                            <div>
+                                <strong><%=items.semusa_name%>[<%if(items.license_type == 'A,B'){%>공인회계사,세무사<%}else if(items.license_type == 'A'){%>공인회계사<%}else{%>세무사<%}%>]</strong>
+                                <!--<p><%=items.semusa_name%></p>-->
+                                <span class="sp-comm"></span>
+                            </div>
+                            <!--<div class="txt">우리는 창업·본업·회계세무 창업·본업·회계세무 창업·본업·회계세무</div>-->
+                            <!--<p>100<span>회</span></p>-->
+                        </div>
+                    </div>
+                <%}}else{%>
+                    <div class="item" onclick="location.href='/nopage/my_consult_semusa/<%=semuType%>/<%=row.idx%>/<%=items.idx%>'">
+                        <img src="<%=items.image_path==''?"/images/none.png":items.image_path%>" alt="">
+                        <div class="info">
+                            <div>
+                                <strong><%=items.semusa_name%>[<%if(items.license_type == 'A,B'){%>공인회계사,세무사<%}else if(items.license_type == 'A'){%>공인회계사<%}else{%>세무사<%}%>]</strong>
+                                <!--<p><%=items.semusa_name%></p>-->
+                                <span class="sp-comm"></span>
+                            </div>
+                            <!--<div class="txt">우리는 창업·본업·회계세무 창업·본업·회계세무 창업·본업·회계세무</div>-->
+                            <!--<p>100<span>회</span></p>-->
+                        </div>
+                    </div>
+                    <%}})%>
+
+                </div>
+            </div>
+            <div class="btn-wrap">
+                <a href="javascript:history.back(-1);" class="btns size-mid color-green">목록</a>
+            <%if(row.semu_status == 'D'){%>
+                <a href="javascript:reMatching();" class="btns size-mid color-green">재요청</a>
+            <%}%>
+            </div>
+        </section>
+    </section>
+    <!-- //container -->
+    <!-- inc footer -->
+    <% include include/footer %>
+    <!-- //inc footer -->
+</div>
+<script>
+
+    function reMatching(){
+
+
+        var seq = "<%=row.idx%>";
+
+        $.ajax({
+            type : "POST",
+            url  : "/mypage/reMatching",
+            data : {
+                seq: seq,
+                member_name:"<%=member_name%>"
+            },
+            dataType: "json",
+            async: false,
+            success : function(data) {
+                if(data.result == 'success'){
+
+                    var msg = "정상적으로 재요청을 완료하였습니다.";
+                    alert(msg);
+                    location.href= "javascript:history.back(-1);";
+                }else{
+                    console.log('suc&fail')
+                    alert('오류가 발생했습니다!');
+
+                }
+            },
+            error : function(xhr, status, error) {
+                alert('오류가 발생했습니다!');
+            }
+        })
+
+    }
+
+</script>
+  </body>
+</html>

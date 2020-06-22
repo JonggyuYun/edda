@@ -1,0 +1,359 @@
+<% layout('manager/layout') %>
+<section class="content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="view-header">
+                        
+                    <div class="header-icon">
+                        <i class="pe page-header-icon pe-7s-menu"></i>
+                    </div>
+                    <div class="header-title">
+                        <h3><%=title%></h3>
+                        <small><%=title%></small>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </div>
+
+        <div class="row">
+                
+            <div class="col-md-12">
+                <div class="panel panel-filled">
+                    <div class="panel-heading">
+                        <div class="panel-tools">
+                            <a href="javascript:;" class="btn btn-w-md btn-accent" onclick="javascript:fn_write();">등록</a>
+                            <!-- <a class="panel-toggle"><i class="fa fa-chevron-up"></i></a>
+                                <a class="panel-close"><i class="fa fa-times"></i></a>-->
+                        </div>
+                        <%=title%>
+                    </div>
+                    <div class="panel-body">
+                           
+                        <div class="table-responsive">
+                            <table id="bannerBoard"  class="table table-hover table-condensed">
+                                <thead>
+                                <tr>
+                                    <th>번호</th>
+                                    <th>제목</th>
+                                    <th>순서</th>
+                                    <th>사용 유무</th>
+                                    <th>글로벌 타잎</th>
+                                    <th>등록일</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="modal fade" id="bannerWrite" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="panel-body">
+                        <form method="post" name="writeForm" id="writeForm">
+                            <input type="hidden" name="mode" id="mode"/>
+                            <input type="hidden" name="idx" id="idx"/>    
+                            <input type="hidden" name="f_img" id="f_img"/>
+                            <div class="form-group"><label for="useYn">국/영문 선택</label>
+                                <div class="radio">
+                                    <label> <input type="radio" name="globalType" id="globalType" value="KR" checked="checked"> 국문 </label>
+                                    <label> <input type="radio" name="globalType" id="globalType" value="EN" > 영문 </label>
+                                </div>
+                            </div>
+                            <div class="form-group"><label for="title"> 제목</label> <input type="text" class="form-control" name="title" id="title" maxlength="250" placeholder="제목 텍스트"></div>
+                            <div class="form-group"><label for="subTitle">부제목</label> <input type="text" class="form-control" name="subTitle" id="subTitle"  maxlength="250" placeholder="부제목 텍스트"></div>
+                            <div class="form-group"><label for="bannerType">캐러셀 타잎</label>
+                                <div class="radio">
+                                    <label> <input type="radio" name="bannerType" id="bannerType" value="A" checked="checked"> 이미지 업로드</label>
+                                    <label> <input type="radio" name="bannerType" id="bannerType" value="B" >그라데이션</label>
+                                    <label> <input type="radio" name="bannerType" id="bannerType" value="C" >빨간색</label>
+                                    <label> <input type="radio" name="bannerType" id="bannerType" value="D" >회색</label>
+                                </div>
+                            </div>
+                            <div class="form-group"><label for="position">순서(숫자가 낮은 순으로 노출)</label> <input type="number" class="form-control" name="position" id="position"  maxlength="11" placeholder="숫자가 낮을수록 먼저 노출" value="1"></div>
+
+                            <div class="form-group"><label for="useYn">사용(노출)여부</label>
+                                <div class="radio">
+                                    <label> <input type="radio" name="use_yn" id="useYn" value="Y" checked="checked"> 사용&nbsp;&nbsp;</label>
+                                    <label> <input type="radio" name="use_yn" id="useYn" value="N" > 미사용 </label>
+                                </div>
+                            </div>
+                            <div class="form-group"><label for="useYn">새창 여부</label>
+                                <div class="radio">
+                                    <label> <input type="radio" name="bannerLinkOpen" id="bannerLinkOpen" value="N" checked="checked"> 일반창 </label>
+                                    <label> <input type="radio" name="bannerLinkOpen" id="bannerLinkOpen" value="Y" > 새창 </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="bgImage">캐러셀 이미지 업로드</label> <input type="file" id="bgImage" name="bgImage"><div id="mainFile"></div>
+                            </div>
+                            <div class="form-group"><label for="bannerLink">링크 URL</label> <input type="text" class="form-control" name="bannerLink" maxlength="250" id="bannerLink" placeholder="링크 URL"></div>
+                            <button type="button" onclick="onWriteSubmit();" class="btn btn-default">저장하기</button>
+                            <button type="button" onclick="fn_delete();" id="deleteBtn" class="btn btn-default">삭제하기</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog modal-lg">
+                <a href="#" class="btn btn-default" data-dismiss="modal">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <h4 class="modal-title">이미지 미리보기</h4>
+                            <div id="imgDiv"></div>
+
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+
+    $(document).ready(function () {
+
+        toastr.options = {
+            "debug": false,
+            "newestOnTop": false,
+            "positionClass": "toast-bottom-right",
+            "closeButton": true,
+            "timeOut": "1000"
+
+        };
+
+        $('#bannerBoard').DataTable({
+            "serverSide": true,
+            "processing": true,
+            'searching': true,
+            "ajax": {
+                "url": "/manager/banner/bannerList",
+                "type": "POST",
+                "dataSrc": function(res) {
+                    var data = res.data;
+                    console.log("data:"+JSON.stringify(data));
+                    return data;
+                }
+            },
+            'columnDefs': [{
+                "targets": 1,
+                "render": function (data, type, row) {
+                    return "<a href='javascript:fn_onReadBoard(" + row['idx'] + ")'>" + row['title']+'</a>';
+                }
+            }],
+            "columns" : [
+                {"data": "idx"},
+                {"data": "title"},
+                {"data": "position"},
+                {"data": "use_yn"},
+                {"data": "global_type"},
+                {"data": "upd_dtime"}
+
+            ],
+            "dom": "<'row'<'col-sm-6'l><'col-sm-6'f>>t<'row'<'col-sm-6'i><'col-sm-6'p>>",
+            "lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "All"] ],
+            "iDisplayLength": 10,
+            "order": [[0, 'desc']]
+
+        });
+
+
+    });
+
+    var reload = function(){
+        location.reload();
+    }
+    
+    function fn_write(){
+        
+        $("#mode").val("write");
+        $("#idx").val("");
+        $("#title").val("");
+        $("#subTitle").val("");
+        $("#f_img").val("");
+        $("#bgImage").val("");
+        $("#bannerLink").val("");
+        $("#position").val("1");
+        $("input:radio[name='globalType']:radio[value='KR']").prop("checked",true);
+        $("input:radio[name='useYn']:radio[value='Y']").prop("checked",true);
+        $("input:radio[name='bannerType']:radio[value='A']").prop("checked",true);
+        $("input:radio[name='bannerLinkOpen']:radio[value='N']").prop("checked",true);
+
+        var html = "";
+        $("#mainFile").html(html);
+        $("#deleteBtn").hide();
+         
+        $('#bannerWrite').modal('show');
+    }
+    
+    function onWriteSubmit()
+    {
+       
+        if ( $("#title").val().trim() == "" )
+        {
+            var message = "캐러셀 제목을 입력해 주세요.";
+            $("#title").val("");
+            $("#title").focus();
+            toastr.error(message);
+            return false;
+        }
+
+        if ( $("#subTitle").val().trim() == "" )
+        {
+            var message = "캐러셀 부제목을 입력해 주세요.";
+            $("#subTitle").val("");
+            $("#subTitle").focus();
+            toastr.error(message);
+            return false;
+        }
+
+        if ( $("#position").val().trim() == "" )
+        {
+            var message = "캐러셀 순서를 입력해 주세요.";
+            $("#position").val("");
+            $("#position").focus();
+            toastr.error(message);
+            return false;
+        }
+
+        if ( $('input[name=bannerType]:checked').val() == 'A')
+        {
+
+            if($("#mode").val() == 'write') {
+                if ($("#bgImage").val().trim() == "") {
+                    var message = "캐러셀 배경 이미지를 입력해 주세요.";
+                    $("#bgImage").val("");
+                    $("#bgImage").focus();
+                    toastr.error(message);
+                    return false;
+                }
+            }
+        }
+
+        if($("#mode").val() == 'modify'){
+         var url = "/manager/banner/update";
+       	}else{
+         var url = "/manager/banner/write";
+       	}
+            
+        $("form[name='writeForm']").attr("target","_self");
+        $("form[name='writeForm']").attr("action", url);
+        $("form[name='writeForm']").attr("method","post");
+        $("form[name='writeForm']").ajaxSubmit({
+            success : function(data){
+                if(data == 'success'){
+                    toastr.success('저장되었습니다!');
+                    $('#bannerWrite').modal('toggle');
+                    setTimeout(reload, 1000);	
+                }else{
+                    toastr.error('오류가 발생했습니다!');
+				}
+            }
+           ,error : function(e) {				
+               toastr.error('오류가 발생했습니다!');
+           }
+        });
+        
+    }
+    
+    function fn_onReadBoard(idx){
+        
+        $("#deleteBtn").show();
+        $.ajax({
+				type : "POST",
+				url  : "/manager/banner/read",
+				data : {
+				         idx        : idx
+				},
+				dataType: "json",
+				async: false,
+				success : function(data) {
+				    $("#mode").val("modify");
+                    $("#idx").val(data.dbdata.idx);
+                    $("#title").val(data.dbdata.title);
+                    $("#subTitle").val(data.dbdata.subTitle);
+                    $("#bannerLink").val(data.dbdata.banner_link);
+                    $("#position").val(data.dbdata.position);
+                    $("#f_img").val(data.dbdata.image_name);
+
+			        if(data.dbdata.global_type == 'KR'){
+			            $("input:radio[name='globalType']:radio[value='KR']").prop("checked",true);
+			        }else{
+			            $("input:radio[name='globalType']:radio[value='EN']").prop("checked",true);
+			        }
+                    if(data.dbdata.banner_link_open_type == 'Y'){
+                        $("input:radio[name='bannerLinkOpen']:radio[value='Y']").prop("checked",true);
+                    }else{
+                        $("input:radio[name='bannerLinkOpen']:radio[value='N']").prop("checked",true);
+                    }
+                    if(data.dbdata.banner_type == 'A'){
+			            $("input:radio[name='bannerType']:radio[value='A']").prop("checked",true);
+			        }else if(data.dbdata.banner_type == 'B'){
+			            $("input:radio[name='bannerType']:radio[value='B']").prop("checked",true);
+                    }else if(data.dbdata.banner_type == 'C'){
+                        $("input:radio[name='bannerType']:radio[value='C']").prop("checked",true);
+			        }else{
+			            $("input:radio[name='bannerType']:radio[value='D']").prop("checked",true);
+			        }
+                    
+                    var html = "";
+                    if(data.dbdata.image_path != null && data.dbdata.image_path != '' ) {
+                        html = '&nbsp;<span class="pe-7s-photo" onclick="showBg(\''+data.dbdata.image_path+'\');" style="font-size: 32px;color: #ffffff;"></span>';
+                    }
+                    $("#mainFile").html(html);
+                                
+				    $('#bannerWrite').modal('show');
+				},
+				error : function(xhr, status, error) {
+				    toastr.error('오류가 발생했습니다!');
+				}
+        });
+    }
+        
+    function fn_delete(){
+        
+        $.ajax({
+                type : "POST",
+				url  : "/manager/banner/delete",
+				data : {
+				          idx     : $("#idx").val(),
+				          f_img	  : $("#f_img").val()
+				},
+                dataType: "json",
+				async: false,
+				success : function(data) {
+				    if(data == 'success'){ 
+                        toastr.success('삭제되었습니다!');
+                        $('#myModal2').modal('toggle');
+                        setTimeout(reload, 1000);
+                
+                    }else{
+                        toastr.error('오류가 발생했습니다!');
+                    }
+				},
+				error : function(xhr, status, error) {
+                    toastr.error('오류가 발생했습니다!');
+				}
+             });
+    }
+        
+    function showBg(img) {
+
+        $("#imgDiv").html('');
+        $("#imgDiv").html('<img src="'+img+'" style="display:block;width:100%;height:100%">');
+
+
+        $('#myModal3').modal('show');
+    }
+</script>

@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="ko">
+  <% include include/head %>
+  <body>
+   
+<div id="wrap">
+    <!-- inc header -->
+    <% include include/header %>
+    <!-- //inc header -->
+    <!-- container -->
+    <section class="container member">
+        <section class="contents">
+            <div class="sub-title">
+                <div class="inner">
+                    <h1>로그인/회원가입</h1>
+                </div>
+            </div>
+            <div class="location">
+                <div class="inner">
+                    <div class="breadcrumbs">
+                        <a href="/" class="btn-home"><span class="sp-comm">home</span></a>
+                        <span><a href="#">로그인/회원가입</a></span>
+                    </div>
+                </div>
+            </div>
+            <div class="inner log-wrap">
+                 <div class="member-box">
+                        <div class="login">
+                        <div class="log-box">
+                            <input type="text" id="memberId" name="memberId" placeholder="이메일 주소를 입력해 주세요.">
+                            <input type="password" id="memberPwd" name="memberPwd" placeholder="비밀번호를 입력해 주세요.">
+                            <button onclick="loginProc();">로그인</button>
+                        </div>
+                        <div class="log-link">
+                            <div class="inp-check">
+                                <input type="checkbox" name="keep" id="keep"><label for="keep">자동로그인</label>
+                            </div>
+                            <div class="find">
+                                <a href="/member/findId">아이디 찾기</a>
+                                <a href="/member/findPw">비밀번호 찾기</a>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="join">
+                        <div class="join-mem">
+                            <em>아직도 회원이 아니신가요?</em>
+                            <p>회원가입을 하시면 잇다에서 제공하는 더 많은 서비스를 이용하실 수 있습니다.</p>
+                            <button onclick="location.href='/join'">회원가입</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </section>
+    <!-- //container -->
+    <!-- inc footer -->
+    <% include include/footer %>
+    <!-- //inc footer -->
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+
+
+
+        $("#memberPwd").keypress(function(e) {
+
+            if (e.keyCode == 13){
+                loginProc();
+            }
+        });
+
+    });
+
+
+    function loginProc(){
+        //로그인
+        if( $("#memberId").val().trim() == ''){
+            alert("Email ID를 입력해 주세요");
+            $("#memberId").focus();
+            return false;
+        }
+
+        if (!validateEmail($("#memberId").val()))
+        {
+            var message = "올바른 이메일 주소를 입력해 주세요.";
+            //$("#memberId").val("");
+            $("#memberId").focus();
+            alert(message);
+            return false;
+        }
+
+
+        if($("#memberPwd").val().trim() == ''){
+            alert("패스워드를 입력해 주세요.");
+            $("#memberPwd").focus();
+            return false;
+        }
+
+
+        $.ajax({
+            type : "POST",
+            url  : "/user/login",
+            data : {
+                id        : $("#memberId").val().trim(),
+                pwd       : $("#memberPwd").val().trim(),
+                keep      : $("#keep").val()
+            },
+            dataType: "json",
+            async: false,
+            success : function(data) {
+                if(data.result == 'success'){
+
+                    location.href="/";
+
+
+                }else{
+                //alert(data.result);
+                    if(data.result == 'noId'){
+                        alert("아이디를 확인해주세요.");
+                    }else if(data.result == 'noStatus') {
+                        alert("현재 회원승인 진행중에 있습니다. 승인완료 후 로그인 가능합니다.");
+                    }else{
+                    alert('패스워드를 확인해주세요.');
+                    }
+                }
+            },
+            error : function(xhr, status, error) {
+                alert('오류가 발생했습니다!');
+            }
+        });
+
+
+    }
+
+    function validateEmail(sEmail) {
+        var filter = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+        if (filter.test(sEmail)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+</script>
+  </body>
+</html>

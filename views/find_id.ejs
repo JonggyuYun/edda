@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ko">
+<% include include/head %>
+<body>
+
+<div id="wrap">
+    <!-- inc header -->
+    <% include include/header %>
+    <!-- //inc header -->
+    <!-- container -->
+    <section class="container member">
+        <section class="contents">
+            <div class="sub-title">
+                <div class="inner">
+                    <h1>아이디 찾기</h1>
+                </div>
+            </div>
+            <div class="location">
+                <div class="inner">
+                    <div class="breadcrumbs">
+                        <a href="/" class="btn-home"><span class="sp-comm">home</span></a>
+                        <span><a href="#">아이디 찾기</a></span>
+                    </div>
+                </div>
+            </div>
+            <div class="inner">
+
+                    <div class="apply-form">
+                        <ul>
+                            <li>
+                                <label for="">이름 <span>*</span></label>
+                                <div class="inp-box">
+                                    <input type="text" id="memberName" name="memberName" placeholder="이름을 입력해 주세요.">
+                                </div>
+                            </li>
+                            <li>
+                                <label for="">휴대전화<span>*</span></label>
+                                <div class="inp-box">
+                                    <input type="text" id="memberPhone" name="memberPhone" placeholder="가입하신 휴대폰 번호를 입력해주세요.">
+                                    <p class="txt right">‘-’ 없이 입력해 주세요.</p>
+                                </div>
+                            </li>
+
+
+                        </ul>
+                        <div class="btn-wrap">
+                            <a href="javascript:findId();" class="btns size-mid color-green">아이디 찾기</a>
+                        </div>
+                        <div class="found_wrap" style="display:none;">
+                            <p>고객님의 아이디는 <strong class="return_id"></strong> 입니다.</p>
+                        </div>
+                    </div>
+
+            </div>
+        </section>
+    </section>
+    <!-- //container -->
+    <!-- inc footer -->
+    <% include include/footer %>
+    <!-- //inc footer -->
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+
+
+// 웹소켓 전역 객체 생성
+        var ws = new WebSocket("ws://localhost:3000");
+
+        // 연결이 수립되면 서버에 메시지를 전송한다
+        ws.onopen = function(event) {
+            ws.send("Client message: Hi!");
+        }
+
+        // 서버로 부터 메시지를 수신한다
+        ws.onmessage = function(event) {
+            console.log("Server message: ", event.data);
+        }
+
+        // error event handler
+        ws.onerror = function(event) {
+            console.log("Server error message: ", event.data);
+        }
+
+
+    });
+
+
+    function findId()
+    {
+        if ( ($("#memberName").val().trim() == ""))
+        {
+            var message = "이름을 입력해 주세요";
+            $("#memberName").val("");
+            $("#memberName").focus();
+            alert(message);
+            return false;
+        }
+
+        if ( ($("#memberPhone").val().trim() == ""))
+        {
+            var message = "전화번호를 입력해 주세요";
+            $("#memberPhone").val("");
+            $("#memberPhone").focus();
+            alert(message);
+            return false;
+        }
+
+        //$("#frm_find").attr("action", "/findId/" + $("#member_name").val().trim() + "/" + $("#member_phone").val().trim());
+
+        $.ajax({
+            type : "GET",
+            url  : "/findId/" + $("#memberName").val().trim() + "/" + $("#memberPhone").val().trim(),
+            dataType: "json",
+            async: false,
+            success : function(data) {
+                if(data.result == 'success'){
+                    console.log(data);
+                    $(".found_wrap").css("display", "block");
+                    $(".return_id").text(data.return[0].member_id);
+                }else{
+                    alert('회원정보가 없습니다.!');
+                }
+            },
+            error : function(xhr, status, error) {
+                alert('회원정보가 없습니다.!');
+            }
+        });
+        //$('#frm_find')[0].submit();
+    }
+</script>
+</body>
+</html>

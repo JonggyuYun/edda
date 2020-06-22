@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ko">
+<% include include/head %>
+<body>
+
+<div id="wrap">
+    <!-- inc header -->
+    <% include include/header %>
+    <!-- //inc header -->
+    <!-- container -->
+    <section class="container member">
+        <section class="contents">
+            <div class="sub-title">
+                <div class="inner">
+                    <h1>내견적현황</h1>
+                </div>
+            </div>
+            <div class="location">
+                <div class="inner">
+                    <div class="breadcrumbs">
+                        <a href="/" class="btn-home"><span class="sp-comm">home</span></a>
+                        <span><a href="#">내견적현황</a></span>
+                    </div>
+                </div>
+            </div>
+            <div class="inner">
+
+                    <div class="apply-form">
+                        <ul>
+                            <li>
+                                <label for="">이름 <span>*</span></label>
+                                <div class="inp-box">
+                                    <input type="text" id="memberName" name="memberName" placeholder="이름을 입력해 주세요.">
+                                </div>
+                            </li>
+                            <li>
+                                <label for="">휴대전화<span>*</span></label>
+                                <div class="inp-box">
+                                    <input type="text" id="memberPhone" name="memberPhone" placeholder="견적신청시 입력한 휴대폰 번호를 입력해 주세요.">
+                                    <p class="txt right">‘-’ 없이 입력해 주세요.</p>
+                                </div>
+                            </li>
+
+
+                        </ul>
+                        <div class="btn-wrap">
+                            <a href="javascript:findList();" class="btns size-mid color-green">내역 조회</a>
+                        </div>
+
+                    </div>
+
+            </div>
+
+            <div id="result" style="display: none" class="inner consult">
+                <table class="list">
+                    <thead>
+                    <tr>
+                        <th>구분</th>
+                        <th>제목</th>
+                        <th>등록일</th>
+                        <th>상태</th>
+                    </tr>
+                    </thead>
+                    <tbody id="resultView">
+
+                    <tr onclick="location.href='/mypage/my_consult_view/'">
+                        <td>ㅁㅁ</td>
+                        <td class="subject"><a href="#">ㅁㄸㄸㄸ</a></td>
+                        <td>ㄷ1234</td>
+                        <td>1234</td>
+                    </tr>
+
+
+                    </tbody>
+                </table>
+
+            </div>
+        </section>
+    </section>
+    <!-- //container -->
+    <!-- inc footer -->
+    <% include include/footer %>
+    <!-- //inc footer -->
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+
+
+
+    });
+
+
+    function findList()
+    {
+        if ( ($("#memberName").val().trim() == ""))
+        {
+            var message = "이름을 입력해 주세요";
+            $("#memberName").val("");
+            $("#memberName").focus();
+            alert(message);
+            return false;
+        }
+
+        if ( ($("#memberPhone").val().trim() == ""))
+        {
+            var message = "전화번호를 입력해 주세요";
+            $("#memberPhone").val("");
+            $("#memberPhone").focus();
+            alert(message);
+            return false;
+        }
+
+        //$("#frm_find").attr("action", "/findId/" + $("#member_name").val().trim() + "/" + $("#member_phone").val().trim());
+
+        location.href="/noMemberList/" + $("#memberName").val().trim() + "/" + $("#memberPhone").val().trim();
+
+
+        //$('#frm_find')[0].submit();
+    }
+</script>
+</body>
+</html>

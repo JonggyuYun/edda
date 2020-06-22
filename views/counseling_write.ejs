@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="ko">
+  <% include include/head %>
+  <script src="https://www.google.com/recaptcha/api.js?render=6LcugM8UAAAAAP-nYOd3TzrfyjjRKn9qt7b0LI4D"></script>
+
+  <body>
+   
+<div id="wrap">
+    <!-- inc header -->
+    <% include include/header %>
+    <!-- //inc header -->
+    <!-- container -->
+    <!-- 191118 -->
+    <section class="container counsel">
+    <!-- //191118 -->
+        <section class="contents">
+            <div class="sub-title">
+                <div class="inner">
+                    <h1>세무 상담실</h1>
+                </div>
+            </div>
+            <div class="location">
+                <div class="inner">
+                    <div class="breadcrumbs">
+                        <a href="/" class="btn-home"><span class="sp-comm">home</span></a>
+                        <span><a href="#">세무 상담실</a></span>
+                    </div>
+                </div>
+            </div>
+            <%
+            var content = "";
+            var checked = "";
+            var seChecked = "";
+            if(boardData != null){
+
+                content = boardData.content.replace(/(<br>|<br\/>|<br \/>)/g, '\r\n');
+
+                if(boardData.secret_yn == 'Y'){
+
+                    checked = "checked";
+
+
+                }
+
+                seChecked = "checked";
+            }
+            %>
+            <div class="inner">
+                <!-- 비회원 작성시 개인정보취급방침 내용 추가 -->
+                <div class="privacy-agree">
+                    <% include include/privacy %>
+                    <div class="inp-check">
+                        <input type="checkbox" id="checkbox0" name="checkbox0" checked><label for="checkbox0">개인정보 수집 및 이용안내에 동의합니다.</label>
+                    </div>
+                </div>
+                <!-- //비회원 작성시 개인정보취급방침 내용 추가 -->
+                <form method="post" name="semuForm1" id="semuForm1">
+                    <input type="hidden" name="semuType" id="semuType" value="F">
+                    <input type='file' id='file0' name='attatch' onchange="changeValue1(this)"/>
+                    <input type='file' id='file1' name='attatch' onchange="changeValue2(this)"/>
+                    <input type="hidden" id="key" name="key" value="">
+                    <input type="hidden" name="boardIdx" id="boardIdx" value="<%=boardData == null?"":boardData.idx%>"/>
+                    <div class="apply-form">
+                        <ul>
+                            <li>
+                                <label for="">이름 <span>*</span></label>
+                                <div class="inp-box">
+                                    <input type="text" id="name" name="name" value="<%=member_name%>" placeholder="신청자 이름">
+                                </div>
+                            </li>
+                            <!--<li>-->
+                                <!--<label for="">비밀번호 <span>*</span></label>-->
+                                <!--<div class="inp-box">-->
+                                    <!--<input type="password" id="password" name="password" placeholder="상담글 비밀번호를 입력하세요.">-->
+                                <!--</div>-->
+                            <!--</li>-->
+                            <li>
+                                <label for="">이메일</label>
+                                <div class="inp-box">
+                                    <input type="text" id="email" name="email" value="<%=member_email%>" placeholder="이메일을 입력하세요.">
+                                </div>
+                            </li>
+                            <!--<li>-->
+                                <!--<label>옵션</label>-->
+                                <!--<div class="inp-check">-->
+                                    <!--<span class="form-ele"><input type="checkbox" id="business02" name="bimil" <%=checked%> value="Y"><label for="business02">비밀글</label></span>-->
+                                <!--</div>-->
+
+                            <!--</li>-->
+                            <!--<li>-->
+                                <!--<label for="">분류</label>-->
+                                <!--<div class="inp-text">-->
+                                    <!--<%if(whoami != null){%>-->
+                                        <!--회원-->
+                                    <!--<%}else{%>-->
+                                        <!--비회원-->
+                                    <!--<%}%>-->
+                                <!--</div>-->
+                            <!--</li>-->
+                            <li>
+                                <label for="title">제목 <span>*</span></label>
+                                <div class="inp-box">
+                                    <input type="text" id="title" name="title" value="<%=boardData==null?"":boardData.title%>" placeholder="제목을 입력하세요.">
+                                </div>
+                            </li>
+                            <li class="textarea-box detail">
+                                <label for="">상세내용</label>
+
+                                <textarea id="etc" name="etc" placeholder=""><%=content%></textarea>
+                            </li>
+                            <li class="brief">
+                                <label for="link1">링크 #1</label>
+                                <div class="inp-box">
+                                    <input type="text" id="link1" name="link1" value="<%=boardData==null?"":boardData.text1%>" placeholder="">
+                                </div>
+                            </li>
+                            <li class="brief">
+                                <label for="link2">링크 #2</label>
+                                <div class="inp-box">
+                                    <input type="text" id="link2" name="link2" value="<%=boardData==null?"":boardData.text2%>" placeholder="">
+                                </div>
+                            </li>
+                            <li class="brief">
+                                <label for="">첨부파일 #1</label>
+                                <div class="inp-box file">
+                                    <input type="text" id="file1_text" value="<%=boardData==null?"":boardData.file1_orgname%>" name="file1_text" placeholder="">
+                                    <button class="btns" id='btn-upload1'>찾아보기</button>
+                                </div>
+                            </li>
+                            <li class="brief">
+                                <label for="">첨부파일 #2</label>
+                                <div class="inp-box file">
+                                    <input type="text" id="file2_text" value="<%=boardData==null?"":boardData.file2_orgname%>" name="file2_text" placeholder="">
+                                    <button class="btns" id='btn-upload2'>찾아보기</button>
+                                </div>
+                            </li>
+                            <!-- 191128 -->
+
+                            <!-- //191128 -->
+                            <!--<li class="certify02">-->
+                                <!--<label>자동등록방지</label>-->
+                                <!--&lt;!&ndash; 191128 &ndash;&gt;-->
+                                <!--<div class="certify">-->
+                                    <!--<div>-->
+                                        <!--<p class="img"><input type="text" id="hello" value="Hello World" /></p>-->
+                                        <!--<button type="button" id="send_button">Send</button>-->
+                                        <!--<div id="result"></div>-->
+                                    <!--</div>-->
+                                    <!--<p class="txt">자동등록방지 숫자를 순서대로 입력하세요.</p>-->
+                                    <!--<input type="text" id="g-recaptcha" name="g-recaptcha">-->
+                                   <!---->
+                                <!--</div>-->
+                                <!--&lt;!&ndash; //191128 &ndash;&gt;-->
+                            <!--</li>-->
+                        </ul>
+                        <p class="inp-box txt" style="text-align: center;margin-top: 15px; font-size: 15px">'신청하기'를 누르시면 개인정보제공 및 이용약관에 동의하는 것으로 간주합니다.</p>
+                        <div class="btn-wrap">
+                            <a href="/" class="btns size-mid color-gray">취소하기</a>
+                            <a href="javascript:onMatchingSave();" id="send_button" class="btns size-mid color-green">신청하기</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </section>
+    <!-- //container -->
+    <!-- inc footer -->
+    <% include include/footer %>
+    <!-- //inc footer -->
+</div>
+<style>
+    #file0 { display:none; }
+    #file1 { display:none; }
+</style>
+
+<script>
+
+
+    $(function () {
+
+
+
+
+        $('#btn-upload1').click(function(e){
+            e.preventDefault();
+            $("#file0").click();
+
+        });
+        $('#btn-upload2').click(function(e){
+            e.preventDefault();
+            $("#file1").click();
+
+        });
+
+
+    });
+
+
+    function showResult(text) {
+       console.log("showResult :"+text.success);
+    }
+
+    function handleClick() {
+        return function() {
+            var hello = "Hello world";
+            var data = {
+                hello: hello,
+                token: $("#key").val()
+            };
+
+            fetch('/send', {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                method: 'post',
+                body: JSON.stringify(data)
+            })
+                .then(response => response.text())
+                .then(text => showResult(text))
+                .catch(error => showResult(error));
+        }
+    }
+
+    grecaptcha.ready(function() {
+        grecaptcha.execute('6LcugM8UAAAAAP-nYOd3TzrfyjjRKn9qt7b0LI4D', {action: 'homepage'})
+            .then(function (token) {
+                $("#key").val(token);
+            });
+    })
+
+
+    function changeValue1(obj){
+
+        console.log("file1 click");
+        var ext = $("#file0").val().split(".").pop().toLowerCase();
+        console.log("ext:"+ext);
+        if(ext.length > 0){
+            if($.inArray(ext, ["gif","png","jpg","jpeg"]) == -1) {
+                alert("gif,png,jpg 파일만 업로드 할수 있습니다.");
+                return false;
+            }
+        }
+        $("#file0").val().toLowerCase();
+        console.log("file:"+$("#file0").val());
+        $("#file1_text").val($("#file0").val().toLowerCase());
+
+    }
+
+    function changeValue2(obj){
+
+        console.log("file2 click");
+        var ext = $("#file1").val().split(".").pop().toLowerCase();
+        console.log("ext:"+ext);
+        if(ext.length > 0){
+            if($.inArray(ext, ["gif","png","jpg","jpeg"]) == -1) {
+                alert("gif,png,jpg 파일만 업로드 할수 있습니다.");
+                return false;
+            }
+        }
+        $("#file1").val().toLowerCase();
+        console.log("file:"+$("#file1").val());
+        $("#file2_text").val($("#file1").val().toLowerCase());
+
+    }
+
+    function onMatchingSave(){
+
+
+
+
+        if ( $("input:checkbox[id='checkbox0']").is(":checked") == false )
+        {
+            var message = "개인정보 수집에 동의해 주세요";
+            $("#checkbox0").val("");
+            $("#checkbox0").focus();
+            alert(message);
+            return false;
+        }
+
+        if ( $("#name").val().trim() == "" )
+        {
+            var message = "이름을 입력해 주세요.";
+            $("#name").val("");
+            $("#name").focus();
+            alert(message);
+            return false;
+        }
+        // if ( $("#password").val().trim() == "" )
+        // {
+        //     var message = "비밀번호를 입력해 주세요.";
+        //     $("#password").val("");
+        //     $("#password").focus();
+        //     alert(message);
+        //     return false;
+        // }
+        if ( $("#title").val().trim() == "" )
+        {
+            var message = "제목을 입력해 주세요.";
+            $("#title").val("");
+            $("#title").focus();
+            alert(message);
+            return false;
+        }
+
+
+
+
+
+
+        $.ajax({
+            type : "GET",
+            url  : "/captcha/checkCaptcha",
+            data : {
+                key : $("#key").val()
+            },
+            dataType: "json",
+            async: false,
+            success : function(data) {
+                if(data == 'success'){
+
+                    var url = "/semu/consulting_write";
+
+                    if("<%=mode%>" == 'modify'){
+                        url = "/semu/consulting_modify";
+                    }
+
+                    $("form[name='semuForm1']").attr("target","_self");
+                    $("form[name='semuForm1']").attr("action", url);
+                    $("form[name='semuForm1']").attr("method","post");
+                    $("form[name='semuForm1']").ajaxSubmit({
+                        success : function(data){
+                            if(data.result == 'success'){
+                                if("<%=mode%>" == 'modify'){
+                                    alert('수정이 완료되었습니다.');
+                                    location.href = "/board/detail/counseling/<%=boardData==null?"":boardData.idx%>";
+                                }else{
+                                    alert('신청이 완료되었습니다.');
+                                location.href="/";
+                                }
+                            }else{
+                                alert('오류가 발생했습니다!');
+                            }
+                        }
+                        ,error : function(e) {
+                            alert('오류가 발생했습니다!');
+                        }
+                    });
+                }else{
+                    alert('잠시후에 이용해주세요.');
+                    return false;
+                }
+
+
+            },
+            error : function(xhr, status, error) {
+                alert('오류가 발생했습니다!');
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
+    }
+
+
+</script>
+  </body>
+</html>

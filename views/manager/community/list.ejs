@@ -1,0 +1,958 @@
+<% layout('manager/layout') %>
+<section class="content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="view-header">
+
+                    <div class="header-icon">
+                        <i class="pe page-header-icon pe-7s-menu"></i>
+                    </div>
+                    <div class="header-title">
+                        <h3><%= boardInfo.board_name%></h3>
+                        <small>
+                            게시판 리스트
+                        </small>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="panel panel-filled">
+                    <div class="panel-heading">
+                        <div class="panel-tools">
+                            <a href="javascript:fn_write();" class="btn btn-w-md btn-accent">글쓰기</a>
+                        </div>
+                        게시판
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="table-responsive">
+                            <table id="tableExample2"  class="table table-hover table-condensed" width="100%">
+                                <thead>
+                                <tr>
+                                    <th>번호</th>
+                                    <th>작성자</th>
+                                    <th>제목</th>
+
+                                <%
+                                if(boardInfo.board_type == 'A'){
+                                %>
+                                    <th>보고서 종류</th>
+                                <%}%>
+                                    <th>조회수</th>
+                                    <th>등록일</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <%
+                                    for(var i=0; i<boardList.length; i++){
+                                        var oneItem = boardList[i];
+                                %>
+                                <tr>
+                                    <td><%=i+1%></td>
+                                    <%
+                                    if(boardInfo.board_type == 'E'){
+                                    %>
+                                    <td><%=oneItem.cre_name%></td>
+                                    <%}else{%>
+                                    <td><%=oneItem.cre_id%></td>
+                                    <%}%>
+
+                                    <td><a href="javascript:fn_onReadBoard('<%=oneItem.idx%>');"><%=oneItem.title%></a></td>
+                                <%
+                                    if(boardInfo.board_type == 'A'){
+                                %>
+                                    <td><%=oneItem.board_gubun%></td>
+                                <%}%>
+
+                                    <td><%=oneItem.hit%></td>
+                                    <td><%=oneItem.upd_dtime%></td>
+                                </tr>
+
+                                <%
+                                    }
+                                %>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <form method="post" name="writeForm" id="writeForm">
+        <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+            <div class=" modal-dialog modal-lg">
+                <div class="printContent modal-content">
+                    <div class="panel-body">
+
+                            <input type="hidden" name="mode" id="mode"/>
+                            <input type="hidden" name="idx" id="idx"/>
+                            <input type="hidden" name="board_idx" id="board_idx" value="<%= boardInfo.board_idx%>"/>
+                            <input type="hidden" name="boardType" id="boardType" value="<%= boardInfo.board_type%>"/>
+                            <input type="hidden" name="b_main_img" id="b_main_img"/>
+                            <input type="hidden" name="content" id="content"/>
+                            <input type="hidden" name="c_check" id="c_check" value=""/>
+                        <input type="hidden" name="creator_id" id="creator_id"  value="admin">
+                        <div class="form-group"><label for="title"><i class="fa fa-star-o" aria-hidden="true"></i>제목</label> <input type="text" class="form-control" name="title" id="title" placeholder="제목"></div>
+                        <%
+                        if(boardInfo.board_type == 'A'){
+                        %>
+                        <div class="form-inline">
+                            <div class="form-group"><label for="boardGubun"><i class="fa fa-star-o" aria-hidden="true"></i>보고서 종류</label>
+                            <select name="boardGubun" id="boardGubun" class="form-control">
+                                <%
+                                for(var j=0; j<cateList.length; j++){
+                                    var oneItem2 = cateList[j];
+                                    console.log("oneItem2:"+oneItem2);
+                                %>
+                                <option value="<%=oneItem2.code_idx%>"><%=oneItem2.cate_name%></option>
+                                <%}%>
+                            </select>
+                        </div>
+                            <div class="form-group"><label for="a_date">발행일</label> <input type="text" class="form-control input-sm" name="a_date" id="a_date" class="datepicker"></div>
+                        </div>
+                        <div class="form-group"><label for="title2"><i class="fa fa-star-o" aria-hidden="true"></i>연구진</label> <input type="text" class="form-control" name="title2" id="title2" placeholder="여의도연구원" value="여의도연구원" style="width:60%"></div>
+                        <div class="form-inline">
+                        <div class="form-group"><label for="text1">주요내용1</label> <input type="text" class="form-control" name="text1" id="text1" placeholder="주요내용1" ></div>
+                        <div class="form-group"><label for="text2">주요내용2</label> <input type="text" class="form-control" name="text2" id="text2" placeholder="주요내용2" ></div>
+                        <div class="form-group"><label for="text3">주요내용3</label> <input type="text" class="form-control" name="text3" id="text3" placeholder="주요내용3" ></div>
+                        </div>
+                        <div class="form-inline">
+                        <div class="form-group"><label for="text4">주요내용4</label> <input type="text" class="form-control" name="text4" id="text4" placeholder="주요내용4" ></div>
+                        <div class="form-group"><label for="text5">주요내용5</label> <input type="text" class="form-control" name="text5" id="text5" placeholder="주요내용5"></div>
+                        </div>
+                        <%}%>
+                        <%
+                        if(boardInfo.board_type == 'B'){
+                        %>
+                         <%}%>
+                        <%
+                        if(boardInfo.board_type == 'C'){
+                        %>
+                            <div class="form-inline">
+                            <label for="startDate"><i class="fa fa-star-o" aria-hidden="true"></i>일정 시작일/시</label> <input type="text" class="form-control input-sm" name="startDate" id="startDate" class="datepicker" style="width:20%">
+                            <input type="text" class="form-control input-sm" name="startTime" id="startTime" style="width:10%" placeholder="시작시간" value="00:00">
+                            <label for="endDate"><i class="fa fa-star-o" aria-hidden="true"></i>일정 종료일/시</label> <input type="text" class="form-control input-sm" name="endDate" id="endDate" class="datepicker" style="width:20%">
+                            <input type="text" class="form-control input-sm" name="endTime" id="endTime" style="width:10%" placeholder="종료시간" value="23:59">
+                            </div>
+                            <div class="form-group"><label for="title2"><장소></장소></label> <input type="text" class="form-control" name="title2" id="title2" placeholder="장소" ></div>
+                            <div class="form-group"><label for="applyUrl">신청하기 URL</label> <input type="text" class="form-control" name="applyUrl" id="applyUrl" placeholder="신청하기 URL" ></div>
+
+                        <%}%>
+                        <%
+                        if(boardInfo.board_type == 'D'){
+                        %>
+                            <div class="form-group"><label for="boardGubun"><i class="fa fa-star-o" aria-hidden="true"></i>제안분야</label>
+                                <select name="boardGubun" id="boardGubun" class="form-control" style="width: 50%">
+                                    <%
+                                    for(var j=0; j<cateList.length; j++){
+                                        var oneItem2 = cateList[j];
+                                        console.log("oneItem2:"+oneItem2);
+                                    %>
+                                    <option value="<%=oneItem2.code_idx%>"><%=oneItem2.cate_name%></option>
+                                    <%}%>
+                                </select>
+                            </div>
+                            <div class="form-inline">
+                                <div class="form-group"><label for="creName"><i class="fa fa-star-o" aria-hidden="true"></i>이름</label> <input type="text" class="form-control input-sm" name="creName" id="creName"></div>
+                                <div class="form-group"><label for="creEmail"><i class="fa fa-star-o" aria-hidden="true"></i>이메일</label> <input type="text" class="form-control input-sm" name="creEmail" id="creEmail"></div>
+                            </div>
+                            <div class="form-group"><label for="content1">정책제안배경 및 필요성</label><textarea class="form-control" rows="5" name="content1" id="content1" placeholder="내용"></textarea></div>
+                            <div class="form-group"><label for="content2"><i class="fa fa-star-o" aria-hidden="true"></i>주요연구내용</label><textarea class="form-control" rows="5" name="content2" id="content2" placeholder="내용"></textarea></div>
+                            <div class="form-group"><label for="content3">기대효과</label><textarea class="form-control" rows="5" name="content3" id="content3" placeholder="내용"></textarea></div>
+                            <div class="form-group"><div class="checkbox"><label for="secretYn"> <input type="checkbox" name="secretYn" id="secretYn" value="Y"> 비밀글 체크  </label></div></div>
+
+                        <%}%>
+                        <%
+                        if(boardInfo.board_type == 'E'){
+                        %>
+
+                            <div class="form-inline">
+                                <div class="form-group"><label for="creName"><i class="fa fa-star-o" aria-hidden="true"></i>이름</label> <input type="text" class="form-control input-sm" name="creName" id="creName"></div>
+                                <div class="form-group"><label for="crePwd"><i class="fa fa-star-o" aria-hidden="true"></i>패스워드</label> <input type="password" class="form-control input-sm" name="crePwd" id="crePwd"></div>
+                                <div class="form-group"><label for="creEmail">이메일</label> <input type="text" class="form-control input-sm" name="creEmail" id="creEmail"></div>
+                            </div>
+                            <div class="form-group"><label for="text1">링크1</label> <input type="text" class="form-control" name="text1" id="text1" placeholder="링크1" ></div>
+                            <div class="form-group"><label for="text2">링크2</label> <input type="text" class="form-control" name="text2" id="text2" placeholder="링크2" ></div>
+
+                        <%}%>
+                        <%
+                        if(boardInfo.board_type != 'D'){
+                        %>
+                        <div class="form-group"><label for="content"><i class="fa fa-star-o" aria-hidden="true"></i>내용</label>
+                                <textarea class="form-control" rows="3" name="contentE" id="contentE" placeholder="내용"></textarea>
+                                <script>
+                                    // Replace the <textarea id="editor1"> with a CKEditor
+                                    // instance, using default configuration.
+                                    CKEDITOR.replace( 'contentE',{height: 400, uiColor: '#494b54'});
+                                </script>
+                            </div>
+                        <%}%>
+
+                        <div class="form-group"><div class="checkbox"><label> <input type="checkbox" name="topFix" id="topFix" value="Y"> 상단고정 체크  </label></div></div>
+
+                        <div class="form-group"><label for="memo">관리자 메모</label><textarea class="form-control" rows="5" name="memo" id="memo" placeholder="관리자 메모"></textarea></div>
+                        <div class="form-group"><label for="tag"><i class="fa fa-star-o" aria-hidden="true"></i>태그</label> <input type="text" class="form-control" name="tag" id="tag" placeholder="쉼표로 입력" style="width:60%"></div>
+
+                    <%
+                            if(boardInfo.comment_yn == 'Y'){
+                            %>
+				            <input type="hidden" name="comment_idx" id="comment_idx"/>
+				            <div class="form-group"><label for="comment">답변</label>  <textarea class="form-control" rows="3" name="comment" id="comment" placeholder="답변"></textarea></div>
+				            <%} else {%>
+				            <input type="hidden" name="comment_idx" id="comment_idx"/>
+				            <input type="hidden" name="comment" id="comment"/>
+				            <%}%>
+                            <%
+                            if(boardInfo.file_yn == 'Y'){
+                            %>
+                            <div class="form-group">
+                                <div id="main_img"><label for="main_image"><i class="fa fa-star-o" aria-hidden="true"></i>이미지 업로드<%if(boardInfo.board_type == 'A'){%>(380*520px)<%}%></label>&nbsp;<input type="file" id="main_image" name="main_image"><div id="r_main_div"></div></div>
+                            </div>
+
+                            <div class="form-group" id="fileDiv">
+                                <div id="childFileDiv_0"><label for="uploadFiles">File 업로드</label>&nbsp;<button type="button" onclick="addFileDiv();" class="btn btn-default btn-sm">파일추가</button> <input type="file" id="uploadFiles" name="uploadFiles"></div>
+                            </div>
+                            <%}%>
+
+				            <% if(boardInfo.file_yn == 'Y'){ %>
+                            <button type="button" onclick="addFileDiv();" class="btn btn-default">파일추가</button>
+				            <% } %>
+
+
+                            <button type="button" id="deleteBtn" onclick="fn_delete();" class="btn btn-default">삭제하기</button>
+				            <% //} %>
+				            <button type="button" onclick="onWriteSubmit();" class="btn btn-default">저장하기</button>
+                            <button type="button" onclick="onPrint();" class="btn btn-default">인쇄하기</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </form>
+
+        <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog modal-lg">
+                <a href="#" class="btn btn-default" data-dismiss="modal">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <h4 class="modal-title">이미지 미리보기</h4>
+                            <div id="imgDiv"></div>
+
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="panel-body">
+                        <table  class="table m-t-md">
+                            <thead>
+                            <tr>
+                                <th>작성자</th>
+                                <th>내용</th>
+                                <th>작성일자</th>
+                                <th>삭제</th>
+
+                            </tr>
+                            </thead>
+                            <tbody id="commentListDiv">
+
+
+                            </tbody>
+                        </table>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="panel-body">
+                        <input type="hidden" name="boardType" id="boardType">
+                        <input type="hidden" name="commentSidx" id="commentSidx">
+                        <input type="hidden" name="commentDidx" id="commentDidx">
+                        <div class="form-group"><label for="content"><i class="fa fa-star-o" aria-hidden="true"></i>커맨트 내용</label>
+                            <textarea class="form-control" rows="3" name="commentDetail" id="commentDetail" placeholder="내용"></textarea>
+                        </div>
+
+				        <div class="form-group"><label for="comment"><i class="fa fa-star-o" aria-hidden="true"></i>커맨트 답변</label>  <textarea class="form-control" rows="10" name="commentReply" id="commentReply" placeholder="답변"></textarea></div>
+
+                        <button type="button" id="deleteBtn" onclick="fn_deleteComment();" class="btn btn-default">삭제하기</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="myModal5" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="panel-body">
+                        <input type="hidden" name="commentSidx" id="commentSidx">
+                        <div class="form-group"><label for="content"><i class="fa fa-star-o" aria-hidden="true"></i>질문 내용</label>
+                            <textarea class="form-control" rows="3" name="commentQuestion" id="commentQuestion" placeholder="내용"></textarea>
+                        </div>
+
+
+                        <button type="button" onclick="fn_onWriteQuestion();" class="btn btn-default">저장하기</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<script>
+
+    $(document).ready(function () {
+
+        toastr.options = {
+            "debug": false,
+            "newestOnTop": false,
+            "positionClass": "toast-bottom-right",
+            "closeButton": true,
+            "timeOut": "1000"
+
+        };
+
+        $('#tableExample2').DataTable({
+            "dom": "<'row'<'col-sm-6'l><'col-sm-6'f>>t<'row'<'col-sm-6'i><'col-sm-6'p>>",
+            "lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "All"] ],
+            "iDisplayLength": 10,
+            "order": [[0, 'desc']]
+
+        });
+
+        $('#a_date').datepicker().datepicker("setDate", new Date());
+        $('#a_date').datepicker("option", "dateFormat", "yy.mm.dd");
+        $('#startDate').datepicker().datepicker("setDate", new Date());
+        $('#startDate').datepicker("option", "dateFormat", "yy.mm.dd");
+        $('#endDate').datepicker().datepicker("setDate", new Date());
+        $('#endDate').datepicker("option", "dateFormat", "yy.mm.dd");
+
+    });
+
+
+    $.fn.modal.Constructor.prototype.enforceFocus = function() {
+    $( document )
+        .off( 'focusin.bs.modal' ) // guard against infinite focus loop
+        .on( 'focusin.bs.modal', $.proxy( function( e ) {
+            if (this.$element[ 0 ] !== e.target && !this.$element.has( e.target ).length
+                // CKEditor compatibility fix start.
+                && !$( e.target ).closest( '.cke_dialog, .cke' ).length)
+                // CKEditor compatibility fix end.
+            {
+                this.$element.trigger( 'focus' );
+            }
+        }, this ) );
+    };
+
+
+    var reload = function(){
+        location.reload();
+    }
+
+    function fn_write(){
+
+        $("#mode").val("write");
+        $("#title").val("");
+        $("#title2").val("");
+        $("#content").val("");
+        $("#text1").val("");
+        $("#text2").val("");
+        $("#text3").val("");
+        $("#text4").val("");
+        $("#text5").val("");
+        $("#applyUrl").val("");
+        $("#startTime").val("00:00");
+        $("#endTime").val("23:59");
+        $("#creName").val("");
+        $("#creEmail").val("");
+        $("#crePwd").val("");
+        $("#memo").val("");
+        $("#tag").val("");
+
+        $("#cre_id").val("");
+
+        var board_idx = $("#board_idx").val();
+
+
+        <%
+        if(boardInfo.board_type == 'A'){
+        %>
+        $("#title2").val("여의도연구원");
+        <%}%>
+        <%
+        if(boardInfo.board_type != 'D'){
+        %>
+        CKEDITOR.instances.contentE.setData("");
+        <%}%>
+        $("#deleteBtn").hide();
+        var html = "";
+        $("#r_main_div").html(html);
+
+        var html = '<div id="childFileDiv_0"><label for="uploadFiles">File 업로드</label><input type="file" id="uploadFiles" name="uploadFiles"></div>';
+        $("#fileDiv").html(html);
+        $('#myModal2').modal('show');
+    }
+
+
+
+
+    function onWriteSubmit()
+    {
+
+        var board_idx = $("#board_idx").val();
+
+        var boardType = $("#boardType").val();
+
+        //alert(boardType);
+        if ( $("#title").val().trim() == "" )
+        {
+            var message = "제목을 입력해 주세요";
+            $("#title").val("");
+            $("#title").focus();
+            toastr.error(message);
+            return false;
+        }
+
+        if(boardType == 'A'){ //    자료실
+
+            if ( $("#title2").val().trim() == "" )
+            {
+                var message = "연구진을 입력해 주세요";
+                $("#title2").val("");
+                $("#title2").focus();
+                toastr.error(message);
+                return false;
+            }
+
+            if ( $("#a_date").val().trim() == "" )
+            {
+                var message = "발행일을 입력해 주세요";
+                $("#a_date").val("");
+                $("#a_date").focus();
+                toastr.error(message);
+                return false;
+            }
+
+            // if ( $("#text1").val().trim() == "" && $("#text2").val().trim() == "" && $("#text3").val().trim() == "" && $("#text4").val().trim() == "" && $("#text5").val().trim() == "" )
+            // {
+            //     var message = "하나 이상의 주요내용을 입력해주세요.";
+            //     $("#text1").val("");
+            //     $("#text1").focus();
+            //     toastr.error(message);
+            //     return false;
+            // }
+
+
+        }
+
+        if(boardType == 'C') { //   일정
+
+            if ( $("#startDate").val().trim() == "" )
+            {
+                var message = "시작일정을 입력해 주세요";
+                $("#startDate").val("");
+                $("#startDate").focus();
+                toastr.error(message);
+                return false;
+            }
+
+            if ( $("#startTime").val().trim() == "" )
+            {
+                var message = "시작시간을 입력해 주세요";
+                $("#startTime").val("");
+                $("#startTime").focus();
+                toastr.error(message);
+                return false;
+            }
+
+            if ( $("#endDate").val().trim() == "" )
+            {
+                var message = "종료일자를 입력해 주세요";
+                $("#endDate").val("");
+                $("#endDate").focus();
+                toastr.error(message);
+                return false;
+            }
+
+            if ( $("#endTime").val().trim() == "" )
+            {
+                var message = "종료시간을 입력해 주세요";
+                $("#endTime").val("");
+                $("#endTime").focus();
+                toastr.error(message);
+                return false;
+            }
+
+        }
+
+        if(boardType == 'D') { //    정책제안
+
+            if ( $("#creName").val().trim() == "" )
+            {
+                var message = "이름을 입력해 주세요";
+                $("#creName").val("");
+                $("#creName").focus();
+                toastr.error(message);
+                return false;
+            }
+            if ( $("#creEmail").val().trim() == "" )
+            {
+                var message = "이메일을 입력해 주세요";
+                $("#creEmail").val("");
+                $("#creEmail").focus();
+                toastr.error(message);
+                return false;
+            }
+            if ( $("#content2").val().trim() == "" )
+            {
+                var message = "주요연구내용을 입력해 주세요";
+                $("#content2").val("");
+                $("#content2").focus();
+                toastr.error(message);
+                return false;
+            }
+
+        }
+
+
+        if(boardType == 'E') { //    자유게시
+
+            if ( $("#creName").val().trim() == "" )
+            {
+                var message = "이름을 입력해 주세요";
+                $("#creName").val("");
+                $("#creName").focus();
+                toastr.error(message);
+                return false;
+            }
+            if ( $("#crePwd").val().trim() == "" )
+            {
+                var message = "비밀번호를 입력해 주세요";
+                $("#crePwd").val("");
+                $("#crePwd").focus();
+                toastr.error(message);
+                return false;
+            }
+
+
+        }
+
+        if(boardType != 'D') {
+            $("#content").val(CKEDITOR.instances.contentE.getData());
+        }
+        if($("#mode").val() == 'modify'){
+            var url = "/manager/community/update";
+       	}else{
+            var url = "/manager/community/write";
+       	}
+
+        $("form[name='writeForm']").attr("target","_self");
+        $("form[name='writeForm']").attr("action", url);
+        $("form[name='writeForm']").attr("method","post");
+        $("form[name='writeForm']").ajaxSubmit({
+            success : function(data){
+                if(data == 'success'){
+                    toastr.success('저장되었습니다!');
+
+                    $('#myModal2').modal('toggle');
+
+                    setTimeout(reload, 1000);
+                }else{
+                    toastr.error('오류가 발생했습니다!');
+				}
+            }
+            ,error : function(e) {
+				toastr.error('오류가 발생했습니다!');
+            }
+        });
+    }
+
+    function fn_delete(){
+
+         $.ajax({
+             type : "POST",
+             url  : "/manager/community/delete",
+             data : {
+				      idx        : $("#idx").val(),
+				      b_main_img : $("#b_main_img").val()
+             },
+             dataType: "json",
+             async: false,
+             success : function(data) {
+                if(data == 'success'){
+                    toastr.success('삭제되었습니다!');
+
+                    $('#myModal2').modal('toggle');
+
+                    setTimeout(reload, 1000);
+                }else{
+                    toastr.error('오류가 발생했습니다!');
+                }
+             },
+             error : function(xhr, status, error) {
+                 toastr.error('오류가 발생했습니다!');
+             }
+         });
+    }
+
+
+    function fn_onReadBoard(idx){
+
+        $("#deleteBtn").show();
+        $("#comment").val('');
+        var boardType = $("#boardType").val();
+        var regex = /<br\s*[\/]?>/gi;
+        $.ajax({
+            type : "POST",
+            url  : "/manager/community/read",
+            data : {
+				    idx        : idx
+            },
+            dataType: "json",
+            async: false,
+            success : function(data) {
+
+                $("#mode").val("modify");
+                $("#idx").val(data.dbdata.idx);
+                $("#board_idx").val(data.dbdata.board_idx);
+                $("#cre_id").val(data.dbdata.upd_id);
+
+
+                $("#title").val(data.dbdata.title);
+                $("#title2").val(data.dbdata.title2);
+                $("#text1").val(data.dbdata.text1);
+                $("#text2").val(data.dbdata.text2);
+                $("#text3").val(data.dbdata.text3);
+                $("#text4").val(data.dbdata.text4);
+                $("#text5").val(data.dbdata.text5);
+                $("#a_date").val(data.dbdata.a_date);
+                $("#startDate").val(data.dbdata.start_date);
+                $("#startTime").val(data.dbdata.start_time);
+                $("#endDate").val(data.dbdata.end_date);
+                $("#endTime").val(data.dbdata.end_time);
+                $("#applyUrl").val(data.dbdata.apply_url);
+                $("#creName").val(data.dbdata.cre_name);
+                $("#crePwd").val(data.dbdata.cre_pwd);
+                $("#creEmail").val(data.dbdata.cre_email);
+                $("#content1").val(data.dbdata.content);
+                $("#content2").val(data.dbdata.content2);
+                $("#content3").val(data.dbdata.content3);
+                $("#memo").val(data.dbdata.memo);
+                $("#tag").val(data.dbdata.tag);
+                $("#crePwd").attr( 'disabled', true );
+
+
+                $("#a_date").val(data.dbdata.a_date);
+
+                $("#boardGubun").val(data.dbdata.board_gubun).attr("selected", "selected");
+
+
+
+                if(boardType != 'D'){
+                CKEDITOR.instances.contentE.setData(data.dbdata.content);
+                }
+                if(data.commentData.length > 0) {
+                    $("#comment_idx").val(data.commentData[0].idx);
+                    $("#comment").val(data.commentData[0].comment);
+                    //alert(data.commentData[0].idx);
+                }
+
+                $("#b_main_img").val(data.dbdata.main_image_name);
+                if(data.dbdata.main_image_path != null && data.dbdata.main_image_path.length > 0){
+                    $("#r_main_div").html('&nbsp;<span class="pe-7s-photo" onclick="showBg(\''+data.dbdata.main_image_path+'\');" style="font-size: 32px;color: #ffffff;"></span>');
+                }
+                if(data.dbdata.top_fix == 'Y'){
+                $("input:checkbox[id='topFix']").prop("checked", true);
+                }
+                if(data.dbdata.secret_yn == 'Y'){
+                    $("input:checkbox[id='secretYn']").prop("checked", true);
+                }
+                var html = "";
+                $("#fileDiv").html(html);
+                for(var i = 0; i<data.fileData.length;i++){
+
+                    if(data.fileData[i].mimetype.indexOf('image') == -1){
+                        html += '<div id="childFileDiv_'+i+'"><a href="'+data.fileData[i].path+'" target="_blank"><span class="pe-7s-photo"  style="font-size: 30px;color: #ffffff;vertical-align: bottom;"></span></a>&nbsp;<button class="btn btn-default btn-sm" type="button" onclick="fn_deleteF('+i+','+data.fileData[i].idx+');"><i class="fa fa-trash-o"></i>삭제</button></div>';
+                    }else{
+                        html += '<div id="childFileDiv_'+i+'"><span class="pe-7s-photo" onclick="showBg(\''+data.fileData[i].path+'\');" style="font-size: 30px;color: #ffffff;vertical-align: bottom;"></span>&nbsp;<button class="btn btn-default btn-sm" type="button" onclick="fn_deleteF('+i+','+data.fileData[i].idx+');"><i class="fa fa-trash-o"></i>삭제</button></div>';
+
+                    }
+
+                }
+
+                $("#fileDiv").append(html);
+
+
+                var line_num = $('#fileDiv').children('div').length;
+                console.log("line_num"+line_num);
+
+                html = '<div id="childFileDiv_'+line_num+'"><label for="uploadFiles">File 업로드</label><input type="file" id="uploadFiles" name="uploadFiles"></div>';
+                $("#fileDiv").append(html);
+                $('#myModal2').modal('show');
+
+            },
+            error : function(xhr, status, error) {
+                 toastr.error('오류가 발생했습니다!');
+            }
+        });
+    }
+
+    function fn_deleteFile(idx){
+
+        $("#childFileDiv_"+idx).remove();
+    }
+
+    function fn_deleteF(id,idx){
+
+       $.ajax({
+           type : "POST",
+           url  : "/manager/community/deleteFile",
+           data : {
+               idx        : idx
+           },
+           dataType: "json",
+           async: false,
+           success : function(data) {
+               if(data == 'success'){
+                   toastr.success('삭제되었습니다!');
+                   $("#childFileDiv_"+id).remove();
+               }else{
+                   toastr.error('오류가 발생했습니다!');
+               }
+           },
+           error : function(xhr, status, error) {
+               toastr.error('오류가 발생했습니다!');
+           }
+       });
+    }
+
+    function addFileDiv() {
+
+       var line_num = $('#fileDiv').children('div').length;
+       console.log("line_num"+line_num);
+
+       if(line_num > 9){
+           toastr.error('파일 첨부는 10개까지 가능합니다');
+       }else{
+           var html = '<div id="childFileDiv_'+line_num+'"><label for="uploadFiles">File 업로드</label>&nbsp;<button class="btn btn-default btn-sm" type="button" onclick="fn_deleteFile('+line_num+');"><i class="fa fa-trash-o"></i>삭제</button><input type="file" id="uploadFiles" name="uploadFiles"></div>';
+           $("#fileDiv").append(html);
+        }
+    }
+
+    function showBg(img) {
+
+       $("#imgDiv").html('');
+       $("#imgDiv").html('<img src="'+img+'" style="display:block;width:100%;height:100%">');
+
+       $('#myModal3').modal('show');
+    }
+
+    function fn_onReadComment(idx, adminDelYn){
+
+        console.log(idx);
+        $('#commentSidx').val(idx);
+        var url = "/manager/community/commentList";
+
+        $.ajax({
+            type : "POST",
+            url  : url,
+            data : {
+                     idx        : idx
+            },
+            dataType: "json",
+            async: false,
+            success : function(data) {
+                console.log("comment"+data.commentList);
+                var html = "";
+                var and = "";
+                $("#commentListDiv").html(html);
+
+                for(var i = 0; i<data.commentList.length;i++){
+
+                    if(data.commentList[i].depth>0){
+                        and += "&nbsp;&nbsp;";
+                    }
+
+                    html += '<tr><td>'+data.commentList[i].cre_id+'</td><td>'+and+data.commentList[i].comment+'</td><td>'+data.commentList[i].cre_dtime+'</td><td>';
+                    if(adminDelYn == "N"){
+                        html += '<a href="javascript:fn_adminDel('+data.commentList[i].idx+',2);" class="btn btn-default btn-xs">삭제</a>';
+                    }else{
+                        html += and;
+                    }
+                    html +='</td></tr>      ';
+                    and = "";
+
+                }
+
+                $("#commentListDiv").append(html);
+
+                $('#myModal1').modal('show');
+            },
+            error : function(xhr, status, error) {
+                 toastr.error('오류가 발생했습니다!');
+            }
+        });
+
+    }
+
+    function fn_onReadCommentDetail(idx){
+
+        $("#boardType").val("M");
+        console.log(idx);
+
+        var url = "/manager/community/commentDetail";
+        var regex = /<br\s*[\/]?>/gi;
+
+        $.ajax({
+            type : "POST",
+            url  : url,
+            data : {
+                     idx        : idx
+            },
+            dataType: "json",
+            async: false,
+            success : function(data) {
+
+                $('#commentDidx').val(data.commentDetail.idx);
+                $('#commentDetail').val(data.commentDetail.comment);
+                $('#commentReply').val(data.commentDetail.commentD);
+                $('#commentDetail').val($('#commentDetail').val().replace(regex, "\n"));
+                $('#commentReply').val($('#commentReply').val().replace(regex, "\n"));
+                $('#myModal4').modal('show');
+            },
+            error : function(xhr, status, error) {
+                 toastr.error('오류가 발생했습니다!');
+            }
+        });
+
+    }
+
+
+    function fn_deleteComment(){
+
+        console.log( $('#commentDidx').val());
+
+        $.ajax({
+            type : "POST",
+            url  : "/manager/community/commentDelete",
+            data : {
+                     idx        : $('#commentDidx').val()
+            },
+            dataType: "json",
+            async: false,
+            success : function(data) {
+
+                toastr.success('삭제 되었습니다!');
+                var sIdx = $('#commentSidx').val();
+                $('#myModal4').modal('toggle');
+
+                console.log("sidx:"+sIdx);
+
+                fn_onReadComment(sIdx);
+            },
+            error : function(xhr, status, error) {
+                 toastr.error('오류가 발생했습니다!');
+            }
+        });
+
+    }
+
+    function fn_onWriteComment(){
+
+        if ( $("#commentReply").val().trim() == "" )
+        {
+            var message = "답변을 입력해 주세요";
+            $("#commentReply").val("");
+            $("#commentReply").focus();
+            toastr.error(message);
+            return false;
+        }
+
+        $.ajax({
+            type : "POST",
+            url  : "/community/commentWrite",
+            data : {
+                     idx        : $('#commentDidx').val(),
+                     comment    : $('#commentReply').val()
+            },
+            dataType: "json",
+            async: false,
+            success : function(data) {
+
+                toastr.success('저장되었습니다!');
+                var sIdx = $('#commentSidx').val();
+                $('#myModal4').modal('toggle');
+
+                console.log("sidx:"+sIdx);
+                fn_onReadComment(sIdx);
+
+            },
+            error : function(xhr, status, error) {
+                 toastr.error('오류가 발생했습니다!');
+            }
+        });
+
+    }
+
+    function onPrint(){
+
+        var printContents = document.getElementsByClassName('printContent')[0].outerHTML;
+        console.log(printContents);
+        var win = window.open();
+        win.document.write('<!doctype html><html lang="ko"><head>');
+        win.document.write('<meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="format-detection" content="telephone=no"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />');
+
+        win.document.write('<link rel="stylesheet" href="/manager/vendor/fontawesome/css/font-awesome.css"/>');
+        win.document.write('<link rel="stylesheet" href="/manager/vendor/animate.css/animate.css"/>');
+        win.document.write('<link rel="stylesheet" href="/manager/vendor/bootstrap/css/bootstrap.css"/>');
+        win.document.write('<link rel="stylesheet" href="/manager/vendor/toastr/toastr.min.css"/>');
+        win.document.write('<link rel="stylesheet" href="/manager/vendor/bootstrap/css/bootstrap-datetimepicker.min.css"/>');
+        win.document.write('<link rel="stylesheet" href="/manager/styles/pe-icons/pe-icon-7-stroke.css"/>');
+        win.document.write('<link rel="stylesheet" href="/manager/styles/pe-icons/helper.css"/>');
+        win.document.write('<link rel="stylesheet" href="/manager/styles/stroke-icons/style.css"/>');
+        win.document.write('<link rel="stylesheet" href="/manager/styles/style.css">');
+        win.document.write('<link rel="stylesheet" href="/manager/vendor/datatables/datatables.min.css"/>');
+        // win.document.write('<script src="/manager/vendor/pacejs/pace.min.js"/>');
+        // win.document.write('<script src="/manager/vendor/jquery/dist/jquery.min.js"/>');
+        // win.document.write('<script src="/manager/vendor/jquery/dist/jquery.form.js"/>');
+        // win.document.write('<script src="/manager/vendor/bootstrap/js/bootstrap.min.js"/>');
+        // win.document.write('<script src="/manager/vendor/toastr/toastr.min.js"/>');
+        // win.document.write('<script src="/manager/vendor/datatables/datatables.min.js"/>');
+        // win.document.write('<script src="/manager/ckeditor/ckeditor.js"/>');
+        //             <!-- App scripts -->
+        // win.document.write('<script src="/manager/scripts/luna.js"/>');
+        // win.document.write('<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">');
+        // win.document.write('<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"/>');
+            win.document.write('<title>여의도연구원</title></head><body>');
+            win.document.write('<div id="wrap">');
+            win.document.write(printContents);
+            win.document.write('</div>');
+            win.document.write('</body></html>');
+            win.document.close();// 반드시 해줘야 정상 작동
+            setTimeout(function(){win.print();}, 100);
+
+
+    }
+</script>

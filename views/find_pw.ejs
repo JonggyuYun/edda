@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ko">
+<% include include/head %>
+<body>
+
+<div id="wrap">
+    <!-- inc header -->
+    <% include include/header %>
+    <!-- //inc header -->
+    <!-- container -->
+    <section class="container member">
+        <section class="contents">
+            <div class="sub-title">
+                <div class="inner">
+                    <h1>패스워드 찾기</h1>
+                </div>
+            </div>
+            <div class="location">
+                <div class="inner">
+                    <div class="breadcrumbs">
+                        <a href="/" class="btn-home"><span class="sp-comm">home</span></a>
+                        <span><a href="#">패스워드 찾기</a></span>
+                    </div>
+                </div>
+            </div>
+            <div class="inner">
+
+                <div class="apply-form">
+                    <ul>
+                        <li>
+                            <label for="">이메일 <span>*</span></label>
+                            <div class="inp-box">
+                                <input type="text" id="memberId" name="memberId" placeholder="이메일 주소를 입력해 주세요.">
+
+                            </div>
+                        </li>
+                        <li>
+                            <label for="">이름 <span>*</span></label>
+                            <div class="inp-box">
+                                <input type="text" id="memberName" name="memberName" placeholder="이름을 입력해 주세요.">
+                            </div>
+                        </li>
+                        <li>
+                            <label for="">휴대전화<span>*</span></label>
+                            <div class="inp-box">
+                                <input type="text" id="memberPhone" name="memberPhone" placeholder="가입하신 휴대폰 번호를 입력해주세요.">
+                                <p class="txt right">‘-’ 없이 입력해 주세요.</p>
+                            </div>
+                        </li>
+                   </ul>
+                    <div class="btn-wrap">
+                        <a href="javascript:findPw();" class="btns size-mid color-green">임시비밀번호 발송</a>
+                    </div>
+                    <div class="found_wrap" style="display:none;">
+                        <p>가입 시 입력하신 이메일로<br>임시 비밀번호가 발급되었습니다.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </section>
+    <!-- //container -->
+    <!-- inc footer -->
+    <% include include/footer %>
+    <!-- //inc footer -->
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+
+
+
+
+
+    });
+
+
+    function findPw()
+    {
+
+        if ( ($("#memberId").val().trim() == ""))
+        {
+            var message = "이메일을 입력해 주세요";
+            $("#memberId").val("");
+            $("#memberId").focus();
+            alert(message);
+            return false;
+        }
+
+        if ( ($("#memberName").val().trim() == ""))
+        {
+            var message = "이름을 입력해 주세요";
+            $("#memberName").val("");
+            $("#memberName").focus();
+            alert(message);
+            return false;
+        }
+
+        if ( ($("#memberPhone").val().trim() == ""))
+        {
+            var message = "전화번호를 입력해 주세요";
+            $("#memberPhone").val("");
+            $("#memberPhone").focus();
+            alert(message);
+            return false;
+        }
+
+        //$("#frm_find").attr("action", "/findId/" + $("#member_name").val().trim() + "/" + $("#member_phone").val().trim());
+
+        $.ajax({
+            type : "GET",
+            url  : "/findPw/" + $("#memberId").val().trim() + "/" + $("#memberName").val().trim() + "/" + $("#memberPhone").val().trim(),
+            dataType: "json",
+            async: false,
+            success : function(data) {
+                if(data.result == 'success'){
+                    console.log(data);
+                    $(".found_wrap").css("display", "block");
+
+                }else{
+                    alert('회원정보가 없습니다.!');
+                }
+            },
+            error : function(xhr, status, error) {
+                alert('회원정보가 없습니다.!');
+            }
+        });
+        //$('#frm_find')[0].submit();
+    }
+</script>
+</body>
+</html>
