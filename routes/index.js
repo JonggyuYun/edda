@@ -891,7 +891,8 @@ router.post('/member/join',fileUpload, function (req, res, next) {
     var businessdistrict = req.body.businessdistrict;
     var carrer = req.body.carrer;
     var content = req.body.content;
-    console.log("a3");
+    var viewYn = req.body.viewYn;
+    console.log("a3+ viewYn:"+viewYn);
     if(carrer != undefined && carrer != null){
     carrer = carrer.replace(/\n/gi, '<br/>');
     }
@@ -927,8 +928,8 @@ router.post('/member/join',fileUpload, function (req, res, next) {
 
     }else{
 
-        data = [memberId, password, memberName, memberPhone, memberAuthType, zipcode, address1, address2, auth_number, affiliation, carrer, content, file1_name ,file1_orgname, file1_path];
-        query = "insert into tb_member (member_id, password, member_name, member_phone , member_auth_type, zipcode, address1, address2, license_type, auth_number, affiliation, carrer, content, image_name ,image_org_name, image_path, sale_area, member_status,  cre_dtime) values (?, password(?), ?, ?, ?, ?, ?, ?, '"+license_type+"', ?, ?, ?, ?, ?, ?, ?, '"+businessdistrict+"', 'D', now())";
+        data = [memberId, password, memberName, memberPhone, memberAuthType, zipcode, address1, address2, auth_number, affiliation, carrer, content, file1_name ,file1_orgname, file1_path, viewYn];
+        query = "insert into tb_member (member_id, password, member_name, member_phone , member_auth_type, zipcode, address1, address2, license_type, auth_number, affiliation, carrer, content, image_name ,image_org_name, image_path, sale_area, member_status, viewYn,  cre_dtime) values (?, password(?), ?, ?, ?, ?, ?, ?, '"+license_type+"', ?, ?, ?, ?, ?, ?, ?, '"+businessdistrict+"', 'D',?, now())";
 
     }
 
@@ -1955,7 +1956,7 @@ function updateBoardStatus(req, res, next){
 function bannerList(req, res, next){
 
 
-    var queryString = "select seq, member_name, license_type, affiliation, image_path from tb_member where member_auth_type = 'B' and view_yn = 'Y' order by seq desc";
+    var queryString = "select seq, member_name, license_type, affiliation, image_path from tb_member where member_auth_type = 'B' and view_yn = 'Y' order by viewLevel,seq desc";
     _DBPool.query(queryString,[],function(err, rows, result) {
 
         if(err){

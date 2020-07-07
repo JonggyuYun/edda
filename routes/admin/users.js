@@ -121,7 +121,7 @@ router.post('/read', function(req, res) {
 
     var datas = [];
 
-    var  query = "select a.seq, a.member_id, a.password, a.member_auth_type, a.zipcode, a.address1, a.address2, date_format(a.cre_dtime,'%Y-%m-%d %H:%i:%s') AS cre_dtime, a.member_name, a.member_phone, a.license_type,a.auth_number, a.affiliation, a.sale_area, a.image_name, a.image_org_name, a.image_path, a.member_status, a.content, a.view_yn, a.keyword from tb_member a ";
+    var  query = "select a.seq, a.member_id, a.password, a.member_auth_type, a.zipcode, a.address1, a.address2, date_format(a.cre_dtime,'%Y-%m-%d %H:%i:%s') AS cre_dtime, a.member_name, a.member_phone, a.license_type,a.auth_number, a.affiliation, a.sale_area, a.image_name, a.image_org_name, a.image_path, a.member_status, a.content, a.view_yn, a.keyword, a.viewLevel, a.viewYn from tb_member a ";
         query += " where a.seq = ?";
 
         datas = [m_idx];
@@ -228,6 +228,7 @@ router.post('/update', fileUpload, function(req,res,next)
     var member_status = req.body.memberStatus;
     var deleteFileCheck = req.body.fileDelete;
     var keyword = req.body.keyword;
+    var viewLevel = req.body.viewLevel;
     var image_name = "";
     var image_org_name = "";
     var image_path = "";
@@ -236,7 +237,7 @@ router.post('/update', fileUpload, function(req,res,next)
     var pwd_check = req.body.pwdCheck;
     console.log("pwd_check:"+memberAuthType);
 
-    var datas = [member_name, member_phone, address1, address2, zipcode, authNumber, affiliation, memberAuthType, member_status, content, view_yn, keyword, a_idx];
+    var datas = [member_name, member_phone, address1, address2, zipcode, authNumber, affiliation, memberAuthType, member_status, content, view_yn, keyword, viewLevel, a_idx];
 
     if(req.file){
         console.log("/banner/UPDATE:"+req.file.originalname+";;"+req.file.filename+";;"+req.file.size+";;"+req.file.path);
@@ -248,7 +249,7 @@ router.post('/update', fileUpload, function(req,res,next)
 
         fileDelete(req,res,next);
 
-        datas = [member_name, member_phone, address1, address2, zipcode, authNumber, affiliation, memberAuthType, member_status, content, view_yn, keyword, image_name, image_org_name, image_size, image_path, a_idx];
+        datas = [member_name, member_phone, address1, address2, zipcode, authNumber, affiliation, memberAuthType, member_status, content, view_yn, keyword, viewLevel, image_name, image_org_name, image_size, image_path, a_idx];
 
 
     }
@@ -261,7 +262,7 @@ router.post('/update', fileUpload, function(req,res,next)
         datas = [member_name, member_phone, memberAuthType,member_status, keyword, a_idx];
     }
 
-    var query = "update tb_member set member_name = ?, member_phone=?, address1 = ?, address2 = ?, zipcode = ?, license_type = '"+licenseType+"', auth_number = ?, affiliation = ?, sale_area = '"+saleArea+"', member_auth_type = ?, member_status = ?, content = ?, view_yn = ?, keyword = ?, upd_dtime = NOW() ";
+    var query = "update tb_member set member_name = ?, member_phone=?, address1 = ?, address2 = ?, zipcode = ?, license_type = '"+licenseType+"', auth_number = ?, affiliation = ?, sale_area = '"+saleArea+"', member_auth_type = ?, member_status = ?, content = ?, view_yn = ?, keyword = ?, viewLevel = ?, upd_dtime = NOW() ";
     if(req.file){
         query +=",image_name = ?, image_org_name = ?, image_size = ?, image_path = ?";
     }
@@ -280,10 +281,10 @@ router.post('/update', fileUpload, function(req,res,next)
             }else{
 
                 if(req.file) {
-                    datas = [member_name, member_phone, address1, address2, zipcode, authNumber, affiliation, memberAuthType, member_status, content, view_yn,member_status, keyword, image_name, image_org_name, image_size, image_path, member_pwd, a_idx];
+                    datas = [member_name, member_phone, address1, address2, zipcode, authNumber, affiliation, memberAuthType, member_status, content, view_yn,member_status, keyword, viewLevel, image_name, image_org_name, image_size, image_path, member_pwd, a_idx];
 
                 }else{
-                    datas = [member_name, member_phone, address1, address2, zipcode, authNumber, affiliation, memberAuthType, member_status, content, view_yn,member_status, keyword, member_pwd, a_idx];
+                    datas = [member_name, member_phone, address1, address2, zipcode, authNumber, affiliation, memberAuthType, member_status, content, view_yn,member_status, keyword, viewLevel, member_pwd, a_idx];
 
                 }
             }

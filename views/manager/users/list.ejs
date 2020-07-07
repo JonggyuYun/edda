@@ -122,10 +122,10 @@
                             <label for="bgImage">이미지 업로드</label> <input type="file" id="bgImage" name="bgImage"><div id="mainFile"></div>
                         </div>
                         <div class="form-group"><label for="content">회계/세무사 소개글</label><textarea class="form-control" rows="5" name="content" id="content" placeholder="소개글"></textarea></div>
-                        <div class=form-group>
-                            <label>메인노출여부</label>
-                        </div>
-                        <div class="checkbox"><label> <input type="checkbox" id="view_yn" name="view_yn" value="Y">노출</label></div>
+                        <div class="form-group"><label for="view_yn">메인노출여부(체크는 노출)</label><input type="checkbox" id="view_yn" name="view_yn" value="Y"></div>
+                        <div class="form-group"><label for="viewLevel">노출순서</label> <input type="text" class="form-control" name="viewLevel" id="viewLevel"></div>
+                        <div class="form-group"><label for="view_yn">메인노출 허용여부(체크는 허용)</label><input type="checkbox" id="viewYn" name="viewYn" value="Y"></div>
+
                     <%}%>
                     <div class="form-group"><label for="memberAuthType"><i class="fa fa-star-o" aria-hidden="true"></i>회원구분</label>
                         <select  class="form-control" name="memberAuthType" id="memberAuthType">
@@ -261,6 +261,7 @@
                 $("#f_img").val(data.dbdata.image_name);
                 $("#authNumber").val(data.dbdata.auth_number);
                 $("#affiliation").val(data.dbdata.affiliation);
+                $("#viewLevel").val(data.dbdata.viewLevel);
 
 
                 if(data.dbdata.content != null){
@@ -283,6 +284,10 @@
 
                 if(data.dbdata.view_yn == 'Y'){
                     $("#view_yn").prop("checked", true);
+                }
+
+                if(data.dbdata.viewYn == 'Y'){
+                    $("#viewYn").prop("checked", true);
                 }
 
 
