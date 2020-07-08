@@ -662,8 +662,8 @@ function sendSMS(recUserId, message, bigo){
                 var AWS = require('aws-sdk');
 
                 AWS.config.update({
-                    "accessKeyId": "AKIAJKGRG2HDX7EBW5BQ",
-                    "secretAccessKey": "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",
+                    "accessKeyId": "AKIAJTV3XG3H3W5WI3RQ",
+                    "secretAccessKey": "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",
                     "region": 'ap-northeast-1'
                 });
                 console.log('######sns1######');

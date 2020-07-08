@@ -314,7 +314,7 @@ router.post('/leave', function(req, res){
 
     console.log("member_idx:"+member_idx);
     var data = [member_idx];
-    var query1 = "update tb_member set member_status = 'C', cancel_dtime = now() WHERE seq = ?";
+    var query1 = "update tb_member set member_id = '-', password='-', member_phone='-', member_status = 'C', cancel_dtime = now() WHERE seq = ?";
     var query2 = "DELETE from tb_member WHERE seq = ?";
 
 
