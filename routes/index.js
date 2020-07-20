@@ -6,6 +6,7 @@ var crypto = require('crypto');
 var ciphers = crypto.getCiphers();
 var _DBPool = require('../lib/DBPool');
 var config = require('../lib/config');
+var configJs = require('../lib/config.json');
 var common = require('./admin/common');
 const upload = require('../lib/local_upload_util');
 var FCM = require('fcm-push');
@@ -28,9 +29,9 @@ var async = require('async');
 var bucketPath = 'ydi.company';
 
 var s3Options = {
-    aaccessKeyId: config.accessKeyId,
-    secretAccessKey: config.secretAccessKey,
-    "region": config.region
+    aaccessKeyId: configJs.accessKeyId,
+    secretAccessKey: configJs.secretAccessKey,
+    "region": configJs.region
 
 };
 var client_id = config.naver_client_id;//개발자센터에서 발급받은 Client ID
@@ -2879,8 +2880,8 @@ router.post('/getVerifyNumber', function(req, res){
     var AWS = require('aws-sdk');
 
     AWS.config.update({
-        "accessKeyId": "AKIAJTV3XG3H3W5WI3RQ",
-        "secretAccessKey": "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",
+        "accessKeyId": configJs.accessKeyId,
+        "secretAccessKey": configJs.secretAccessKey,
         "region": 'ap-northeast-1'
     });
     console.log('######sns1######');
@@ -2953,8 +2954,8 @@ function sendAdminSMS(message){
                 var AWS = require('aws-sdk');
 
                 AWS.config.update({
-                    "accessKeyId": "AKIAJTV3XG3H3W5WI3RQ",
-                    "secretAccessKey": "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",
+                    "accessKeyId": configJs.accessKeyId,
+                    "secretAccessKey": configJs.secretAccessKey,
                     "region": 'ap-northeast-1'
                 });
                 console.log('######sns1######');
@@ -3056,8 +3057,8 @@ function sendSMS(recUserId, message, bigo){
                 var AWS = require('aws-sdk');
 
                 AWS.config.update({
-                    "accessKeyId": "AKIAJTV3XG3H3W5WI3RQ",
-                    "secretAccessKey": "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",
+                    "accessKeyId": configJs.accessKeyId,
+                    "secretAccessKey": configJs.secretAccessKey,
                     "region": 'ap-northeast-1'
                 });
                 console.log('######sns1######');
