@@ -1,0 +1,52 @@
+@{
+    ViewData["Title"] = "호선 진척 보고서";
+}
+
+<div class="report-viewer-container">
+    <div class="report-params">
+        <div class="search-row">
+            <div class="search-field">
+                <label>호선 선택</label>
+                <div id="projectSelect"></div>
+            </div>
+            <div class="search-actions">
+                <div id="btnGenerate"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DevExpress Report Viewer -->
+    <div id="reportViewer" style="width:100%; height:800px;">
+        <p>DevExpress Report Viewer가 이 위치에 렌더링됩니다.</p>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+    $("#projectSelect").dxSelectBox({
+        dataSource: new DevExpress.data.CustomStore({
+            loadMode: "raw",
+            load: function () {
+                return $.getJSON("/Dashboard/GetProjectProgress");
+            }
+        }),
+        displayExpr: function (item) {
+            return item ? item.projectNo + " - " + item.shipName : "";
+        },
+        valueExpr: "projectNo",
+        placeholder: "호선을 선택하세요",
+        searchEnabled: true
+    });
+
+    $("#btnGenerate").dxButton({
+        text: "보고서 생성",
+        icon: "doc",
+        type: "default",
+        onClick: function () {
+            var projectNo = $("#projectSelect").dxSelectBox("instance").option("value");
+            // DevExpress Report Viewer 호출
+            // viewer.OpenReport("ProjectProgressReport", { projectId: projectNo });
+        }
+    });
+</script>
+}

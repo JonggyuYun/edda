@@ -1,0 +1,129 @@
+/* 한화오션 Workfront Mobile 스타일 */
+
+:root {
+    --m-primary: #1e3a5f;
+    --m-accent: #e8792b;
+    --m-bg: #f5f5f5;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Malgun Gothic', sans-serif;
+    background-color: var(--m-bg);
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.mobile-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px;
+    padding-bottom: 60px;
+}
+
+.page-header {
+    padding: 8px 0 12px;
+}
+
+.page-header h2 {
+    font-size: 20px;
+    color: var(--m-primary);
+}
+
+/* 대시보드 카드 */
+.mobile-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.mobile-chart {
+    background: #fff;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 16px;
+}
+
+/* 작업지시 카드 */
+.wo-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 8px;
+    border-left: 4px solid var(--m-primary);
+}
+
+.wo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.wo-no {
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--m-primary);
+}
+
+.wo-status {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    color: #fff;
+}
+
+.status-progress { background: #42a5f5; }
+.status-completed { background: #66bb6a; }
+.status-hold { background: #ffa726; }
+.status-default { background: #bdbdbd; }
+
+.wo-desc {
+    font-size: 13px;
+    color: #555;
+    margin-bottom: 6px;
+}
+
+.wo-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #999;
+}
+
+/* 리스트 아이템 */
+.list-item {
+    padding: 8px 0;
+}
+
+.list-item-title {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.list-item-sub {
+    font-size: 12px;
+    color: #888;
+    margin-top: 2px;
+}
+
+/* 하단 탭 */
+#bottomTabs {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+}

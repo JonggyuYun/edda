@@ -1,0 +1,43 @@
+@{
+    ViewData["Title"] = "일일 작업현황 보고서";
+}
+
+<div class="report-viewer-container">
+    <div class="report-params">
+        <div class="search-row">
+            <div class="search-field">
+                <label>보고일자</label>
+                <div id="reportDate"></div>
+            </div>
+            <div class="search-actions">
+                <div id="btnGenerate"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DevExpress Report Viewer -->
+    <div id="reportViewer" style="width:100%; height:800px;">
+        <p>DevExpress Report Viewer가 이 위치에 렌더링됩니다.</p>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+    $("#reportDate").dxDateBox({
+        value: new Date(),
+        type: "date",
+        displayFormat: "yyyy-MM-dd"
+    });
+
+    $("#btnGenerate").dxButton({
+        text: "보고서 생성",
+        icon: "doc",
+        type: "default",
+        onClick: function () {
+            // DevExpress Report Viewer 호출
+            var date = $("#reportDate").dxDateBox("instance").option("value");
+            // viewer.OpenReport("DailyWorkReport", { reportDate: date });
+        }
+    });
+</script>
+}

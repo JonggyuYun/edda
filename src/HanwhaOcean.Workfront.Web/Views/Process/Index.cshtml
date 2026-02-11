@@ -1,0 +1,129 @@
+@{
+    ViewData["Title"] = "공정 현황";
+}
+
+<div class="process-container">
+    <!-- 호선 선택 -->
+    <div class="search-panel">
+        <div class="search-row">
+            <div class="search-field">
+                <label>호선 선택</label>
+                <div id="projectSelector"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gantt Chart (DevExpress) -->
+    <div class="gantt-panel">
+        <h3>블록 공정 일정 (Gantt Chart)</h3>
+        <div id="ganttChart"></div>
+    </div>
+
+    <!-- 블록 목록 (DevExpress DataGrid) -->
+    <div class="grid-panel">
+        <h3>블록 목록</h3>
+        <div id="blockGrid"></div>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+    var selectedProjectId = null;
+
+    // 호선 선택 SelectBox
+    $("#projectSelector").dxSelectBox({
+        dataSource: new DevExpress.data.CustomStore({
+            loadMode: "raw",
+            load: function () {
+                return $.getJSON("/Dashboard/GetProjectProgress");
+            }
+        }),
+        displayExpr: function (item) {
+            return item ? item.projectNo + " - " + item.shipName : "";
+        },
+        valueExpr: "projectNo",
+        placeholder: "호선을 선택하세요",
+        searchEnabled: true,
+        onValueChanged: function (e) {
+            selectedProjectId = e.value;
+            loadProcessData();
+        }
+    });
+
+    function loadProcessData() {
+        if (!selectedProjectId) return;
+
+        // Gantt 데이터 로드
+        var gantt = $("#ganttChart").dxGantt("instance");
+        if (gantt) gantt.dispose();
+
+        $("#ganttChart").dxGantt({
+            tasks: {
+                dataSource: new DevExpress.data.CustomStore({
+                    loadMode: "raw",
+                    load: function () {
+                        return $.getJSON("/Process/GetGanttData", { projectId: selectedProjectId });
+                    }
+                }),
+                keyExpr: "id",
+                titleExpr: "blockNo",
+                startExpr: "startDate",
+                endExpr: "endDate",
+                progressExpr: "progressRate"
+            },
+            columns: [
+                { dataField: "blockNo", caption: "블록번호", width: 120 },
+                { dataField: "blockName", caption: "블록명", width: 150 }
+            ],
+            editing: { enabled: false },
+            toolbar: {
+                items: [
+                    "zoomIn", "zoomOut",
+                    "separator",
+                    { widget: "dxButton", options: { text: "전체보기", onClick: function () { /* zoom to fit */ } } }
+                ]
+            },
+            scaleType: "weeks",
+            taskListWidth: 300,
+            height: 500
+        });
+
+        // 블록 그리드 새로고침
+        var grid = $("#blockGrid").dxDataGrid("instance");
+        if (grid) grid.refresh();
+    }
+
+    // 블록 목록 DataGrid
+    $("#blockGrid").dxDataGrid({
+        dataSource: new DevExpress.data.CustomStore({
+            loadMode: "raw",
+            load: function () {
+                if (!selectedProjectId) return $.Deferred().resolve([]).promise();
+                return $.getJSON("/Process/GetBlocks", { projectId: selectedProjectId });
+            }
+        }),
+        columns: [
+            { dataField: "blockNo", caption: "블록번호", width: 100 },
+            { dataField: "blockName", caption: "블록명" },
+            { dataField: "zone", caption: "존", width: 100 },
+            { dataField: "weight", caption: "중량(톤)", width: 100, format: { type: "fixedPoint", precision: 1 } },
+            {
+                dataField: "progressRate", caption: "진척률", width: 150,
+                cellTemplate: function (container, options) {
+                    $("<div>").dxProgressBar({
+                        min: 0, max: 100,
+                        value: options.value,
+                        showStatus: true,
+                        statusFormat: function (v) { return v + "%"; }
+                    }).appendTo(container);
+                }
+            },
+            { dataField: "planStartDate", caption: "계획시작", dataType: "date", width: 100 },
+            { dataField: "planEndDate", caption: "계획완료", dataType: "date", width: 100 }
+        ],
+        showBorders: true,
+        rowAlternationEnabled: true,
+        paging: { pageSize: 15 }
+    });
+</script>
+}

@@ -1,0 +1,54 @@
+<nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <img src="~/images/hanwha-ocean-logo.png" alt="한화오션" class="logo" />
+        <span class="system-title">Workfront</span>
+    </div>
+
+    <ul class="sidebar-menu">
+        <li class="menu-item">
+            <a href="/" class="menu-link">
+                <i class="dx-icon-home"></i>
+                <span>홈</span>
+            </a>
+        </li>
+        <li class="menu-item">
+            <a href="/Dashboard" class="menu-link">
+                <i class="dx-icon-chart"></i>
+                <span>대시보드</span>
+            </a>
+        </li>
+        <li class="menu-group">
+            <div class="menu-group-title">
+                <i class="dx-icon-folder"></i>
+                <span>작업관리</span>
+                <i class="dx-icon-chevrondown toggle-icon"></i>
+            </div>
+            <ul class="sub-menu">
+                <li><a href="/WorkOrder">작업지시 관리</a></li>
+                <li><a href="/WorkOrder/Create">작업지시 등록</a></li>
+            </ul>
+        </li>
+        <li class="menu-group">
+            <div class="menu-group-title">
+                <i class="dx-icon-detailslayout"></i>
+                <span>공정관리</span>
+                <i class="dx-icon-chevrondown toggle-icon"></i>
+            </div>
+            <ul class="sub-menu">
+                <li><a href="/Process">공정 현황</a></li>
+            </ul>
+        </li>
+        <li class="menu-group">
+            <div class="menu-group-title">
+                <i class="dx-icon-doc"></i>
+                <span>보고서</span>
+                <i class="dx-icon-chevrondown toggle-icon"></i>
+            </div>
+            <ul class="sub-menu">
+                <li><a href="/Report">보고서 목록</a></li>
+                <li><a href="/Report/DailyReport">일일 작업현황</a></li>
+                <li><a href="/Report/ProjectProgressReport">호선 진척 보고서</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>

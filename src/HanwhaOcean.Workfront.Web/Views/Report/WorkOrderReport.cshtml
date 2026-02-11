@@ -1,0 +1,18 @@
+@{
+    ViewData["Title"] = "작업지시서 출력";
+}
+
+<div class="report-viewer-container">
+    <h3>작업지시서</h3>
+    <!-- DevExpress Report Viewer -->
+    @*
+        DevExpress Report Viewer는 아래와 같이 사용합니다:
+        @(Html.DevExpress().WebDocumentViewer("workOrderViewer")
+            .Height("800px")
+            .Bind("WorkOrderReport"))
+    *@
+    <div id="reportViewer" style="width:100%; height:800px;">
+        <p>DevExpress Report Viewer가 이 위치에 렌더링됩니다.</p>
+        <p>DevExpress 라이선스 및 NuGet 패키지 설치 후 활성화하세요.</p>
+    </div>
+</div>

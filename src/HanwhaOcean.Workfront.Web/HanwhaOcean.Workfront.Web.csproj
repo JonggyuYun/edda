@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>HanwhaOcean.Workfront.Web</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- DevExpress ASP.NET Core Controls v23.2 -->
+    <PackageReference Include="DevExpress.AspNetCore" Version="23.2.*" />
+    <PackageReference Include="DevExpress.AspNetCore.Reporting" Version="23.2.*" />
+
+    <!-- DevExpress Data & Charts -->
+    <PackageReference Include="DevExpress.Data" Version="23.2.*" />
+    <PackageReference Include="DevExpress.AspNetCore.Dashboard" Version="23.2.*" />
+
+    <!-- Entity Framework Core -->
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.11">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+
+    <!-- Authentication -->
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.11" />
+
+    <!-- Logging -->
+    <PackageReference Include="Serilog.AspNetCore" Version="8.0.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+    <PackageReference Include="Serilog.Sinks.MSSqlServer" Version="6.6.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HanwhaOcean.Workfront.Core\HanwhaOcean.Workfront.Core.csproj" />
+    <ProjectReference Include="..\HanwhaOcean.Workfront.Infrastructure\HanwhaOcean.Workfront.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - 한화오션 Workfront</title>
+
+    <!-- DevExpress CSS -->
+    <link rel="stylesheet" href="~/css/dx.material.blue.light.compact.css" />
+
+    <!-- Site CSS -->
+    <link rel="stylesheet" href="~/css/site.css" />
+
+    @await Html.PartialAsync("_HeadScripts")
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+    <div class="wrapper">
+        <!-- 사이드바 -->
+        @await Html.PartialAsync("_SideMenu")
+
+        <!-- 메인 콘텐츠 -->
+        <div class="main-content">
+            <!-- 상단 헤더 -->
+            <header class="top-header">
+                <div class="header-left">
+                    <button id="sidebarToggle" class="btn-sidebar-toggle">
+                        <i class="dx-icon-menu"></i>
+                    </button>
+                    <h1 class="page-title">@ViewData["Title"]</h1>
+                </div>
+                <div class="header-right">
+                    <span class="user-info">
+                        <i class="dx-icon-user"></i>
+                        <span id="currentUser">관리자</span>
+                    </span>
+                </div>
+            </header>
+
+            <!-- 페이지 콘텐츠 -->
+            <main class="content-area">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+
+    <!-- DevExpress Scripts -->
+    <script src="~/js/dx.all.js"></script>
+
+    <!-- Site Scripts -->
+    <script src="~/js/site.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

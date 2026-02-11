@@ -1,0 +1,166 @@
+@{
+    ViewData["Title"] = "대시보드";
+}
+
+<div class="dashboard-container">
+    <!-- 요약 카드 영역 -->
+    <div class="summary-cards" id="summaryCards">
+        <div class="summary-card">
+            <div class="card-icon"><i class="dx-icon-favorites"></i></div>
+            <div class="card-content">
+                <span class="card-value" id="totalProjects">-</span>
+                <span class="card-label">진행 호선</span>
+            </div>
+        </div>
+        <div class="summary-card">
+            <div class="card-icon"><i class="dx-icon-runner"></i></div>
+            <div class="card-content">
+                <span class="card-value" id="activeWorkOrders">-</span>
+                <span class="card-label">진행중 작업</span>
+            </div>
+        </div>
+        <div class="summary-card">
+            <div class="card-icon"><i class="dx-icon-group"></i></div>
+            <div class="card-content">
+                <span class="card-value" id="todayWorkers">-</span>
+                <span class="card-label">금일 투입인원</span>
+            </div>
+        </div>
+        <div class="summary-card warning">
+            <div class="card-icon"><i class="dx-icon-warning"></i></div>
+            <div class="card-content">
+                <span class="card-value" id="qualityIssues">-</span>
+                <span class="card-label">품질 이슈</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 차트 영역 -->
+    <div class="chart-row">
+        <!-- 호선별 진척률 차트 (DevExpress Chart) -->
+        <div class="chart-panel">
+            <h3>호선별 진척률</h3>
+            <div id="projectProgressChart"></div>
+        </div>
+
+        <!-- 공정별 작업 현황 차트 -->
+        <div class="chart-panel">
+            <h3>공정별 작업 현황</h3>
+            <div id="processStatusChart"></div>
+        </div>
+    </div>
+
+    <!-- 최근 작업지시 목록 (DevExpress DataGrid) -->
+    <div class="grid-panel">
+        <h3>최근 작업지시</h3>
+        <div id="recentWorkOrdersGrid"></div>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+    // 호선별 진척률 Bar Chart
+    $("#projectProgressChart").dxChart({
+        dataSource: new DevExpress.data.CustomStore({
+            loadMode: "raw",
+            load: function () {
+                return $.getJSON("/Dashboard/GetProjectProgress");
+            }
+        }),
+        series: [{
+            argumentField: "projectNo",
+            valueField: "progressRate",
+            name: "진척률 (%)",
+            type: "bar",
+            color: "#1e88e5"
+        }],
+        argumentAxis: {
+            label: { overlappingBehavior: "rotate", rotationAngle: -45 }
+        },
+        valueAxis: {
+            title: { text: "진척률 (%)" },
+            max: 100
+        },
+        tooltip: {
+            enabled: true,
+            customizeTooltip: function (arg) {
+                return {
+                    text: arg.argumentText + ": " + arg.valueText + "%"
+                };
+            }
+        },
+        legend: { visible: false },
+        size: { height: 350 }
+    });
+
+    // 공정별 작업현황 Stacked Bar Chart
+    $("#processStatusChart").dxChart({
+        dataSource: new DevExpress.data.CustomStore({
+            loadMode: "raw",
+            load: function () {
+                return $.getJSON("/Dashboard/GetWorkOrderStatus");
+            }
+        }),
+        series: [
+            { valueField: "inProgress", name: "진행중", stack: "status", color: "#42a5f5" },
+            { valueField: "completed", name: "완료", stack: "status", color: "#66bb6a" }
+        ],
+        commonSeriesSettings: {
+            argumentField: "processType",
+            type: "stackedBar"
+        },
+        tooltip: { enabled: true },
+        legend: {
+            verticalAlignment: "bottom",
+            horizontalAlignment: "center"
+        },
+        size: { height: 350 }
+    });
+
+    // 최근 작업지시 DataGrid
+    $("#recentWorkOrdersGrid").dxDataGrid({
+        dataSource: new DevExpress.data.CustomStore({
+            loadMode: "raw",
+            load: function () {
+                return $.getJSON("/WorkOrder/GetWorkOrders");
+            }
+        }),
+        columns: [
+            { dataField: "workOrderNo", caption: "작업지시번호", width: 150 },
+            { dataField: "projectNo", caption: "호선번호", width: 100 },
+            { dataField: "blockNo", caption: "블록번호", width: 100 },
+            { dataField: "processType", caption: "공정", width: 100 },
+            { dataField: "workArea", caption: "작업장소", width: 120 },
+            { dataField: "status", caption: "상태", width: 80 },
+            {
+                dataField: "progressRate", caption: "진척률", width: 100,
+                cellTemplate: function (container, options) {
+                    $("<div>").dxProgressBar({
+                        min: 0, max: 100,
+                        value: options.value,
+                        width: "100%",
+                        showStatus: true,
+                        statusFormat: function (value) { return value + "%"; }
+                    }).appendTo(container);
+                }
+            },
+            { dataField: "planStartDate", caption: "계획시작", dataType: "date", width: 100 },
+            { dataField: "planEndDate", caption: "계획완료", dataType: "date", width: 100 }
+        ],
+        showBorders: true,
+        filterRow: { visible: true },
+        headerFilter: { visible: true },
+        paging: { pageSize: 10 },
+        pager: {
+            showPageSizeSelector: true,
+            allowedPageSizes: [10, 20, 50]
+        },
+        selection: { mode: "single" },
+        onRowClick: function (e) {
+            if (e.data && e.data.id) {
+                window.location.href = "/WorkOrder/Detail/" + e.data.id;
+            }
+        }
+    });
+</script>
+}

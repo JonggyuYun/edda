@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  DevExpress Report Definition - 일일 작업현황 보고서
+  이 파일은 DevExpress Report Designer에서 편집하세요.
+-->
+<XtraReportsLayoutSerializer SerializerVersion="23.2.0.0">
+  <Item1 Ref="0" ControlType="DevExpress.XtraReports.UI.XtraReport, DevExpress.XtraReports.v23.2" Name="DailyWorkReport" PageWidth="1169" PageHeight="827" Landscape="true" Version="23.2">
+    <Bands>
+      <Item1 Ref="1" ControlType="DevExpress.XtraReports.UI.ReportHeaderBand, DevExpress.XtraReports.v23.2" HeightF="100">
+        <!-- 보고서 헤더: 일일 작업현황 보고서 제목, 보고일자 -->
+      </Item1>
+      <Item2 Ref="2" ControlType="DevExpress.XtraReports.UI.GroupHeaderBand, DevExpress.XtraReports.v23.2" HeightF="30">
+        <!-- 그룹 헤더: 호선번호별 그룹핑 -->
+      </Item2>
+      <Item3 Ref="3" ControlType="DevExpress.XtraReports.UI.DetailBand, DevExpress.XtraReports.v23.2" HeightF="25">
+        <!-- 상세: 작업지시번호, 블록, 공정, 투입인원, 공수, 진척률, 이슈사항 -->
+      </Item3>
+      <Item4 Ref="4" ControlType="DevExpress.XtraReports.UI.GroupFooterBand, DevExpress.XtraReports.v23.2" HeightF="30">
+        <!-- 그룹 푸터: 호선별 소계 -->
+      </Item4>
+      <Item5 Ref="5" ControlType="DevExpress.XtraReports.UI.ReportFooterBand, DevExpress.XtraReports.v23.2" HeightF="50">
+        <!-- 보고서 푸터: 총계 (총 투입인원, 총 공수) -->
+      </Item5>
+      <Item6 Ref="6" ControlType="DevExpress.XtraReports.UI.PageFooterBand, DevExpress.XtraReports.v23.2" HeightF="30">
+        <!-- 페이지 푸터 -->
+      </Item6>
+    </Bands>
+  </Item1>
+</XtraReportsLayoutSerializer>

@@ -1,0 +1,173 @@
+@{
+    ViewData["Title"] = "작업지시 관리";
+}
+
+<div class="workorder-container">
+    <!-- 검색 조건 -->
+    <div class="search-panel">
+        <div class="search-row">
+            <div class="search-field">
+                <label>호선번호</label>
+                <div id="searchProjectNo"></div>
+            </div>
+            <div class="search-field">
+                <label>블록번호</label>
+                <div id="searchBlockNo"></div>
+            </div>
+            <div class="search-field">
+                <label>공정유형</label>
+                <div id="searchProcessType"></div>
+            </div>
+            <div class="search-field">
+                <label>상태</label>
+                <div id="searchStatus"></div>
+            </div>
+            <div class="search-field">
+                <label>계획기간</label>
+                <div id="searchDateRange"></div>
+            </div>
+            <div class="search-actions">
+                <div id="btnSearch"></div>
+                <div id="btnReset"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 작업지시 목록 (DevExpress DataGrid) -->
+    <div class="grid-toolbar">
+        <div id="btnCreate"></div>
+        <div id="btnExport"></div>
+    </div>
+    <div id="workOrderGrid"></div>
+</div>
+
+@section Scripts {
+<script>
+    // 검색 조건 컨트롤
+    $("#searchProjectNo").dxTextBox({ placeholder: "호선번호 입력" });
+    $("#searchBlockNo").dxTextBox({ placeholder: "블록번호 입력" });
+
+    $("#searchProcessType").dxSelectBox({
+        items: ["전체", "절단", "소조립", "중조립", "대조립", "P/E", "탑재", "의장", "도장", "시운전"],
+        value: "전체",
+        placeholder: "공정유형 선택"
+    });
+
+    $("#searchStatus").dxSelectBox({
+        items: ["전체", "초안", "계획됨", "진행중", "보류", "완료", "취소"],
+        value: "전체",
+        placeholder: "상태 선택"
+    });
+
+    $("#searchDateRange").dxDateRangeBox({
+        startDateLabel: "시작",
+        endDateLabel: "종료"
+    });
+
+    $("#btnSearch").dxButton({
+        text: "조회",
+        icon: "search",
+        type: "default",
+        onClick: function () { loadGrid(); }
+    });
+
+    $("#btnReset").dxButton({
+        text: "초기화",
+        icon: "refresh",
+        onClick: function () { resetSearch(); }
+    });
+
+    $("#btnCreate").dxButton({
+        text: "작업지시 등록",
+        icon: "add",
+        type: "success",
+        onClick: function () { window.location.href = "/WorkOrder/Create"; }
+    });
+
+    $("#btnExport").dxButton({
+        text: "Excel 내보내기",
+        icon: "exportxlsx",
+        onClick: function () {
+            var grid = $("#workOrderGrid").dxDataGrid("instance");
+            grid.exportToExcel(false);
+        }
+    });
+
+    // DataGrid
+    $("#workOrderGrid").dxDataGrid({
+        dataSource: new DevExpress.data.CustomStore({
+            loadMode: "raw",
+            load: function () {
+                return $.getJSON("/WorkOrder/GetWorkOrders", getSearchParams());
+            }
+        }),
+        columns: [
+            { dataField: "workOrderNo", caption: "작업지시번호", width: 150 },
+            { dataField: "projectNo", caption: "호선번호", width: 100 },
+            { dataField: "blockNo", caption: "블록번호", width: 100 },
+            { dataField: "processType", caption: "공정", width: 100 },
+            { dataField: "workArea", caption: "작업장소" },
+            { dataField: "description", caption: "작업내용" },
+            { dataField: "status", caption: "상태", width: 80 },
+            {
+                dataField: "progressRate", caption: "진척률", width: 120,
+                cellTemplate: function (container, options) {
+                    $("<div>").dxProgressBar({
+                        min: 0, max: 100,
+                        value: options.value,
+                        width: "100%",
+                        showStatus: true,
+                        statusFormat: function (v) { return v + "%"; }
+                    }).appendTo(container);
+                }
+            },
+            { dataField: "planManHours", caption: "계획공수(M/H)", width: 110, format: { type: "fixedPoint", precision: 1 } },
+            { dataField: "actualManHours", caption: "실적공수(M/H)", width: 110, format: { type: "fixedPoint", precision: 1 } },
+            { dataField: "planStartDate", caption: "계획시작", dataType: "date", width: 100 },
+            { dataField: "planEndDate", caption: "계획완료", dataType: "date", width: 100 }
+        ],
+        showBorders: true,
+        showRowLines: true,
+        rowAlternationEnabled: true,
+        filterRow: { visible: true },
+        headerFilter: { visible: true },
+        groupPanel: { visible: true },
+        sorting: { mode: "multiple" },
+        paging: { pageSize: 20 },
+        pager: {
+            showPageSizeSelector: true,
+            allowedPageSizes: [10, 20, 50, 100],
+            showInfo: true,
+            infoText: "전체 {2}건 중 {0}-{1}"
+        },
+        selection: { mode: "multiple" },
+        export: { enabled: true, fileName: "작업지시목록" },
+        columnChooser: { enabled: true },
+        onRowDblClick: function (e) {
+            if (e.data && e.data.id) {
+                window.location.href = "/WorkOrder/Detail/" + e.data.id;
+            }
+        }
+    });
+
+    function getSearchParams() {
+        return {
+            projectNo: $("#searchProjectNo").dxTextBox("instance").option("value"),
+            blockNo: $("#searchBlockNo").dxTextBox("instance").option("value")
+        };
+    }
+
+    function loadGrid() {
+        var grid = $("#workOrderGrid").dxDataGrid("instance");
+        grid.refresh();
+    }
+
+    function resetSearch() {
+        $("#searchProjectNo").dxTextBox("instance").reset();
+        $("#searchBlockNo").dxTextBox("instance").reset();
+        $("#searchProcessType").dxSelectBox("instance").option("value", "전체");
+        $("#searchStatus").dxSelectBox("instance").option("value", "전체");
+        loadGrid();
+    }
+</script>
+}

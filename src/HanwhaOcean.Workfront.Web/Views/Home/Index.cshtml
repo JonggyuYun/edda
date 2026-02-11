@@ -1,0 +1,33 @@
+@{
+    ViewData["Title"] = "홈";
+}
+
+<div class="home-container">
+    <div class="welcome-section">
+        <h2>한화오션 Workfront 시스템</h2>
+        <p>조선소 작업관리 통합 플랫폼</p>
+    </div>
+
+    <div class="quick-links">
+        <div class="quick-link-card" onclick="location.href='/Dashboard'">
+            <i class="dx-icon-chart"></i>
+            <h3>대시보드</h3>
+            <p>호선 진척률 및 작업 현황 한눈에 보기</p>
+        </div>
+        <div class="quick-link-card" onclick="location.href='/WorkOrder'">
+            <i class="dx-icon-folder"></i>
+            <h3>작업지시 관리</h3>
+            <p>작업지시서 조회, 등록, 상태 관리</p>
+        </div>
+        <div class="quick-link-card" onclick="location.href='/Process'">
+            <i class="dx-icon-detailslayout"></i>
+            <h3>공정 현황</h3>
+            <p>블록별 공정 진행률 및 Gantt Chart</p>
+        </div>
+        <div class="quick-link-card" onclick="location.href='/Report'">
+            <i class="dx-icon-doc"></i>
+            <h3>보고서</h3>
+            <p>일일 보고서, 진척 보고서 출력</p>
+        </div>
+    </div>
+</div>

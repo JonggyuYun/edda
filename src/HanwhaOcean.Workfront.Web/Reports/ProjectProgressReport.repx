@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  DevExpress Report Definition - 호선 진척 보고서
+  이 파일은 DevExpress Report Designer에서 편집하세요.
+-->
+<XtraReportsLayoutSerializer SerializerVersion="23.2.0.0">
+  <Item1 Ref="0" ControlType="DevExpress.XtraReports.UI.XtraReport, DevExpress.XtraReports.v23.2" Name="ProjectProgressReport" PageWidth="1169" PageHeight="827" Landscape="true" Version="23.2">
+    <Bands>
+      <Item1 Ref="1" ControlType="DevExpress.XtraReports.UI.ReportHeaderBand, DevExpress.XtraReports.v23.2" HeightF="150">
+        <!-- 헤더: 호선 진척 보고서 제목, 호선정보 (호선번호, 선명, 선종, 선주) -->
+        <!-- 포함: DevExpress Chart (호선 전체 진척률 게이지) -->
+      </Item1>
+      <Item2 Ref="2" ControlType="DevExpress.XtraReports.UI.DetailBand, DevExpress.XtraReports.v23.2" HeightF="25">
+        <!-- 상세: 블록별 진척 현황 (블록번호, 공정, 계획일정, 실적일정, 진척률) -->
+      </Item2>
+      <Item3 Ref="3" ControlType="DevExpress.XtraReports.UI.ReportFooterBand, DevExpress.XtraReports.v23.2" HeightF="200">
+        <!-- 보고서 푸터: 공정별 진척률 Chart, 특이사항 -->
+      </Item3>
+      <Item4 Ref="4" ControlType="DevExpress.XtraReports.UI.PageFooterBand, DevExpress.XtraReports.v23.2" HeightF="30">
+        <!-- 페이지 푸터 -->
+      </Item4>
+    </Bands>
+  </Item1>
+</XtraReportsLayoutSerializer>

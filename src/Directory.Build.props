@@ -1,0 +1,9 @@
+<Project>
+  <PropertyGroup>
+    <Company>한화오션</Company>
+    <Product>Workfront</Product>
+    <Copyright>Copyright (c) 한화오션. All rights reserved.</Copyright>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DevExpressVersion>23.2.*</DevExpressVersion>
+  </PropertyGroup>
+</Project>

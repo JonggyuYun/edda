@@ -1,0 +1,23 @@
+@{
+    ViewData["Title"] = "보고서";
+}
+
+<div class="report-container">
+    <div class="report-cards">
+        <div class="report-card" onclick="location.href='/Report/WorkOrderReport'">
+            <i class="dx-icon-doc"></i>
+            <h3>작업지시서</h3>
+            <p>작업지시서 상세 출력</p>
+        </div>
+        <div class="report-card" onclick="location.href='/Report/DailyReport'">
+            <i class="dx-icon-event"></i>
+            <h3>일일 작업현황</h3>
+            <p>일자별 작업 실적 보고서</p>
+        </div>
+        <div class="report-card" onclick="location.href='/Report/ProjectProgressReport'">
+            <i class="dx-icon-chart"></i>
+            <h3>호선 진척 보고서</h3>
+            <p>호선별 공정 진척률 현황</p>
+        </div>
+    </div>
+</div>

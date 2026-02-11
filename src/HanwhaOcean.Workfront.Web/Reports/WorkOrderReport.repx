@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  DevExpress Report Definition - 작업지시서
+  이 파일은 DevExpress Report Designer에서 편집하세요.
+  Visual Studio에서 .repx 파일을 더블클릭하면 디자이너가 열립니다.
+-->
+<XtraReportsLayoutSerializer SerializerVersion="23.2.0.0">
+  <Item1 Ref="0" ControlType="DevExpress.XtraReports.UI.XtraReport, DevExpress.XtraReports.v23.2" Name="WorkOrderReport" PageWidth="827" PageHeight="1169" Version="23.2" DataMember="" DataSource="">
+    <Bands>
+      <Item1 Ref="1" ControlType="DevExpress.XtraReports.UI.ReportHeaderBand, DevExpress.XtraReports.v23.2" HeightF="120">
+        <!-- 보고서 헤더: 한화오션 로고, 작업지시서 제목 -->
+      </Item1>
+      <Item2 Ref="2" ControlType="DevExpress.XtraReports.UI.DetailBand, DevExpress.XtraReports.v23.2" HeightF="200">
+        <!-- 상세 영역: 작업지시 정보 (호선, 블록, 공정, 작업내용 등) -->
+      </Item2>
+      <Item3 Ref="3" ControlType="DevExpress.XtraReports.UI.PageFooterBand, DevExpress.XtraReports.v23.2" HeightF="40">
+        <!-- 페이지 푸터: 페이지 번호, 출력일시 -->
+      </Item3>
+    </Bands>
+  </Item1>
+</XtraReportsLayoutSerializer>
